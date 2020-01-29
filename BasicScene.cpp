@@ -19,17 +19,51 @@ void BasicScene::setGameObj(GameObject* obj)
 		break;
 	case FLOWER:
 		obj->setimage(IMAGEMANAGER->findImage("Flower"));
-
 		break;
-
+	case Falltree:
+		obj->setimage(IMAGEMANAGER->findImage("fall_tree"));
+		break;
+	case Normal_stone:
+		obj->setimage(IMAGEMANAGER->findImage("normal_stone"));
+		break;
+	case Root:
+		obj->setimage(IMAGEMANAGER->findImage("root"));
+		break;
+	case Tree:
+		obj->setimage(IMAGEMANAGER->findImage("tree"));
+		break;
+	case Winter_tree:
+		obj->setimage(IMAGEMANAGER->findImage("winter_tree"));
+		break;
+	case Marble:
+		obj->setimage(IMAGEMANAGER->findImage("marble"));
+		break;
+	case Bush:
+		obj->setimage(IMAGEMANAGER->findImage("bush"));
+		break;
+	case Ladder_right:
+		obj->setimage(IMAGEMANAGER->findImage("ladder_right"));
+		break;
+	case Ladder_left:
+		obj->setimage(IMAGEMANAGER->findImage("ladder_left"));
+		break;
+	case Rock:
+		obj->setimage(IMAGEMANAGER->findImage("rock"));
+		break;
+	case Big_stone:
+		obj->setimage(IMAGEMANAGER->findImage("big_stone"));
+		break;
+	case Stone:
+		obj->setimage(IMAGEMANAGER->findImage("stone"));
+		break;
 	}
 	if (obj->getFrame() != Frame)
 	{
-		obj->setRect(RectMakeCenter(obj->getImage()->getCenterX(), obj->getImage()->getCenterY(), obj->getImage()->getFrameWidth(), obj->getImage()->getFrameHeight()));
+		obj->setRect(RectMake(obj->getCenter().x, obj->getCenter().y, obj->getImage()->getWidth(), obj->getImage()->getHeight()));
 	}
 	else
 	{
-		obj->setRect(RectMakeCenter(obj->getCenter().x, obj->getCenter().y, obj->getImage()->getWidth(), obj->getImage()->getHeight()));
+		obj->setRect(RectMake(obj->getCenter().x, obj->getCenter().y, obj->getImage()->getWidth(), obj->getImage()->getHeight()));
 	}
 	_gameObj.push_back(obj);
 }
@@ -120,19 +154,19 @@ void BasicScene::render()
 		{
 			if (_gameObj[i]->getObject() == PLAYER)
 			{
-				_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getRect().left, _gameObj[i]->getRect().top, _gameObj[i]->getAni());
+				_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
 
 				//cout << _gameObj[i]->getRect().left << endl;
 			}
 			else
 			{
-				_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getRect().left, _gameObj[i]->getRect().top);
+				_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y);
 
 			}
 		}
 		else
 		{
-			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getRect().left, _gameObj[i]->getRect().top);
+			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y);
 		}
 
 	}

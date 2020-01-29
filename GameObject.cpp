@@ -33,8 +33,6 @@ HRESULT GameObject::init()
 		break;
 	case PLAYER:
 		break;
-	case OBJ:
-		break;
 	case OBJ_NONE:
 		break;
 	default:

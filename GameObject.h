@@ -9,8 +9,19 @@ enum OBJECT
 {
 	HYDRA, RABBIT, FLOWER, SLIME,
 	PLAYER,
-	OBJ,
-	OBJ_NONE							//나중에 지울용도
+	Falltree,
+	Normal_stone,
+	Root,
+	Tree,
+	Winter_tree,
+	Marble,
+	Bush,
+	Ladder_right,
+	Ladder_left,
+	Rock,
+	Big_stone,
+	Stone,
+	OBJ_NONE
 };
 
 class GameObject
