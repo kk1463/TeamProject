@@ -36,13 +36,13 @@ void Player::KeyControl()
 	for (int i = 0; i < _totalTile.size(); i++)
 	{
 		if (getDistance(_totalTile[i]->getRect().left, _totalTile[i]->getRect().top,
-			_playerInfo.rc.left, _playerInfo.rc.top) < 5)
+			_playerInfo.rc.left, _playerInfo.rc.top) < 50)
 		{
-			
+
 		}
-		RECT temp;
-		if (_totalTile[i]->getAttribute() == nonBlocking) continue;
-		
+			RECT temp;
+			if (_totalTile[i]->getAttribute() == nonBlocking) continue;
+
 			if (IntersectRect(&temp, &_playerInfo.rightColRc, &_totalTile[i]->getRect()))
 			{
 				if (_totalTile[i]->getRect().left < _playerInfo.rightColRc.right)
@@ -51,14 +51,14 @@ void Player::KeyControl()
 				}
 				break;
 
-				
+
 			}
 
 			else if (_totalTile[i]->getRect().left >= _playerInfo.rightColRc.right && _playerInfo.rightMove == false)
 			{
 				_playerInfo.rightMove = true;
 			}
-			
+
 
 			////
 			if (IntersectRect(&temp, &_playerInfo.leftColRc, &_totalTile[i]->getRect()))
@@ -77,7 +77,7 @@ void Player::KeyControl()
 			////
 			if (IntersectRect(&temp, &_playerInfo.botColRc, &_totalTile[i]->getRect()))
 			{
-				if (_totalTile[i]->getRect().top < _playerInfo.botColRc.bottom )
+				if (_totalTile[i]->getRect().top < _playerInfo.botColRc.bottom)
 				{
 					_playerInfo.downMove = false;
 				}
@@ -102,6 +102,7 @@ void Player::KeyControl()
 			{
 				_playerInfo.upMove = true;
 			}
+		
 	}
 }
 

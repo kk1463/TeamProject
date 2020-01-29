@@ -43,7 +43,7 @@ struct PlayerInfo
 	int dirCount;
 	bool movecheck;
 	bool leftMove, rightMove, upMove, downMove;
-	RECT leftColRc, rightColRc, botColRc, topColRc;
+	RECT colRc, leftColRc, rightColRc, botColRc, topColRc;
 	
 
 };
@@ -67,6 +67,7 @@ public:
 	virtual void KeyControl();
 	virtual void PlayerStateChange();
 	PlayerInfo getPlayerinfo() { return _playerInfo; }
+	RECT getColRc() { return _playerInfo.colRc; }
 	
 };
 

@@ -92,12 +92,13 @@ void Warrior::update()
 	this->setAni(_playerInfo.ani);
 	this->setRect(_playerInfo.rc);
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
-
-
-	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() - 30, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2, 15, 15);
-	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.position.x + 30, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2, 15, 15);
-	_playerInfo.topColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + 15, 15, 15);
-	_playerInfo.botColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() - 15, 15, 15);
+	
+	_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x+40, _playerInfo.position.y+40, 40, 40);
+	this->setColRect(_playerInfo.colRc);
+	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right+2, _playerInfo.colRc.top + 20,3, 40);
+	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left-2 , _playerInfo.colRc.top + 20, 3, 40);
+	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 40, 3);
+	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 40, 3);
 }
 
 
@@ -221,48 +222,55 @@ void Warrior::KeyControl()
 		}
 
 
-		if (_playerInfo.leftMove)
-		{
 			if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 			{
 				_playerInfo.direction = P_LEFT;
 				_playerInfo.state = P_MOVE;
 				_playerInfo.changeDir = false;
-				_playerInfo.position.x -= _playerInfo.speed;
+
+				if (_playerInfo.leftMove)
+				{
+					_playerInfo.position.x -= _playerInfo.speed;
+				}
 			}
-		}
-		if (_playerInfo.rightMove)
-		{
+	
 			if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 			{
 				_playerInfo.direction = P_RIGHT;
 				_playerInfo.state = P_MOVE;
 				_playerInfo.changeDir = false;
-				_playerInfo.position.x += _playerInfo.speed;
-			}
-		}
 
-		if (_playerInfo.upMove)
-		{
+				if (_playerInfo.rightMove)
+				{
+					_playerInfo.position.x += _playerInfo.speed;
+				}
+			}
+		
+
 			if (KEYMANAGER->isStayKeyDown(VK_UP))
 			{
 				_playerInfo.direction = P_UP;
 				_playerInfo.state = P_MOVE;
 				_playerInfo.changeDir = false;
-				_playerInfo.position.y -= _playerInfo.speed;
-			}
-		}
 
-		if (_playerInfo.downMove)
-		{
+				if (_playerInfo.upMove)
+				{
+					_playerInfo.position.y -= _playerInfo.speed;
+				}
+			}
+		
+		
 			if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 			{
 				_playerInfo.direction = P_DOWN;
 				_playerInfo.state = P_MOVE;
 				_playerInfo.changeDir = false;
-				_playerInfo.position.y += _playerInfo.speed;
+				if (_playerInfo.downMove)
+				{
+					_playerInfo.position.y += _playerInfo.speed;
+				}
 			}
-		}
+		
 
 		///////////////
 

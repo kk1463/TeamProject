@@ -31,7 +31,7 @@ protected:
 	image* _image;
 	OBJECT _kinds;
 	POINT _center;
-	RECT _rc;
+	RECT _rc, _colRc;
 	int _frameX;
 	int _frameY;
 	animation* _ani;
@@ -59,8 +59,14 @@ public:
 	RECT getRect() { return _rc; }
 	void setRect(RECT rc) { _rc = rc; }
 
+	RECT getColRect() { return _colRc; }
+	void setColRect(RECT colRc) { _colRc = colRc; }
+	
+
 	void setAni(animation* ani) { _ani = ani; }
 	animation* getAni() { return _ani; }
+
+
 };
 
 

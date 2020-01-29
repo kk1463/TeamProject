@@ -146,7 +146,7 @@ void BasicScene::render()
 				_tiles[i]->getTerrainFrameIdY());
 		}
 	}
-
+	//그리는부분
 
 	for (int i = 0; i < _gameObj.size(); i++)
 	{
@@ -156,7 +156,7 @@ void BasicScene::render()
 			{
 				_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
 
-				//cout << _gameObj[i]->getRect().left << endl;
+			
 			}
 			else
 			{
@@ -168,7 +168,7 @@ void BasicScene::render()
 		{
 			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y);
 		}
-
+		
 	}
 
 	//콜라이더 확인용
@@ -179,6 +179,8 @@ void BasicScene::render()
 			if (_tiles[i]->getAttribute() == nonBlocking) continue;
 			RectangleMake(_backBuffer->getMemDC(), _tiles[i]->getRect().left, _tiles[i]->getRect().top, TILESIZE, TILESIZE);
 		}
+
+		
 	}
 }
 

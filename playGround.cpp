@@ -95,8 +95,8 @@ void playGround::render()
 	PatBlt(getMemDC(), 0, 0, 3, WINSIZEY, WHITENESS);
 //========================================================
 	SCENEMANAGER->render();
-	
-	
+	RECT rc = _pm->get_vPlayer()[0]->getColRc();
+	Rectangle(getMemDC(), rc);
 
 //====================================================
 	_backBuffer->render(getHDC(), 0, 0);
