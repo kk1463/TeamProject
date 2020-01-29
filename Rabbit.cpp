@@ -163,7 +163,7 @@ void Rabbit::moving()
 
 
 	en.state = Run;
-	en.SPEED = 1.0F;
+	en.SPEED = 0.7F;
 
 	count++;
 	if (Movecheck == 0)
@@ -242,7 +242,7 @@ void Rabbit::attack()
 	{
 		en.dir = DOWN;
 	}
-	if (count >= 60)
+	if (count >= 80)
 	{
 		en.changeAni = true;	
 		count = 0;
