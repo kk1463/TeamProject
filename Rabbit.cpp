@@ -152,7 +152,7 @@ void Rabbit::moving()
 
 
 	en.state = Run;
-	cout << en.dir << endl;
+	//cout << en.dir << endl;
 	//en.SPEED = 0.5F;
 
 	count++;
@@ -213,7 +213,7 @@ void Rabbit::attack()
 {
 
 	en.state = Atk;
-	cout << en.dir << endl;
+	//cout << en.dir << endl;
 	//en.SPEED = 0.5F;
 
 	count++;

@@ -51,6 +51,8 @@ class Player : public GameObject
 {
 
 protected:
+
+	vector<tagTile*> _totalTile;
 	PlayerInfo _playerInfo;
 	Direction _direction;
 	RECT testrc;

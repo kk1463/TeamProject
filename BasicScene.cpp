@@ -92,11 +92,7 @@ void BasicScene::update()
 
 void BasicScene::render()
 {
-	for (int i = 0; i < TILEMANAGER->getTotalTile().size(); i++)
-	{
-		if (TILEMANAGER->getTotalTile()[i]->getAttribute() == nonBlocking)continue;
-		RectangleMake(_backBuffer->getMemDC(), TILEMANAGER->getTotalTile()[i]->getRect().left, TILEMANAGER->getTotalTile()[i]->getRect().top, TILESIZE, TILESIZE);
-	}
+	
 	IMAGEMANAGER->findImage("BackGround")->render(getMemDC(), 0, 0);
 
 	for (int i = 0; i < _tiles.size(); ++i)
@@ -160,7 +156,7 @@ void BasicScene::render()
 			{
 				_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
 
-				cout << _gameObj[i]->getRect().left << endl;
+				//cout << _gameObj[i]->getRect().left << endl;
 			}
 			else
 			{
@@ -175,6 +171,15 @@ void BasicScene::render()
 
 	}
 
+	//콜라이더 확인용
+	if (KEYMANAGER->isToggleKey(VK_F1))
+	{
+		for (int i = 0; i < _tiles.size(); i++)
+		{
+			if (_tiles[i]->getAttribute() == nonBlocking) continue;
+			RectangleMake(_backBuffer->getMemDC(), _tiles[i]->getRect().left, _tiles[i]->getRect().top, TILESIZE, TILESIZE);
+		}
+	}
 }
 
 BasicScene::BasicScene()

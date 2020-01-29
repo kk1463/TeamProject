@@ -66,7 +66,7 @@ HRESULT Warrior::init(PlayerName playername)
 	_playerInfo.upMove = true;
 	_playerInfo.downMove = true;
 	_playerInfo.rightMove = true;
-
+	Player::init(playername);
 	return S_OK;
 
 
@@ -83,12 +83,12 @@ void Warrior::update()
 	if (_playerInfo.changeAni)
 	{
 		PlayerStateChange();
-		this->setimage(_playerInfo.img);
+		
 	}
 
 	_playerInfo.rc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2,
 		_playerInfo.img->getFrameWidth(), _playerInfo.img->getFrameHeight());
-
+	this->setimage(_playerInfo.img);
 	this->setAni(_playerInfo.ani);
 	this->setRect(_playerInfo.rc);
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
@@ -114,7 +114,7 @@ void Warrior::KeyControl()
 		_playerInfo.dirCount = 2;
 	}
 	//cout << "방향 : " << _playerInfo.direction << endl << "상태 : " << _playerInfo.state << endl;
-	cout << "DirCount : " << _playerInfo.dirCount << endl;
+	//cout << "DirCount : " << _playerInfo.dirCount << endl;
 	if (KEYMANAGER->isStayKeyDown(VK_LEFT) && KEYMANAGER->isStayKeyDown(VK_RIGHT) || (KEYMANAGER->isStayKeyDown(VK_UP) && KEYMANAGER->isStayKeyDown(VK_DOWN)))
 	{
 		_playerInfo.movecheck = false;
