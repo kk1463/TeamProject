@@ -103,6 +103,11 @@ HRESULT Rabbit::init()
 	en.changeAni = true;
 	en.Ani->start();
 
+	en.x = WINSIZEX / 2;
+	en.y = WINSIZEY / 2;
+
+	this->setimage(en.img);
+	this->setAni(en.Ani);
 
 
 	return S_OK;
@@ -143,7 +148,14 @@ void Rabbit::update()
 		atk = true;
 	}
 
+	en.rc = RectMakeCenter(en.x, en.y, en.img->getFrameWidth(), en.img->getFrameHeight());
+	en.senseRC = RectMakeCenter(en.x, en.y, en.img->getFrameWidth() * 2, en.img->getFrameHeight() * 2);
 
+	this->setimage(en.img);
+	this->setAni(en.Ani);
+	this->setRect(en.rc);
+	this->setRect(en.senseRC);
+	this->setCenter(PointMake(en.x, en.y));
 }
 
 void Rabbit::moving()
@@ -151,8 +163,7 @@ void Rabbit::moving()
 
 
 	en.state = Run;
-	//cout << en.dir << endl;
-	//en.SPEED = 0.5F;
+	en.SPEED = 1.0F;
 
 	count++;
 	if (Movecheck == 0)
@@ -212,8 +223,7 @@ void Rabbit::attack()
 {
 
 	en.state = Atk;
-	//cout << en.dir << endl;
-	//en.SPEED = 0.5F;
+	
 
 	count++;
 	if (Movecheck == 0)
@@ -232,10 +242,9 @@ void Rabbit::attack()
 	{
 		en.dir = DOWN;
 	}
-	if (count >= 80)
+	if (count >= 60)
 	{
-		en.changeAni = true;
-		Movecheck = RND->getFromIntTo(0, 4);
+		en.changeAni = true;	
 		count = 0;
 	}
 
