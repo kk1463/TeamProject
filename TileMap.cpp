@@ -46,8 +46,11 @@ void TileMap::loadObj(string FileName,string StageName)
 		case FLOWER:
 			obj = new Flower;
 			break;
-		default:
+		case PLAYER:
 			check = true;
+			break;
+		default:
+			obj = new GameObject;
 			break;
 		}
 		if(!check)
