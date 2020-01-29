@@ -177,7 +177,8 @@ void BasicScene::render()
 		for (int i = 0; i < _tiles.size(); i++)
 		{
 			if (_tiles[i]->getAttribute() == nonBlocking) continue;
-			RectangleMake(_backBuffer->getMemDC(), _tiles[i]->getRect().left, _tiles[i]->getRect().top, TILESIZE, TILESIZE);
+			RECT temp = _tiles[i]->getRect();
+			Rectangle(_backBuffer->getMemDC(), temp);
 		}
 
 		

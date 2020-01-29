@@ -35,80 +35,86 @@ void Player::KeyControl()
 		//          1. 키 두개 사용했을떄 뚫는거   ,    2. 타일 주변 범위 검색해서 충돌 체크(렉줄이기)
 	for (int i = 0; i < _totalTile.size(); i++)
 	{
-		if (getDistance(_totalTile[i]->getRect().left, _totalTile[i]->getRect().top,
-			_playerInfo.rc.left, _playerInfo.rc.top) < 50)
-		{
-
-		}
 			RECT temp;
-			if (_totalTile[i]->getAttribute() == nonBlocking) continue;
-
-			if (IntersectRect(&temp, &_playerInfo.rightColRc, &_totalTile[i]->getRect()))
+			if (_playerInfo.direction == P_RIGHT) 
 			{
-				if (_totalTile[i]->getRect().left < _playerInfo.rightColRc.right)
+				if (IntersectRect(&temp, &_playerInfo.rightColRc, &_totalTile[i]->getRect())
+					&&_totalTile[i]->getAttribute()==blocking)
 				{
+					
 					_playerInfo.rightMove = false;
+
+					break;
 				}
-				break;
 
-
-			}
-
-			else if (_totalTile[i]->getRect().left >= _playerInfo.rightColRc.right && _playerInfo.rightMove == false)
-			{
-				_playerInfo.rightMove = true;
-			}
-
-
-			////
-			if (IntersectRect(&temp, &_playerInfo.leftColRc, &_totalTile[i]->getRect()))
-			{
-				if (_totalTile[i]->getRect().right > _playerInfo.leftColRc.left)
+				else
 				{
-					_playerInfo.leftMove = false;
+					_playerInfo.rightMove = true;
 				}
-				break;
 			}
-
-			else if (_totalTile[i]->getRect().right <= _playerInfo.leftColRc.left && _playerInfo.leftMove == false)
+			if (_playerInfo.direction == P_LEFT)
 			{
-				_playerInfo.leftMove = true;
-			}
-			////
-			if (IntersectRect(&temp, &_playerInfo.botColRc, &_totalTile[i]->getRect()))
-			{
-				if (_totalTile[i]->getRect().top < _playerInfo.botColRc.bottom)
+				////
+				if (IntersectRect(&temp, &_playerInfo.leftColRc, &_totalTile[i]->getRect())
+					&& _totalTile[i]->getAttribute() == blocking)
 				{
-					_playerInfo.downMove = false;
+					
+						_playerInfo.leftMove = false;
+					
+					break;
 				}
-				break;
-			}
-
-			else if (_totalTile[i]->getRect().top > _playerInfo.botColRc.bottom && _playerInfo.downMove == false)
-			{
-				_playerInfo.downMove = true;
+				else 
+				{
+					_playerInfo.leftMove = true;
+				}
 			}
 			////
-			if (IntersectRect(&temp, &_playerInfo.topColRc, &_totalTile[i]->getRect()))
+			if (_playerInfo.direction == P_DOWN)
 			{
-				if (_totalTile[i]->getRect().bottom > _playerInfo.topColRc.top)
+				if (IntersectRect(&temp, &_playerInfo.botColRc, &_totalTile[i]->getRect())
+					&& _totalTile[i]->getAttribute() == blocking)
 				{
-					_playerInfo.upMove = false;
+					
+						_playerInfo.downMove = false;
+					
+					break;
 				}
-				break;
-			}
 
-			else if (_totalTile[i]->getRect().bottom < _playerInfo.topColRc.top && _playerInfo.upMove == false)
+				else 
+				{
+
+					_playerInfo.downMove = true;
+				}
+				////
+			}
+			if (_playerInfo.direction == P_UP)
 			{
-				_playerInfo.upMove = true;
+				if (IntersectRect(&temp, &_playerInfo.topColRc, &_totalTile[i]->getRect())
+					&& _totalTile[i]->getAttribute() == blocking)
+				{
+					
+						_playerInfo.upMove = false;
+					
+					break;
+				}
+
+				else
+				{
+					_playerInfo.upMove = true;
+					
+				}
 			}
 		
 	}
+	cout << "Player"<<_playerInfo.dirCount << endl;
 }
 
 void Player::PlayerStateChange()
 {
 }
+
+
+
 
 
 

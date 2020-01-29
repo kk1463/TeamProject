@@ -68,6 +68,5 @@ public:
 	virtual void PlayerStateChange();
 	PlayerInfo getPlayerinfo() { return _playerInfo; }
 	RECT getColRc() { return _playerInfo.colRc; }
-	
 };
 

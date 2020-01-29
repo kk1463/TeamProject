@@ -22,7 +22,6 @@ public:
 	HRESULT init();
 	
 	void release();
-	void update();
 	vector<Player*> get_vPlayer() { return _vPlayer; }
 };
 

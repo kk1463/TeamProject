@@ -25,15 +25,7 @@ void PlayerManager::release()
 {
 }
 
-void PlayerManager::update()
-{
-	for (int i = 0; i < _vPlayer.size(); i++)
-	{
-		_vPlayer[i]->update();
 
-		
-	}
-}
 
 
 

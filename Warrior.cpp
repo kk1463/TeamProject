@@ -95,16 +95,16 @@ void Warrior::update()
 	
 	_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x+40, _playerInfo.position.y+40, 40, 40);
 	this->setColRect(_playerInfo.colRc);
-	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right+2, _playerInfo.colRc.top + 20,3, 40);
-	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left-2 , _playerInfo.colRc.top + 20, 3, 40);
-	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 40, 3);
-	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 40, 3);
+	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right+2, _playerInfo.colRc.top + 20,3, 20);
+	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left-2 , _playerInfo.colRc.top + 20, 3, 20);
+	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 20, 3);
+	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 20, 3);
 }
 
 
 void Warrior::KeyControl()
 {
-	Player::KeyControl();
+	
 
 	if (_playerInfo.dirCount < 0)
 	{
@@ -222,62 +222,62 @@ void Warrior::KeyControl()
 		}
 
 
-			if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-			{
-				_playerInfo.direction = P_LEFT;
-				_playerInfo.state = P_MOVE;
-				_playerInfo.changeDir = false;
+		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+		{
+			_playerInfo.direction = P_LEFT;
+			_playerInfo.state = P_MOVE;
+			_playerInfo.changeDir = false;
 
-				if (_playerInfo.leftMove)
-				{
-					_playerInfo.position.x -= _playerInfo.speed;
-				}
-			}
-	
-			if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+			if (_playerInfo.leftMove)
 			{
-				_playerInfo.direction = P_RIGHT;
-				_playerInfo.state = P_MOVE;
-				_playerInfo.changeDir = false;
-
-				if (_playerInfo.rightMove)
-				{
-					_playerInfo.position.x += _playerInfo.speed;
-				}
+				_playerInfo.position.x -= _playerInfo.speed;
 			}
-		
+		}
 
-			if (KEYMANAGER->isStayKeyDown(VK_UP))
+		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+		{
+			_playerInfo.direction = P_RIGHT;
+			_playerInfo.state = P_MOVE;
+			_playerInfo.changeDir = false;
+
+			if (_playerInfo.rightMove)
 			{
-				_playerInfo.direction = P_UP;
-				_playerInfo.state = P_MOVE;
-				_playerInfo.changeDir = false;
+				_playerInfo.position.x += _playerInfo.speed;
+			}
+		}
 
-				if (_playerInfo.upMove)
-				{
-					_playerInfo.position.y -= _playerInfo.speed;
-				}
-			}
-		
-		
-			if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+
+		if (KEYMANAGER->isStayKeyDown(VK_UP))
+		{
+			_playerInfo.direction = P_UP;
+			_playerInfo.state = P_MOVE;
+			_playerInfo.changeDir = false;
+
+			if (_playerInfo.upMove)
 			{
-				_playerInfo.direction = P_DOWN;
-				_playerInfo.state = P_MOVE;
-				_playerInfo.changeDir = false;
-				if (_playerInfo.downMove)
-				{
-					_playerInfo.position.y += _playerInfo.speed;
-				}
+				_playerInfo.position.y -= _playerInfo.speed;
 			}
-		
+		}
+
+
+		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+		{
+			_playerInfo.direction = P_DOWN;
+			_playerInfo.state = P_MOVE;
+			_playerInfo.changeDir = false;
+			if (_playerInfo.downMove)
+			{
+				_playerInfo.position.y += _playerInfo.speed;
+			}
+		}
+
 
 		///////////////
 
+		cout <<"Warrior"<< _playerInfo.direction << endl;
+		Player::KeyControl();
 
-
-
-
+	
 		///////////////
 
 	}
