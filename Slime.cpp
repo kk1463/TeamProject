@@ -11,7 +11,7 @@ Slime::~Slime()
 {
 }
 
-HRESULT Slime::init(POINT pos, int fps, float SPEED)
+HRESULT Slime::init()
 {
 
 	//idle
@@ -58,7 +58,6 @@ HRESULT Slime::init(POINT pos, int fps, float SPEED)
 
 	en.name = Name_Slime;
 
-	Enemy::init(pos, FPS, SPEED);
 
 
 	en.img = IMAGEMANAGER->findImage("S_idle");

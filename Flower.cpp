@@ -11,7 +11,7 @@ Flower::~Flower()
 {
 }
 
-HRESULT Flower::init(POINT pos, int fps, float SPEED)
+HRESULT Flower::init()
 {
 
 	//idle
@@ -58,7 +58,6 @@ HRESULT Flower::init(POINT pos, int fps, float SPEED)
 
 
 	en.name = Name_Flower;
-	Enemy::init(pos, FPS, SPEED);
 
 
 	en.img = IMAGEMANAGER->findImage("F_idle_Right");

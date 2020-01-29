@@ -11,7 +11,7 @@ private:
 public:
 	Slime();
 	~Slime();
-	virtual HRESULT init(POINT pos, int fps, float SPEED);
+	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
 };
