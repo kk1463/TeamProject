@@ -19,7 +19,7 @@ HRESULT Warrior::init(PlayerName playername)
 	IMAGEMANAGER->addFrameImage("move", "img/warrior/move/move1.bmp", 900, 144, 10, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("moveDown", "img/warrior/move/moveDown3.bmp", 810, 72, 9, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("moveUp", "img/warrior/move/moveUp2.bmp", 1100, 72, 10, 1, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addFrameImage("atk", "img/warrior/atk/atk.bmp", 1560, 200, 13, 2, true, RGB(255, 0, 255));
 	/*int idleRight[] = {0,1,2,3,4,5,6,7,8};
 	KEYANIMANAGER->addArrayFrameAnimation("idleRight", "idle", idleRight, 9, 20, true);
 	int idleLeft[] = { 9,10,11,12,13,14,15,16,17 };

@@ -70,15 +70,15 @@ HRESULT playGround::init()
 
 }
 
-
+// 이것은 릴리즈 함수이다.
 void playGround::release()
 {
-	gameNode::release();
+	gameNode::release();	// 이것은 릴리즈 함수이다. feat. 형길
 
 
 }
 
-
+// 이것은 업데이트 함수이다.
 void playGround::update()
 {
 	gameNode::update();
@@ -88,7 +88,7 @@ void playGround::update()
 
 
 
-
+// 이것은 랜드 함수이다.
 void playGround::render()
 {
 
