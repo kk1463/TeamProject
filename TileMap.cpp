@@ -23,13 +23,12 @@ void TileMap::loadObj(string FileName,string StageName)
 	HANDLE file;
 	DWORD read;
 	OBJSTRUCT ins[100];
-	_tiles.clear();
 	int size = filesize(FileName.c_str());
 	file = CreateFile(FileName.c_str(), GENERIC_READ, 0, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	ReadFile(file, ins, size, &read, NULL);
 
-	
+	_tiles.clear();
 	for (int i = 0; i < size / sizeof(OBJSTRUCT); i++)
 	{
 		bool check = false;

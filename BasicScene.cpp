@@ -12,10 +12,10 @@ void BasicScene::setGameObj(GameObject* obj)
 		obj->setimage(IMAGEMANAGER->findImage("Slime"));
 		break;
 	case RABBIT:
-		 obj->setimage(IMAGEMANAGER->findImage("Rabbit"));
+		obj->setimage(IMAGEMANAGER->findImage("Rabbit"));
 		break;
 	case HYDRA:
-		 obj->setimage(IMAGEMANAGER->findImage("Hydra"));
+		obj->setimage(IMAGEMANAGER->findImage("Hydra"));
 		break;
 	case FLOWER:
 		obj->setimage(IMAGEMANAGER->findImage("Flower"));
@@ -23,7 +23,7 @@ void BasicScene::setGameObj(GameObject* obj)
 		break;
 
 	}
-	if (obj->getFrame() != Frame) 
+	if (obj->getFrame() != Frame)
 	{
 		obj->setRect(RectMakeCenter(obj->getImage()->getCenterX(), obj->getImage()->getCenterY(), obj->getImage()->getFrameWidth(), obj->getImage()->getFrameHeight()));
 	}
@@ -58,7 +58,12 @@ void BasicScene::update()
 
 void BasicScene::render()
 {
-	IMAGEMANAGER->findImage("BackGround")->render(getMemDC(),0,0);
+	for (int i = 0; i < TILEMANAGER->getTotalTile().size(); i++)
+	{
+		if (TILEMANAGER->getTotalTile()[i]->getAttribute() == nonBlocking)continue;
+		RectangleMake(_backBuffer->getMemDC(), TILEMANAGER->getTotalTile()[i]->getRect().left, TILEMANAGER->getTotalTile()[i]->getRect().top, TILESIZE, TILESIZE);
+	}
+	IMAGEMANAGER->findImage("BackGround")->render(getMemDC(), 0, 0);
 
 	for (int i = 0; i < _tiles.size(); ++i)
 	{
@@ -117,19 +122,25 @@ void BasicScene::render()
 	{
 		if (_gameObj[i]->getFrame() == Frame)
 		{
-			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getRect().left, _gameObj[i]->getRect().top);
 			if (_gameObj[i]->getObject() == PLAYER)
 			{
+				_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getRect().left, _gameObj[i]->getRect().top, _gameObj[i]->getAni());
+
 				cout << _gameObj[i]->getRect().left << endl;
 			}
+			else
+			{
+				_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getRect().left, _gameObj[i]->getRect().top);
+
+			}
 		}
-		else 
+		else
 		{
 			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getRect().left, _gameObj[i]->getRect().top);
 		}
-		
+
 	}
-	
+
 }
 
 BasicScene::BasicScene()

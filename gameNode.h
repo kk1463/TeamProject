@@ -31,7 +31,7 @@ public:
 	virtual void setPlayerManager(PlayerManager* pm) {};
 	virtual PlayerManager* getPlayerManager() { return NULL; };
 	virtual void setMap();
-
+	virtual vector<tagTile*> getTile();
 	virtual void save();
 	virtual void load();
 	virtual void setGameObj(GameObject* obj);

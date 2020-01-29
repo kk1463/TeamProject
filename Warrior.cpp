@@ -47,14 +47,16 @@ HRESULT Warrior::init(PlayerName playername)
 	KEYANIMANAGER->addCoordinateFrameAnimation("moveDown", "moveDown", 0, 9, FPS, false, true);
 	_playerInfo.playerName = PN_WARRIOR;
 
-	_playerInfo.position.x =300;
+	_playerInfo.position.x = 300;
 	_playerInfo.position.y = 300;
 	_playerInfo.speed = 4;
 
 	this->setimage(IMAGEMANAGER->findImage("idleDown"));
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
+
 	_playerInfo.ani = KEYANIMANAGER->findAnimation("idleDown");
 	_playerInfo.ani->start();
+	this->setAni(_playerInfo.ani);
 	_playerInfo.changeAni = true;
 
 	_playerInfo.changeDir = true;
@@ -81,16 +83,21 @@ void Warrior::update()
 	if (_playerInfo.changeAni)
 	{
 		PlayerStateChange();
+		this->setimage(_playerInfo.img);
 	}
-	
+
 	_playerInfo.rc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2,
 		_playerInfo.img->getFrameWidth(), _playerInfo.img->getFrameHeight());
+
+	this->setAni(_playerInfo.ani);
 	this->setRect(_playerInfo.rc);
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
-	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth()-30, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2, 15, 15);
-	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.position.x +30, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2, 15, 15);
-	_playerInfo.topColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y+15, 15, 15);
-	_playerInfo.botColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight()-15, 15, 15);
+
+
+	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() - 30, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2, 15, 15);
+	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.position.x + 30, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2, 15, 15);
+	_playerInfo.topColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + 15, 15, 15);
+	_playerInfo.botColRc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() - 15, 15, 15);
 }
 
 
@@ -114,157 +121,155 @@ void Warrior::KeyControl()
 		_playerInfo.state = P_IDLE;
 	}
 	else { _playerInfo.movecheck = true; }
-	
 
-	
+	if (_playerInfo.dirCount == 2)
+	{
+		_playerInfo.speed = 3;
+	}
+	else
+	{
+		_playerInfo.speed = 4;
+	}
+
+
+	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
+	{
+
+		_playerInfo.dirCount--;
+		if (_playerInfo.dirCount < 1)
+		{
+			_playerInfo.state = P_IDLE;
+			_playerInfo.direction = P_LEFT;
+
+		}
+		_playerInfo.changeAni = true;
+
+
+	}
+	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
+	{
+		_playerInfo.dirCount--;
+		if (_playerInfo.dirCount < 1)
+		{
+			_playerInfo.state = P_IDLE;
+			_playerInfo.direction = P_RIGHT;
+
+		}
+		_playerInfo.changeAni = true;
+
+	}
+
+	if (KEYMANAGER->isOnceKeyUp(VK_UP))
+	{
+		_playerInfo.dirCount--;
+		if (_playerInfo.dirCount < 1)
+		{
+			_playerInfo.state = P_IDLE;
+			_playerInfo.direction = P_UP;
+
+		}
+		_playerInfo.changeAni = true;
+
+	}
+
+	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
+	{
+		_playerInfo.dirCount--;
+
+		if (_playerInfo.dirCount < 1)
+		{
+			_playerInfo.state = P_IDLE;
+			_playerInfo.direction = P_DOWN;
+
+		}
+		_playerInfo.changeAni = true;
+
+	}
+
 	if (_playerInfo.movecheck)
 	{
-		
-				if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
-				{
-					_playerInfo.changeDir = true;
-					_playerInfo.dirCount++;
-					_playerInfo.changeAni = true;
-				}
-			
-			
-				if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
-				{
-					_playerInfo.changeDir = true;
-					_playerInfo.dirCount++;
-					_playerInfo.changeAni = true;
-				}
-			
-				if (KEYMANAGER->isOnceKeyDown(VK_UP))
-				{
-					_playerInfo.changeDir = true;
-					_playerInfo.dirCount++;
-					_playerInfo.changeAni = true;
-				}
-			
-				if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
-				{
-					_playerInfo.changeDir = true;
-					_playerInfo.dirCount++;
-					_playerInfo.changeAni = true;
-				}
-		
-		
-			if (_playerInfo.leftMove)
+
+		if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+		{
+
+			_playerInfo.changeDir = true;
+			_playerInfo.dirCount++;
+			_playerInfo.changeAni = true;
+		}
+
+
+		if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+		{
+
+			_playerInfo.changeDir = true;
+			_playerInfo.dirCount++;
+			_playerInfo.changeAni = true;
+		}
+
+		if (KEYMANAGER->isOnceKeyDown(VK_UP))
+		{
+			_playerInfo.changeDir = true;
+			_playerInfo.dirCount++;
+			_playerInfo.changeAni = true;
+		}
+
+		if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
+		{
+			_playerInfo.changeDir = true;
+			_playerInfo.dirCount++;
+			_playerInfo.changeAni = true;
+		}
+
+
+		if (_playerInfo.leftMove)
+		{
+			if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 			{
-				if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-				{
-					if (_playerInfo.changeDir)
-					{
-						_playerInfo.direction = P_LEFT;
-						_playerInfo.state = P_MOVE;
-
-					}
-					_playerInfo.changeDir = false;
-					_playerInfo.position.x -= _playerInfo.speed;
-				}
+				_playerInfo.direction = P_LEFT;
+				_playerInfo.state = P_MOVE;
+				_playerInfo.changeDir = false;
+				_playerInfo.position.x -= _playerInfo.speed;
 			}
-			if (_playerInfo.rightMove)
+		}
+		if (_playerInfo.rightMove)
+		{
+			if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 			{
-				if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-				{
-					if (_playerInfo.changeDir)
-					{
-						_playerInfo.direction = P_RIGHT;
-						_playerInfo.state = P_MOVE;
-
-					}
-					_playerInfo.changeDir = false;
-					_playerInfo.position.x += _playerInfo.speed;
-				}
+				_playerInfo.direction = P_RIGHT;
+				_playerInfo.state = P_MOVE;
+				_playerInfo.changeDir = false;
+				_playerInfo.position.x += _playerInfo.speed;
 			}
+		}
 
-			if (_playerInfo.upMove)
+		if (_playerInfo.upMove)
+		{
+			if (KEYMANAGER->isStayKeyDown(VK_UP))
 			{
-				if (KEYMANAGER->isStayKeyDown(VK_UP))
-				{
-					if (_playerInfo.changeDir)
-					{
-						_playerInfo.direction = P_UP;
-						_playerInfo.state = P_MOVE;
-
-					}
-					_playerInfo.changeDir = false;
-					_playerInfo.position.y -= _playerInfo.speed;
-				}
+				_playerInfo.direction = P_UP;
+				_playerInfo.state = P_MOVE;
+				_playerInfo.changeDir = false;
+				_playerInfo.position.y -= _playerInfo.speed;
 			}
+		}
 
-			if (_playerInfo.downMove)
+		if (_playerInfo.downMove)
+		{
+			if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 			{
-				if (KEYMANAGER->isStayKeyDown(VK_DOWN))
-				{
-					if (_playerInfo.changeDir)
-					{
-						_playerInfo.direction = P_DOWN;
-						_playerInfo.state = P_MOVE;
-
-					}
-					_playerInfo.changeDir = false;
-					_playerInfo.position.y += _playerInfo.speed;
-				}
+				_playerInfo.direction = P_DOWN;
+				_playerInfo.state = P_MOVE;
+				_playerInfo.changeDir = false;
+				_playerInfo.position.y += _playerInfo.speed;
 			}
-		
+		}
+
 		///////////////
-		
-			if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
-			{
 
-				_playerInfo.dirCount--;
-				if (_playerInfo.dirCount == 0)
-				{
-					_playerInfo.state = P_IDLE;
-					_playerInfo.direction = P_LEFT;
 
-				}
-				_playerInfo.changeAni = true;
-				
 
-			}
-			if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
-			{
-				_playerInfo.dirCount--;
-				if (_playerInfo.dirCount == 0)
-				{
-					_playerInfo.state = P_IDLE;
-					_playerInfo.direction = P_RIGHT;
 
-				}
-				_playerInfo.changeAni = true;
-				
-			}
 
-			if (KEYMANAGER->isOnceKeyUp(VK_UP))
-			{
-				_playerInfo.dirCount--;
-				if (_playerInfo.dirCount == 0)
-				{
-					_playerInfo.state = P_IDLE;
-					_playerInfo.direction = P_UP;
-
-				}
-				_playerInfo.changeAni = true;
-				
-			}
-
-			if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
-			{
-				_playerInfo.dirCount--;
-				
-				if (_playerInfo.dirCount == 0)
-				{
-					_playerInfo.state = P_IDLE;
-					_playerInfo.direction = P_DOWN;
-
-				}
-				_playerInfo.changeAni = true;
-				
-			}
-		
 		///////////////
 
 	}

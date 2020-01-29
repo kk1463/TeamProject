@@ -74,6 +74,7 @@ void gameNode::update()
 {
 	InvalidateRect(_hWnd, NULL, false);
 	SOUNDMANAGER->update();
+	TIMEMANAGER->update();
 }
 
 void gameNode::render()
@@ -83,6 +84,11 @@ void gameNode::render()
 
 void gameNode::setMap()
 {
+}
+
+vector<tagTile*> gameNode::getTile()
+{
+	return vector<tagTile*>();
 }
 
 void gameNode::save()

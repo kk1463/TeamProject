@@ -18,6 +18,7 @@ public:
 	void settingObj(GameObject* ins, OBJSTRUCT obj) {};
 	virtual void update();
 	virtual void render();
+	virtual vector<tagTile*> getTile() { return _tiles; }
 	BasicScene();
 	~BasicScene();
 };

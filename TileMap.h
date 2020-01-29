@@ -229,7 +229,10 @@ public:
 
 	virtual void loadObj(string FileName, string StageName);
 	vector<tagTile*> load(string FileName);
-	vector<tagTile*> getTotalTile() { return _tiles; }
+	vector<tagTile*> getTotalTile() 
+	{ 
+		return _tiles;
+	}
 
 	void settingObj(GameObject* ins, OBJSTRUCT obj);
 	TileMap();

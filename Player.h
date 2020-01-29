@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-
+class gameNode;
 #define FPS 8
 
 enum PlayerName

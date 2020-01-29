@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Player.h"
-
+#include"gameNode.h"
 
 Player::Player()
 {
@@ -31,64 +31,63 @@ void Player::update()
 
 void Player::KeyControl()
 {
-	
-	for (int i = 0; i < TILEMANAGER->getTotalTile().size(); i++)
+	for (int i = 0; i < SCENEMANAGER->getCurrentScene()->getTile().size(); i++)
 	{
 		RECT temp;
-		if (TILEMANAGER->getTotalTile()[i]->getAttribute() == nonBlocking) continue;
+		if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getAttribute() == nonBlocking) continue;
 		
-			if (IntersectRect(&temp, &_playerInfo.rightColRc, &TILEMANAGER->getTotalTile()[i]->getRect()))
+			if (IntersectRect(&temp, &_playerInfo.rightColRc, &SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect()))
 			{
-				if (TILEMANAGER->getTotalTile()[i]->getRect().left < _playerInfo.rightColRc.right)
+				if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect().left < _playerInfo.rightColRc.right)
 				{
 					_playerInfo.rightMove = false;
 				}
 				break;
 			}
 
-			else if (TILEMANAGER->getTotalTile()[i]->getRect().left >= _playerInfo.rightColRc.right && _playerInfo.rightMove == false)
+			else if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect().left >= _playerInfo.rightColRc.right && _playerInfo.rightMove == false)
 			{
 				_playerInfo.rightMove = true;
 			}
 			////
-			if (IntersectRect(&temp, &_playerInfo.leftColRc, &TILEMANAGER->getTotalTile()[i]->getRect()))
+			if (IntersectRect(&temp, &_playerInfo.leftColRc, &SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect()))
 			{
-				if (TILEMANAGER->getTotalTile()[i]->getRect().right > _playerInfo.leftColRc.left)
+				if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect().right > _playerInfo.leftColRc.left)
 				{
 					_playerInfo.leftMove = false;
 				}
 				break;
 			}
 
-			else if (TILEMANAGER->getTotalTile()[i]->getRect().right <= _playerInfo.leftColRc.left && _playerInfo.leftMove == false)
+			else if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect().right <= _playerInfo.leftColRc.left && _playerInfo.leftMove == false)
 			{
 				_playerInfo.leftMove = true;
 			}
 			////
-			if (IntersectRect(&temp, &_playerInfo.botColRc, &TILEMANAGER->getTotalTile()[i]->getRect()))
+			if (IntersectRect(&temp, &_playerInfo.botColRc, &SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect()))
 			{
-				if (TILEMANAGER->getTotalTile()[i]->getRect().top < _playerInfo.botColRc.bottom )
+				if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect().top < _playerInfo.botColRc.bottom )
 				{
 					_playerInfo.downMove = false;
 				}
 				break;
 			}
 
-			else if (TILEMANAGER->getTotalTile()[i]->getRect().top > _playerInfo.botColRc.bottom && _playerInfo.downMove == false)
+			else if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect().top > _playerInfo.botColRc.bottom && _playerInfo.downMove == false)
 			{
 				_playerInfo.downMove = true;
 			}
 			////
-			if (IntersectRect(&temp, &_playerInfo.topColRc, &TILEMANAGER->getTotalTile()[i]->getRect()))
+			if (IntersectRect(&temp, &_playerInfo.topColRc, &SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect()))
 			{
-				if (TILEMANAGER->getTotalTile()[i]->getRect().bottom > _playerInfo.topColRc.top)
+				if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect().bottom > _playerInfo.topColRc.top)
 				{
 					_playerInfo.upMove = false;
 				}
 				break;
 			}
 
-			else if (TILEMANAGER->getTotalTile()[i]->getRect().bottom < _playerInfo.topColRc.top && _playerInfo.upMove == false)
+			else if (SCENEMANAGER->getCurrentScene()->getTile()[i]->getRect().bottom < _playerInfo.topColRc.top && _playerInfo.upMove == false)
 			{
 				_playerInfo.upMove = true;
 			}
