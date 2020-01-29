@@ -134,14 +134,6 @@ void Rabbit::update()
 	rc = RectMakeCenter(_ptMouse.x, _ptMouse.y, 30, 30);
 
 
-
-	en.senseRC = RectMakeCenter(en.x, en.y,
-		en.img->getFrameWidth() * 2,
-		en.img->getFrameHeight() * 2);
-	en.rc = RectMakeCenter(en.x, en.y,
-		en.img->getFrameWidth(),
-		en.img->getFrameHeight());
-
 	RECT temp;
 	if (!IntersectRect(&temp, &en.senseRC, &rc))
 	{

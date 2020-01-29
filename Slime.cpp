@@ -76,11 +76,11 @@ void Slime::release()
 void Slime::update()
 {
 
-	en.rc = RectMakeCenter(
+	/*en.rc = RectMakeCenter(
 		en.x,
 		en.y,
 		en.img->getFrameWidth(),
-		en.img->getFrameHeight());
+		en.img->getFrameHeight());*/
 
 
 }
