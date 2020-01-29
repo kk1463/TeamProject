@@ -9,7 +9,7 @@ private:
 public:
 	Flower();
 	~Flower();
-	virtual HRESULT init(POINT pos, int fps, float SPEED);
+	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
 };

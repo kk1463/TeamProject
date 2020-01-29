@@ -67,7 +67,6 @@ public:
 	Enemy();
 	~Enemy();
 	virtual HRESULT init();
-	virtual HRESULT init(POINT pos, int fps, float SPEED);
 	virtual void release();
 	virtual void update();
 	

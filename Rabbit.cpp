@@ -13,7 +13,7 @@ Rabbit::~Rabbit()
 
 
 
-HRESULT Rabbit::init(POINT pos, int fps, float SPEED)
+HRESULT Rabbit::init()
 {
 	//idle
 	IMAGEMANAGER->addFrameImage("R_idle_down", "img/rabbit/idle_Down.bmp", 600, 44, 12, 1, true, RGB(255, 0, 255));
@@ -87,7 +87,6 @@ HRESULT Rabbit::init(POINT pos, int fps, float SPEED)
 
 	en.name = Name_Rabbit;
 
-	Enemy::init(pos, FPS, SPEED);
 
 
 
@@ -133,14 +132,6 @@ void Rabbit::update()
 
 	rc = RectMakeCenter(_ptMouse.x, _ptMouse.y, 30, 30);
 
-
-
-	en.senseRC = RectMakeCenter(en.x, en.y,
-		en.img->getFrameWidth() * 2,
-		en.img->getFrameHeight() * 2);
-	en.rc = RectMakeCenter(en.x, en.y,
-		en.img->getFrameWidth(),
-		en.img->getFrameHeight());
 
 	RECT temp;
 	if (!IntersectRect(&temp, &en.senseRC, &rc))

@@ -15,7 +15,7 @@ Hydra_W::~Hydra_W()
 {
 }
 
-HRESULT Hydra_W::init(POINT pos, int fps, float SPEED)
+HRESULT Hydra_W::init()
 {
 
 	_isAttack = true; //false¹Ù²Ù±â
@@ -112,7 +112,6 @@ HRESULT Hydra_W::init(POINT pos, int fps, float SPEED)
 
 	en.name = Name_Hydra_W;
 
-	Enemy::init(pos, FPS, SPEED);
 
 
 	en.img = IMAGEMANAGER->findImage("W_Atk_Big_Left");
