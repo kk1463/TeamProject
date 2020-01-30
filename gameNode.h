@@ -36,7 +36,8 @@ public:
 	virtual PlayerManager* getPlayerManager() { return NULL; };
 	virtual void setMap();
 	virtual vector<tagTile*> getTile();
-	virtual vector<GameObject*> getGameObject();
+	virtual vector<GameObject*>& getGameObject();
+	virtual void deleteObject(GameObject* ins) {}
 
 	virtual void save();
 	virtual void load();

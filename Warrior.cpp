@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Warrior.h"
-
+#include"gameNode.h"
 
 Warrior::Warrior()
 {
@@ -73,7 +73,7 @@ void Warrior::release()
 
 void Warrior::update()
 {
-
+	
 	
 	KeyControl();
 	PlayerRectChange();
@@ -94,6 +94,7 @@ void Warrior::update()
 	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left-2 , _playerInfo.colRc.top + 20, 3, 20);
 	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 20, 3);
 	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 20, 3);
+
 }
 
 

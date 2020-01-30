@@ -33,18 +33,23 @@ void PlayerManager::release()
 void PlayerManager::collision()
 {
 	RECT temp;
-	for (int i = 0; i < SCENEMANAGER->getCurrentScene()->getGameObject().size(); i++)
+	vector<GameObject*>& objs = SCENEMANAGER->getCurrentScene()->getGameObject();
+	vector<GameObject*>::iterator Iter = objs.begin();
+	for (; Iter != objs.end();)
 	{
-		if (IntersectRect(&temp, &SCENEMANAGER->getCurrentScene()->getGameObject()[i]->getColRect(), &SCENEMANAGER->getCurrentScene()->getGameObject()[i]->getCheckRect_Left()))
+		GameObject* temp = *Iter;
+		if (PtInRect(&temp->getColRect(), _ptMouse)&&temp->getObject()!=PLAYER)
 		{
-			if (SCENEMANAGER->getCurrentScene()->getGameObject()[i]->getObject() == RABBIT)
-			{
-				cout << endl;
-			}
-		
-			
+			SCENEMANAGER->getCurrentScene()->deleteObject(temp);
+			break;
 		}
+		else ++Iter;
+
 	}
+
+
+
+
 
 	
 		

@@ -95,10 +95,13 @@ vector<tagTile*> gameNode::getTile()
 	return vector<tagTile*>();
 }
 
-vector<GameObject*> gameNode::getGameObject()
+vector<GameObject*>& gameNode::getGameObject()
 {
-	return vector<GameObject*>();
+	vector<GameObject*> temp;
+	return temp;
 }
+
+
 
 void gameNode::save()
 {
