@@ -91,6 +91,7 @@ void gameNode::setMap()
 
 vector<tagTile*> gameNode::getTile()
 {
+
 	return vector<tagTile*>();
 }
 
@@ -108,6 +109,10 @@ void gameNode::load()
 }
 
 void gameNode::setGameObj(GameObject* obj)
+{
+}
+
+void gameNode::eraseGameObj(int num)
 {
 }
 

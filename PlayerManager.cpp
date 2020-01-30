@@ -21,8 +21,34 @@ HRESULT PlayerManager::init()
 	return S_OK;
 }
 
+void PlayerManager::update()
+{
+	collision();
+}
+
 void PlayerManager::release()
 {
+}
+
+void PlayerManager::collision()
+{
+	RECT temp;
+	for (int i = 0; i < SCENEMANAGER->getCurrentScene()->getGameObject().size(); i++)
+	{
+		if (IntersectRect(&temp, &SCENEMANAGER->getCurrentScene()->getGameObject()[i]->getColRect(), &SCENEMANAGER->getCurrentScene()->getGameObject()[i]->getCheckRect_Left()))
+		{
+			if (SCENEMANAGER->getCurrentScene()->getGameObject()[i]->getObject() == RABBIT)
+			{
+				cout << endl;
+			}
+		
+			
+		}
+	}
+
+	
+		
+	
 }
 
 

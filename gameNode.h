@@ -43,7 +43,7 @@ public:
 	virtual void setGameObj(GameObject* obj);
 	HDC getMemDC() { return _backBuffer->getMemDC(); }
 	HDC getHDC() { return _hdc; }
-
+	virtual void eraseGameObj(int num);
 	LRESULT MainProc(HWND, UINT, WPARAM, LPARAM);
 
 };

@@ -115,6 +115,10 @@ void Player::PlayerStateChange()
 {
 }
 
+void Player::PlayerRectChange()
+{
+}
+
 
 
 
