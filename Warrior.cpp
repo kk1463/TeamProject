@@ -45,6 +45,9 @@ HRESULT Warrior::init(PlayerName playername)
 	KEYANIMANAGER->addCoordinateFrameAnimation("moveLeft", "move", 10, 19, FPS, false, true);
 	KEYANIMANAGER->addCoordinateFrameAnimation("moveUp", "moveUp", 0, 9, FPS, false, true);
 	KEYANIMANAGER->addCoordinateFrameAnimation("moveDown", "moveDown", 0, 9, FPS, false, true);
+	KEYANIMANAGER->addCoordinateFrameAnimation("atkRight", "atk", 0, 12, 20, false,false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("atkLeft", "atk", 25, 13, 20, false, false);
+
 	_playerInfo.playerName = PN_WARRIOR;
 
 	_playerInfo.position.x = 300;
@@ -66,6 +69,7 @@ HRESULT Warrior::init(PlayerName playername)
 	_playerInfo.upMove = true;
 	_playerInfo.downMove = true;
 	_playerInfo.rightMove = true;
+	_playerInfo.atkState = false;
 	Player::init(playername);
 	return S_OK;
 
@@ -78,6 +82,7 @@ void Warrior::release()
 
 void Warrior::update()
 {
+	
 	KeyControl();
 
 	if (_playerInfo.changeAni)
@@ -95,10 +100,10 @@ void Warrior::update()
 	
 	_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x+40, _playerInfo.position.y+40, 40, 40);
 	this->setColRect(_playerInfo.colRc);
-	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right+2, _playerInfo.colRc.top + 20,3, 20);
-	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left-2 , _playerInfo.colRc.top + 20, 3, 20);
-	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 20, 3);
-	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 20, 3);
+	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right+2, _playerInfo.colRc.top + 20,3, 30);
+	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left-2 , _playerInfo.colRc.top + 20, 3, 30);
+	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 30, 3);
+	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 30, 3);
 }
 
 
@@ -270,18 +275,35 @@ void Warrior::KeyControl()
 				_playerInfo.position.y += _playerInfo.speed;
 			}
 		}
+	}
+	if (!_playerInfo.atkState)
+	{
+		
+		if (KEYMANAGER->isOnceKeyDown('A'))
+		{
 
-
-		///////////////
-
-		cout <<"Warrior"<< _playerInfo.direction << endl;
-		Player::KeyControl();
-
-	
-		///////////////
-
+			_playerInfo.atkState = true;
+			_playerInfo.changeAni = true;
+		}
+		if (_playerInfo.atkState)
+		{
+			_playerInfo.state = P_ATK;
+		}
 	}
 
+	if (_playerInfo.atkState)
+	{
+		_playerInfo.atkCount++;
+		_playerInfo.movecheck = false;
+		if (_playerInfo.atkCount > 30)
+		{
+			_playerInfo.atkState = false;
+			_playerInfo.movecheck = true;
+			_playerInfo.atkCount = 0;
+		}
+	}
+	cout << "어택카운트 : " << _playerInfo.atkCount << endl;
+	Player::KeyControl();
 }
 
 void Warrior::PlayerStateChange()
@@ -351,6 +373,42 @@ void Warrior::PlayerStateChange()
 			break;
 		}
 		break;
+	case P_ATK:
+		switch (_playerInfo.direction)
+		{
+		case P_LEFT:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("atkLeft");
+			_playerInfo.img = IMAGEMANAGER->findImage("atk");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;
+
+		case P_RIGHT:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("atkRight");
+			_playerInfo.img = IMAGEMANAGER->findImage("atk");
+			_playerInfo.ani->start();
+			
+			_playerInfo.changeAni = false;
+			break;
+
+		/*case P_DOWN:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("moveDown");
+			_playerInfo.img = IMAGEMANAGER->findImage("moveDown");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;
+		case P_UP:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("moveUp");
+			_playerInfo.img = IMAGEMANAGER->findImage("moveUp");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;*/
+	
+		}
+		break;
 	}
+	
+	
+
 }
 
