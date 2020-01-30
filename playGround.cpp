@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "playGround.h"
-#include "TileMap.h"
 
 playGround::playGround()
 {
@@ -56,16 +55,10 @@ HRESULT playGround::init()
 
 	SCENEMANAGER->changeScene("Loading");
 
-	_pm = new PlayerManager;
-	_pm->init();
-	
+	PLAYERMANGER->init();
+
 
 	return S_OK;
-
-
-	_em = new EnemyManager;
-	return S_OK;
-
 	
 
 
@@ -96,6 +89,10 @@ void playGround::render()
 	PatBlt(getMemDC(), 0, 0, 3, WINSIZEY, WHITENESS);
 //========================================================
 	SCENEMANAGER->render();
+
+	
+
+
 //====================================================
 	_backBuffer->render(getHDC(), 0, 0);
 }

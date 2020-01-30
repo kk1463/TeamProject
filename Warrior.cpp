@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Warrior.h"
-
+#include"gameNode.h"
 
 Warrior::Warrior()
 {
@@ -20,23 +20,11 @@ HRESULT Warrior::init(PlayerName playername)
 	IMAGEMANAGER->addFrameImage("moveDown", "img/warrior/move/moveDown3.bmp", 810, 72, 9, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("moveUp", "img/warrior/move/moveUp2.bmp", 1100, 72, 10, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("atk", "img/warrior/atk/atk.bmp", 1560, 200, 13, 2, true, RGB(255, 0, 255));
-	/*int idleRight[] = {0,1,2,3,4,5,6,7,8};
-	KEYANIMANAGER->addArrayFrameAnimation("idleRight", "idle", idleRight, 9, 20, true);
-	int idleLeft[] = { 9,10,11,12,13,14,15,16,17 };
-	KEYANIMANAGER->addArrayFrameAnimation("idleLeft", "idle", idleLeft, 9, 20, true);
-	int idleDown[] = { 0,1,2,3,4,5,6,7,8 };
-	KEYANIMANAGER->addArrayFrameAnimation("idleDown", "idleDown", idleDown, 9, 20, true);
-	int idleUp[] = { 0,1,2,3,4,5,6,7,8 };
-	KEYANIMANAGER->addArrayFrameAnimation("idleUp", "idleUp", idleUp, 9, 20, true);
-	int moveRight[] = { 0,1,2,3,4,5,6,7,8,9 };
-	KEYANIMANAGER->addArrayFrameAnimation("moveRight", "move", moveRight, 10, 20, true);
-	int moveLeft[] = { 10,11,12,13,14,15,16,17,18,19 };
-	KEYANIMANAGER->addArrayFrameAnimation("moveLeft", "move", moveLeft, 10, 20, true);
-	int moveDown[] = { 0,1,2,3,4,5,6,7,8,9 };
-	KEYANIMANAGER->addArrayFrameAnimation("moveDown", "moveDown", moveDown, 10, 20, true);
-	int moveUp[] = { 0,1,2,3,4,5,6,7,8,9 };
-	KEYANIMANAGER->addArrayFrameAnimation("moveUp", "moveUp", moveUp, 10, 20, true);
-*/
+	IMAGEMANAGER->addFrameImage("atkDown", "img/warrior/atk/AtkDown.bmp", 1560, 110, 13, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("atkUp", "img/warrior/atk/AtkUp.bmp", 1430, 100, 13, 1, true, RGB(255, 0, 255));
+
+	
+
 	KEYANIMANAGER->addCoordinateFrameAnimation("idleRight", "idle", 0, 8, FPS, false, true);
 	KEYANIMANAGER->addCoordinateFrameAnimation("idleLeft", "idle", 9, 17, FPS, false, true);
 	KEYANIMANAGER->addCoordinateFrameAnimation("idleUp", "idleUp", 0, 8, FPS, false, true);
@@ -45,6 +33,11 @@ HRESULT Warrior::init(PlayerName playername)
 	KEYANIMANAGER->addCoordinateFrameAnimation("moveLeft", "move", 10, 19, FPS, false, true);
 	KEYANIMANAGER->addCoordinateFrameAnimation("moveUp", "moveUp", 0, 9, FPS, false, true);
 	KEYANIMANAGER->addCoordinateFrameAnimation("moveDown", "moveDown", 0, 9, FPS, false, true);
+	KEYANIMANAGER->addCoordinateFrameAnimation("atkRight", "atk", 0, 12, 20, false,false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("atkLeft", "atk", 25, 13, 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("atkDown", "atkDown", 0, 12, 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("atkUp", "atkUp", 0,12, 20, false, false);
+
 	_playerInfo.playerName = PN_WARRIOR;
 
 	_playerInfo.position.x = 300;
@@ -66,6 +59,8 @@ HRESULT Warrior::init(PlayerName playername)
 	_playerInfo.upMove = true;
 	_playerInfo.downMove = true;
 	_playerInfo.rightMove = true;
+	_playerInfo.atkState = false;
+	_playerInfo.atkNoMove = false;
 	Player::init(playername);
 	return S_OK;
 
@@ -78,12 +73,13 @@ void Warrior::release()
 
 void Warrior::update()
 {
+	
+	
 	KeyControl();
-
+	PlayerRectChange();
 	if (_playerInfo.changeAni)
 	{
 		PlayerStateChange();
-		
 	}
 
 	_playerInfo.rc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2,
@@ -92,13 +88,13 @@ void Warrior::update()
 	this->setAni(_playerInfo.ani);
 	this->setRect(_playerInfo.rc);
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
-	
-	_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x+40, _playerInfo.position.y+40, 40, 40);
+
 	this->setColRect(_playerInfo.colRc);
 	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right+2, _playerInfo.colRc.top + 20,3, 20);
 	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left-2 , _playerInfo.colRc.top + 20, 3, 20);
 	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 20, 3);
 	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 20, 3);
+
 }
 
 
@@ -131,157 +127,195 @@ void Warrior::KeyControl()
 	{
 		_playerInfo.speed = 4;
 	}
-
-
-	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
+	if (!_playerInfo.atkNoMove)
 	{
 
-		_playerInfo.dirCount--;
-		if (_playerInfo.dirCount < 1)
-		{
-			_playerInfo.state = P_IDLE;
-			_playerInfo.direction = P_LEFT;
-
-		}
-		_playerInfo.changeAni = true;
-
-
-	}
-	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
-	{
-		_playerInfo.dirCount--;
-		if (_playerInfo.dirCount < 1)
-		{
-			_playerInfo.state = P_IDLE;
-			_playerInfo.direction = P_RIGHT;
-
-		}
-		_playerInfo.changeAni = true;
-
-	}
-
-	if (KEYMANAGER->isOnceKeyUp(VK_UP))
-	{
-		_playerInfo.dirCount--;
-		if (_playerInfo.dirCount < 1)
-		{
-			_playerInfo.state = P_IDLE;
-			_playerInfo.direction = P_UP;
-
-		}
-		_playerInfo.changeAni = true;
-
-	}
-
-	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
-	{
-		_playerInfo.dirCount--;
-
-		if (_playerInfo.dirCount < 1)
-		{
-			_playerInfo.state = P_IDLE;
-			_playerInfo.direction = P_DOWN;
-
-		}
-		_playerInfo.changeAni = true;
-
-	}
-
-	if (_playerInfo.movecheck)
-	{
-
-		if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
 
-			_playerInfo.changeDir = true;
-			_playerInfo.dirCount++;
-			_playerInfo.changeAni = true;
-		}
-
-
-		if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
-		{
-
-			_playerInfo.changeDir = true;
-			_playerInfo.dirCount++;
-			_playerInfo.changeAni = true;
-		}
-
-		if (KEYMANAGER->isOnceKeyDown(VK_UP))
-		{
-			_playerInfo.changeDir = true;
-			_playerInfo.dirCount++;
-			_playerInfo.changeAni = true;
-		}
-
-		if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
-		{
-			_playerInfo.changeDir = true;
-			_playerInfo.dirCount++;
-			_playerInfo.changeAni = true;
-		}
-
-
-		if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-		{
-			_playerInfo.direction = P_LEFT;
-			_playerInfo.state = P_MOVE;
-			_playerInfo.changeDir = false;
-
-			if (_playerInfo.leftMove)
+			_playerInfo.dirCount--;
+			if (_playerInfo.dirCount < 1)
 			{
-				_playerInfo.position.x -= _playerInfo.speed;
-			}
-		}
+				_playerInfo.state = P_IDLE;
+				_playerInfo.direction = P_LEFT;
 
-		if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+			}
+			_playerInfo.changeAni = true;
+
+
+		}
+		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
-			_playerInfo.direction = P_RIGHT;
-			_playerInfo.state = P_MOVE;
-			_playerInfo.changeDir = false;
-
-			if (_playerInfo.rightMove)
+			_playerInfo.dirCount--;
+			if (_playerInfo.dirCount < 1)
 			{
-				_playerInfo.position.x += _playerInfo.speed;
+				_playerInfo.state = P_IDLE;
+				_playerInfo.direction = P_RIGHT;
+
 			}
+			_playerInfo.changeAni = true;
+
 		}
 
-
-		if (KEYMANAGER->isStayKeyDown(VK_UP))
+		if (KEYMANAGER->isOnceKeyUp(VK_UP))
 		{
-			_playerInfo.direction = P_UP;
-			_playerInfo.state = P_MOVE;
-			_playerInfo.changeDir = false;
-
-			if (_playerInfo.upMove)
+			_playerInfo.dirCount--;
+			if (_playerInfo.dirCount < 1)
 			{
-				_playerInfo.position.y -= _playerInfo.speed;
+				_playerInfo.state = P_IDLE;
+				_playerInfo.direction = P_UP;
+
 			}
+			_playerInfo.changeAni = true;
+
 		}
 
-
-		if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+		if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 		{
-			_playerInfo.direction = P_DOWN;
-			_playerInfo.state = P_MOVE;
-			_playerInfo.changeDir = false;
-			if (_playerInfo.downMove)
+			_playerInfo.dirCount--;
+
+			if (_playerInfo.dirCount < 1)
 			{
-				_playerInfo.position.y += _playerInfo.speed;
+				_playerInfo.state = P_IDLE;
+				_playerInfo.direction = P_DOWN;
+
 			}
+			_playerInfo.changeAni = true;
+
 		}
 
+		if (_playerInfo.movecheck)
+		{
 
-		///////////////
+			if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
+			{
 
-		cout <<"Warrior"<< _playerInfo.direction << endl;
-		Player::KeyControl();
+				_playerInfo.changeDir = true;
+				_playerInfo.dirCount++;
+				_playerInfo.changeAni = true;
+			}
 
+
+			if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
+			{
+
+				_playerInfo.changeDir = true;
+				_playerInfo.dirCount++;
+				_playerInfo.changeAni = true;
+			}
+
+			if (KEYMANAGER->isOnceKeyDown(VK_UP))
+			{
+				_playerInfo.changeDir = true;
+				_playerInfo.dirCount++;
+				_playerInfo.changeAni = true;
+			}
+
+			if (KEYMANAGER->isOnceKeyDown(VK_DOWN))
+			{
+				_playerInfo.changeDir = true;
+				_playerInfo.dirCount++;
+				_playerInfo.changeAni = true;
+			}
+
+
+			if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+			{
+				_playerInfo.direction = P_LEFT;
+				_playerInfo.state = P_MOVE;
+				_playerInfo.changeDir = false;
+
+				if (_playerInfo.leftMove)
+				{
+					_playerInfo.position.x -= _playerInfo.speed;
+				}
+			}
+
+			if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+			{
+				_playerInfo.direction = P_RIGHT;
+				_playerInfo.state = P_MOVE;
+				_playerInfo.changeDir = false;
+
+				if (_playerInfo.rightMove)
+				{
+					_playerInfo.position.x += _playerInfo.speed;
+				}
+			}
+
+
+			if (KEYMANAGER->isStayKeyDown(VK_UP))
+			{
+				_playerInfo.direction = P_UP;
+				_playerInfo.state = P_MOVE;
+				_playerInfo.changeDir = false;
+
+				if (_playerInfo.upMove)
+				{
+					_playerInfo.position.y -= _playerInfo.speed;
+				}
+			}
+
+
+			if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+			{
+				_playerInfo.direction = P_DOWN;
+				_playerInfo.state = P_MOVE;
+				_playerInfo.changeDir = false;
+				if (_playerInfo.downMove)
+				{
+					_playerInfo.position.y += _playerInfo.speed;
+				}
+			}
+
+		}
+	}
+	if (!_playerInfo.atkState)
+	{
+
+		if (KEYMANAGER->isOnceKeyDown('A'))
+		{
+
+			_playerInfo.atkState = true;
+			_playerInfo.changeAni = true;
+			_playerInfo.atkNoMove = true;
+
+		}
 	
-		///////////////
-
+		if (_playerInfo.atkState)
+		{
+			_playerInfo.state = P_ATK;
+		}
+		
 	}
 
+	if (_playerInfo.atkState)
+	{
+		_playerInfo.atkCount++;
+		if (_playerInfo.atkCount > 27)
+		{
+			if (KEYMANAGER->isStayKeyDown(VK_LEFT)||
+				KEYMANAGER->isStayKeyDown(VK_RIGHT) || 
+				KEYMANAGER->isStayKeyDown(VK_UP) || 
+				KEYMANAGER->isStayKeyDown(VK_DOWN) )
+			{
+				_playerInfo.state = P_MOVE;
+			}
+			else
+			{
+				_playerInfo.state = P_IDLE;
+			}
+			
+			_playerInfo.atkState = false;
+			
+			_playerInfo.atkNoMove = false;
+			_playerInfo.atkCount = 0;
+			_playerInfo.changeAni = true;
+			
+		}
+	}
+	
+	Player::KeyControl();
 }
 
 void Warrior::PlayerStateChange()
@@ -289,6 +323,8 @@ void Warrior::PlayerStateChange()
 	switch (_playerInfo.state)
 	{
 	case P_IDLE:
+		
+
 		switch (_playerInfo.direction)
 		{
 		case P_LEFT:
@@ -323,11 +359,14 @@ void Warrior::PlayerStateChange()
 	case P_MOVE:
 		switch (_playerInfo.direction)
 		{
+			
+
 		case P_LEFT:
 			_playerInfo.ani = KEYANIMANAGER->findAnimation("moveLeft");
 			_playerInfo.img = IMAGEMANAGER->findImage("move");
 			_playerInfo.ani->start();
 			_playerInfo.changeAni = false;
+
 			break;
 
 		case P_RIGHT:
@@ -351,6 +390,116 @@ void Warrior::PlayerStateChange()
 			break;
 		}
 		break;
+	case P_ATK:
+		switch (_playerInfo.direction)
+		{
+		case P_LEFT:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("atkLeft");
+			_playerInfo.img = IMAGEMANAGER->findImage("atk");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			
+			break;
+
+		case P_RIGHT:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("atkRight");
+			_playerInfo.img = IMAGEMANAGER->findImage("atk");
+			_playerInfo.ani->start();
+			
+			_playerInfo.changeAni = false;
+			break;
+
+		case P_DOWN:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("atkDown");
+			_playerInfo.img = IMAGEMANAGER->findImage("atkDown");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;
+		case P_UP:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("atkUp");
+			_playerInfo.img = IMAGEMANAGER->findImage("atkUp");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;
+	
+		}
+		break;
 	}
+	
+	
+
+}
+
+void Warrior::PlayerRectChange()
+{
+	switch (_playerInfo.state)
+	{
+	case P_IDLE:
+		
+		switch (_playerInfo.direction)
+		{
+		case P_LEFT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			break;
+
+		case P_RIGHT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+			break;
+
+		case P_DOWN:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			
+			break;
+		case P_UP:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			break;
+		}
+		break;
+
+	case P_MOVE:
+		
+		switch (_playerInfo.direction)
+
+		{
+		
+		case P_LEFT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			break;
+
+		case P_RIGHT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+			break;
+
+		case P_DOWN:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			break;
+		case P_UP:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			break;
+		}
+		break;
+	case P_ATK:
+		switch (_playerInfo.direction)
+		{
+		case P_LEFT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x +70, _playerInfo.position.y + 50, 30, 30);
+			break;
+
+		case P_RIGHT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x +50, _playerInfo.position.y + 50, 30, 30);
+			break;
+
+		case P_DOWN:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 60, _playerInfo.position.y + 45, 30, 30);
+			break;
+		case P_UP:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 50, 30, 30);
+			break;
+
+		}
+		break;
+	}
+
+
 }
 

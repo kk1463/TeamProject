@@ -15,6 +15,7 @@ public:
 	virtual void update();
 	virtual void KeyControl();
 	virtual void PlayerStateChange();
+	virtual void PlayerRectChange();
 };
 
 

@@ -71,6 +71,7 @@ HRESULT Flower::init()
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
+	Enemy::init();
 	return S_OK;
 }
 
@@ -80,14 +81,22 @@ void Flower::release()
 
 void Flower::update()
 {
-	en.rc = RectMakeCenter(en.x, en.y, en.img->getFrameWidth(), en.img->getFrameHeight());
-	en.senseRC = RectMakeCenter(en.x, en.y, en.img->getFrameWidth() * 2, en.img->getFrameHeight() * 2);
+	Enemy::update();
 
-	this->setimage(en.img);
-	this->setAni(en.Ani);
-	this->setRect(en.rc);
-	this->setRect(en.senseRC);
-	this->setCenter(PointMake(en.x, en.y));
+	en.colRc = RectMakeCenter(en.x + 80, en.y + 70, 60, 60);
+	en.rightColRc = RectMakeCenter(en.colRc.right + 2, en.colRc.top + 30, 3, 50);
+	en.leftColRc = RectMakeCenter(en.colRc.left - 2, en.colRc.top + 30, 3, 50);
+	en.topColRc = RectMakeCenter(en.colRc.left + 30, en.colRc.top - 2, 50, 3);
+	en.botColRc = RectMakeCenter(en.colRc.left + 30, en.colRc.bottom + 2, 50, 3);
+
+	this->setCheckRect_Right(en.rightColRc);
+	this->setCheckRect_Left(en.leftColRc);
+	this->setCheckRect_Top(en.topColRc);
+	this->setCheckRect_Bottom(en.botColRc);
+
+	
+
+	
 
 }
 

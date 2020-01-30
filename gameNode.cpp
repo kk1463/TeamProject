@@ -37,6 +37,8 @@ HRESULT gameNode::init(bool managerInit)
 		SOUNDMANAGER->init();
 		SCENEMANAGER->init();
 		KEYANIMANAGER->init();
+		ENEMYMANAGER->init();
+
 	}
 
 	return S_OK;
@@ -65,6 +67,8 @@ void gameNode::release()
 		KEYANIMANAGER->releaseSingleton();
 		TILEMANAGER->release();
 		TILEMANAGER->releaseSingleton();
+		ENEMYMANAGER->release();
+		ENEMYMANAGER->releaseSingleton();
 	}
 
 	ReleaseDC(_hWnd, _hdc);
@@ -88,8 +92,17 @@ void gameNode::setMap()
 
 vector<tagTile*> gameNode::getTile()
 {
+
 	return vector<tagTile*>();
 }
+
+vector<GameObject*>& gameNode::getGameObject()
+{
+	vector<GameObject*> temp;
+	return temp;
+}
+
+
 
 void gameNode::save()
 {
@@ -100,6 +113,10 @@ void gameNode::load()
 }
 
 void gameNode::setGameObj(GameObject* obj)
+{
+}
+
+void gameNode::eraseGameObj(int num)
 {
 }
 

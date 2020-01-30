@@ -213,6 +213,9 @@
     <ClInclude Include="LoadingScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="tagTile.h">
+      <Filter>playGround\MapManager\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -331,6 +334,9 @@
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>playGround\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="tagTile.cpp">
+      <Filter>playGround\MapManager\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

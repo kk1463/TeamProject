@@ -94,8 +94,8 @@ HRESULT Rabbit::init()
 	en.Ani = KEYANIMANAGER->findAnimation("R_Idle_Left");
 
 
-	count = 0;
 	Movecheck = RND->getFromIntTo(0, 4);
+	count = 0;
 	move = true;
 	atk = false;
 
@@ -109,6 +109,7 @@ HRESULT Rabbit::init()
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
+	Enemy::init();
 
 	return S_OK;
 }
@@ -120,6 +121,19 @@ void Rabbit::release()
 void Rabbit::update()
 {
 	//R_control();
+
+	Enemy::update();
+
+	en.colRc = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
+	en.rightColRc = RectMakeCenter(en.colRc.right + 2, en.colRc.top + 20, 3, 30);
+	en.leftColRc = RectMakeCenter(en.colRc.left - 2, en.colRc.top + 20, 3, 30);
+	en.topColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.top - 2, 30, 3);
+	en.botColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.bottom + 2, 30, 3);
+
+	this->setCheckRect_Right(en.rightColRc);
+	this->setCheckRect_Left(en.leftColRc);
+	this->setCheckRect_Top(en.topColRc);
+	this->setCheckRect_Bottom(en.botColRc);
 
 
 	if (!atk)moving();
@@ -148,20 +162,11 @@ void Rabbit::update()
 		atk = true;
 	}
 
-	en.rc = RectMakeCenter(en.x, en.y, en.img->getFrameWidth(), en.img->getFrameHeight());
-	en.senseRC = RectMakeCenter(en.x, en.y, en.img->getFrameWidth() * 2, en.img->getFrameHeight() * 2);
-
-	this->setimage(en.img);
-	this->setAni(en.Ani);
-	this->setRect(en.rc);
-	this->setRect(en.senseRC);
-	this->setCenter(PointMake(en.x, en.y));
+	Collision();
 }
 
 void Rabbit::moving()
-{
-
-
+{	
 	en.state = Run;
 	en.SPEED = 0.7F;
 
@@ -196,22 +201,34 @@ void Rabbit::moving()
 	case LEFT:
 		en.Ani = KEYANIMANAGER->findAnimation("R_run_Left");
 		en.img = IMAGEMANAGER->findImage("R_run_left");
+		if(en.leftMove)
+		{
 		en.x -= en.SPEED;
+		}	
 		break;
 	case RIGHT:
 		en.Ani = KEYANIMANAGER->findAnimation("R_run_Right");
 		en.img = IMAGEMANAGER->findImage("R_run_right");
-		en.x += en.SPEED;
+		if (en.rightMove)
+		{
+			en.x += en.SPEED;
+		}
 		break;
 	case DOWN:
 		en.Ani = KEYANIMANAGER->findAnimation("R_run_Down");
 		en.img = IMAGEMANAGER->findImage("R_run_down");
-		en.y += en.SPEED;
+		if (en.downMove)
+		{
+			en.y += en.SPEED;
+		}
 		break;
 	case UP:
 		en.Ani = KEYANIMANAGER->findAnimation("R_run_Up");
 		en.img = IMAGEMANAGER->findImage("R_run_up");
-		en.y -= en.SPEED;
+		if (en.upMove)
+		{
+			en.y -= en.SPEED;
+		}
 		break;
 	}
 
@@ -277,6 +294,72 @@ void Rabbit::attack()
 
 
 
+
+void Rabbit::Collision()
+{
+	for (int i = 0; i < _tiles.size(); i++)
+	{
+		RECT temp;
+		if (en.dir == RIGHT)
+		{
+			if (IntersectRect(&temp, &en.rightColRc, &_tiles[i]->getRect())
+				&& _tiles[i]->getAttribute() == blocking)
+			{
+				en.rightMove = false;
+				break;
+			}
+			else
+			{
+				en.rightMove = true;
+			}
+		}
+		if (en.dir == LEFT)
+		{
+			if (IntersectRect(&temp, &en.leftColRc, &_tiles[i]->getRect())
+				&& _tiles[i]->getAttribute() == blocking)
+			{
+				en.leftMove = false;
+				break;
+			}
+			else
+			{
+				en.leftMove = true;
+			}
+		}
+		if (en.dir == DOWN)
+		{
+			if (IntersectRect(&temp, &en.botColRc, &_tiles[i]->getRect())
+				&& _tiles[i]->getAttribute() == blocking)
+			{
+				en.downMove = false;
+
+				break;
+			}
+
+			else
+			{
+
+				en.downMove = true;
+			}
+		}
+		if (en.dir == UP)
+		{
+			if (IntersectRect(&temp, &en.topColRc, &_tiles[i]->getRect())
+				&& _tiles[i]->getAttribute() == blocking)
+			{
+
+				en.upMove = false;
+				break;
+			}
+
+			else
+			{
+				en.upMove = true;
+
+			}
+		}
+	}
+}
 
 void Rabbit::R_state()
 {

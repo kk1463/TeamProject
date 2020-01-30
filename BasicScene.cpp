@@ -189,6 +189,28 @@ void BasicScene::render()
 	}
 }
 
+vector<GameObject*>& BasicScene::getGameObject()
+{
+	return _gameObj;
+}
+
+void BasicScene::deleteObject(GameObject * ins)
+{
+	_gameObjIter = _gameObj.begin();
+	for (; _gameObjIter != _gameObj.end();)
+	{
+		GameObject* temp = *_gameObjIter;
+		if (temp == ins)
+		{
+			SAFE_DELETE(temp);
+			_gameObjIter = _gameObj.erase(_gameObjIter);
+			break;
+		}
+		else ++_gameObjIter;
+
+	}
+}
+
 BasicScene::BasicScene()
 {
 }

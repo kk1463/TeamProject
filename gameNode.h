@@ -1,8 +1,11 @@
 #pragma once
 #include "image.h"
-#include "TileMap.h"
+#include"tagTile.h"
 #include"GameObject.h"
-#include"PlayerManager.h"
+
+
+
+
 //백버퍼는 어차피 한개만 있으면 되니 전역으로 빼봅시당
 static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX, WINSIZEY);
 
@@ -28,16 +31,17 @@ public:
 	virtual void release();			//메모리 해제 함수
 	virtual void update();			//연산 전용 함수
 	virtual void render();			//그리기 전용 함수
-	virtual void setPlayerManager(PlayerManager* pm) {};
-	virtual PlayerManager* getPlayerManager() { return NULL; };
 	virtual void setMap();
 	virtual vector<tagTile*> getTile();
+	virtual vector<GameObject*>& getGameObject();
+	virtual void deleteObject(GameObject* ins) {}
+
 	virtual void save();
 	virtual void load();
 	virtual void setGameObj(GameObject* obj);
 	HDC getMemDC() { return _backBuffer->getMemDC(); }
 	HDC getHDC() { return _hdc; }
-
+	virtual void eraseGameObj(int num);
 	LRESULT MainProc(HWND, UINT, WPARAM, LPARAM);
 
 };

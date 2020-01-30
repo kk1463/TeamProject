@@ -2,6 +2,7 @@
 #include "Player.h"
 #include"gameNode.h"
 
+
 Player::Player()
 {
 }
@@ -9,6 +10,11 @@ Player::Player()
 
 Player::~Player()
 {
+}
+
+HRESULT Player::init()
+{
+	return S_OK;
 }
 
 HRESULT Player::init(PlayerName playername)
@@ -58,9 +64,7 @@ void Player::KeyControl()
 				if (IntersectRect(&temp, &_playerInfo.leftColRc, &_totalTile[i]->getRect())
 					&& _totalTile[i]->getAttribute() == blocking)
 				{
-					
-						_playerInfo.leftMove = false;
-					
+					_playerInfo.leftMove = false;
 					break;
 				}
 				else 
@@ -74,9 +78,8 @@ void Player::KeyControl()
 				if (IntersectRect(&temp, &_playerInfo.botColRc, &_totalTile[i]->getRect())
 					&& _totalTile[i]->getAttribute() == blocking)
 				{
-					
-						_playerInfo.downMove = false;
-					
+					_playerInfo.downMove = false;
+						
 					break;
 				}
 
@@ -94,7 +97,7 @@ void Player::KeyControl()
 				{
 					
 						_playerInfo.upMove = false;
-					
+						
 					break;
 				}
 
@@ -106,10 +109,14 @@ void Player::KeyControl()
 			}
 		
 	}
-	cout << "Player"<<_playerInfo.dirCount << endl;
+
 }
 
 void Player::PlayerStateChange()
+{
+}
+
+void Player::PlayerRectChange()
 {
 }
 

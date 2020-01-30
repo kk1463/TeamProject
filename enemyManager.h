@@ -1,23 +1,21 @@
 #pragma once
 #include <vector>
 #include "GameObject.h"
-#include "Enemy.h"
-#include "Rabbit.h"
-#include "Slime.h"
-#include "Flower.h"
-#include "Hydra_W.h"
+#include"tagTile.h"
 
+class PlayerManager;
 
-class EnemyManager : public GameObject
+class EnemyManager : public singletonBase<EnemyManager>
 {
 private:
-	typedef vector<Enemy*>				vEnemy;
-	typedef vector<Enemy*>::iterator	viEnemy;
+	typedef vector<GameObject*>				vEnemy;
+	typedef vector<GameObject*>::iterator	viEnemy;
 
 private:
 	vEnemy _vEm;
 	viEnemy _viEm;
-
+	PlayerManager* _pm;
+	
 
 
 public:
@@ -27,9 +25,17 @@ public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
-	void setEnemy(Enemy* enemy); //에너미 세팅
 
+	
+	vector<GameObject*> getEnemy() { return _vEm; }
 
+	void setEnemy(GameObject* enemy); //에너미 세팅
+
+	void setTile(vector<tagTile*> ins);
+
+	void eraseEnemy(int num) { _vEm.erase(_vEm.begin() + num); }
+
+	void setPlayerManager(PlayerManager* pm) { _pm = pm; }
 
 };
 

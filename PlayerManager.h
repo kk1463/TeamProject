@@ -5,14 +5,13 @@
 #include <vector>
 class gameNode;
 
-
-class PlayerManager 
+class PlayerManager :public singletonBase<PlayerManager>
 {
 private:
 
 	vector<Player*> _vPlayer;
+	EnemyManager* _em;
 
-	Player* _player;
 
 public:
 
@@ -20,8 +19,9 @@ public:
 	~PlayerManager();
 
 	HRESULT init();
-	
+	void update();
 	void release();
 	vector<Player*> get_vPlayer() { return _vPlayer; }
+	void collision();
 };
 

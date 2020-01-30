@@ -15,3 +15,10 @@ void Hydra::update()
 {
 	
 }
+
+HRESULT Hydra::init()
+{
+	GameObject::init();
+	Enemy::init();
+	return S_OK;
+}
