@@ -65,8 +65,6 @@ struct info
 
 class Enemy : public GameObject
 {
-	
-
 protected:
 	info en;
 	vector<tagTile*> _tiles;
@@ -80,7 +78,7 @@ public:
 	
 	virtual void setTile(vector<tagTile*> ins);
 	RECT GetEnColRc() { en.colRc; }
-	void setAddressPlayer(Player* _player) { _pl = _player; }
+	//void setAddressPlayer(Player* _player) { _pl = _player; }
 
 };
 
