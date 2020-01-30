@@ -22,5 +22,7 @@ public:
 	virtual vector<GameObject*> getGameObject();
 	BasicScene();
 	~BasicScene();
+
+	virtual void eraseGameObj(int num) { _gameObj.erase(_gameObj.begin() + num); }
 };
 

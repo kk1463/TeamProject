@@ -55,9 +55,13 @@ HRESULT playGround::init()
 	SCENEMANAGER->changeScene("stageTwo");
 
 	_pm = new PlayerManager;
+	_pm->setEnemyManager(_em);
 	_pm->init();
 	
-	
+
+	_em = new EnemyManager;
+	_em->setPlayerManager(_pm);
+	_em->init();
 
 	return S_OK;
 	
@@ -79,6 +83,7 @@ void playGround::update()
 	gameNode::update();
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
+	_pm->update();
 }
 
 
@@ -114,7 +119,10 @@ void playGround::render()
 			Rectangle(getMemDC(), _rc4);			
 		}
 	}
-	
+	if (KEYMANAGER->isOnceKeyDown('3'))
+	{
+		SCENEMANAGER->getCurrentScene()->eraseGameObj(0);
+	}
 	//Rectangle(getMemDC(), rc);
 	//cout << i << endl;
 	
