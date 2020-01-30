@@ -107,8 +107,7 @@ void playGround::render()
 			RECT _rc3 = ins[i]->getCheckRect_Right();
 			Rectangle(getMemDC(), _rc3);
 			RECT _rc4 = ins[i]->getCheckRect_Left();
-			Rectangle(getMemDC(), _rc4);
-			
+			Rectangle(getMemDC(), _rc4);			
 		}
 	}
 	
