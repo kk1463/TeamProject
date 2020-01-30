@@ -11,16 +11,16 @@ Enemy::~Enemy() // 에너미가 사라진다
 }
 HRESULT Enemy::init() // 에너미가 등장한다.
 {
-	cout << "EnemyInit" << endl; // 에너미는 끝났다
+	//cout << "EnemyInit" << endl; // 에너미는 끝났다
 	_tiles = SCENEMANAGER->getCurrentScene()->getTile();
-
 	
-
+	
 
 	en.leftMove = true;
 	en.upMove = true;
 	en.downMove = true;
 	en.rightMove = true;
+	
 
 
 	return S_OK;
@@ -47,9 +47,26 @@ void Enemy::update() // 에너미가 움직인다.
 	this->setColRect(en.colRc);
 	this->setCenter(PointMake(en.x, en.y));
 
+	_vPlayer = PLAYERMANGER->get_vPlayer();
 
 	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
 
+	for (int i = 0;i < _vPlayer.size();i++)
+	{
+		
+		RECT temp;
+		RECT rc = _vPlayer[0]->getColRect();
+		if (IntersectRect(&temp, &en.colRc, &rc))
+		{
+			hit();
+		}
+	}
+	
+	
+}
+
+void Enemy::hit()
+{
 
 }
 

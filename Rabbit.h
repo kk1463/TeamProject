@@ -9,7 +9,6 @@ class Rabbit:public Enemy
 
 	RECT rc;
 
-
 public:
 	Rabbit();
 	~Rabbit();
@@ -18,7 +17,7 @@ public:
 	virtual void update();
 	void moving();
 	void attack();
-
+	void hit();
 
 	void Collision();
 

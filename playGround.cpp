@@ -90,6 +90,11 @@ void playGround::render()
 //========================================================
 	SCENEMANAGER->render();
 
+	vector<GameObject*>ins = ENEMYMANAGER->getEnemy();
+	for (int i = 0;i < ins.size();i++)
+	{
+		
+	}
 	
 
 

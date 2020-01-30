@@ -105,11 +105,15 @@ HRESULT Rabbit::init()
 
 	en.x = WINSIZEX / 2;
 	en.y = WINSIZEY / 2;
+	en.HP = 100;
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
 	Enemy::init();
+
+
+
 
 	return S_OK;
 }
@@ -163,6 +167,9 @@ void Rabbit::update()
 	}
 
 	Collision();
+
+	
+
 }
 
 void Rabbit::moving()
@@ -204,6 +211,7 @@ void Rabbit::moving()
 		if(en.leftMove)
 		{
 		en.x -= en.SPEED;
+
 		}	
 		break;
 	case RIGHT:
@@ -287,6 +295,11 @@ void Rabbit::attack()
 		break;
 	}
 
+}
+
+void Rabbit::hit()
+{
+	
 }
 
 
