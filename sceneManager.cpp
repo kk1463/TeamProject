@@ -85,6 +85,7 @@ HRESULT sceneManager::changeScene(string sceneName)
 		{
 			ins[i]->init();
 		}
+		_currentScene->Start();
 		return S_OK;
 	}
 

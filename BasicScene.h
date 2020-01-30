@@ -8,7 +8,7 @@
 #include"Hydra_W.h"
 
 
-class BasicScene:public gameNode
+class BasicScene :public gameNode
 {
 protected:
 	vector<GameObject*> _gameObj;

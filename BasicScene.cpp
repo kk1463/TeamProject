@@ -92,7 +92,7 @@ void BasicScene::update()
 
 void BasicScene::render()
 {
-	
+
 	IMAGEMANAGER->findImage("BackGround")->render(getMemDC(), 0, 0);
 
 	for (int i = 0; i < _tiles.size(); ++i)
@@ -185,7 +185,7 @@ void BasicScene::render()
 			Rectangle(_backBuffer->getMemDC(), temp);
 		}
 
-		
+
 	}
 }
 

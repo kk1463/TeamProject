@@ -7,7 +7,7 @@
 class progressBar;
 
 
-class LoadingScene:public BasicScene
+class LoadingScene :public BasicScene
 {
 private:
 	progressBar* _loadingBar;
@@ -36,7 +36,7 @@ private:
 public:
 	LoadingScene();
 	~LoadingScene();
-	
+
 	int _currentCount;
 
 	HRESULT init();

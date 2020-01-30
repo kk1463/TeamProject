@@ -65,7 +65,7 @@ struct info
 
 class Enemy : public GameObject
 {
-	
+
 
 protected:
 	info en;
@@ -77,9 +77,9 @@ public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
-	
+
 	virtual void setTile(vector<tagTile*> ins);
 	RECT GetEnColRc() { en.colRc; }
-	
+
 };
 

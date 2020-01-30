@@ -44,6 +44,10 @@ HRESULT gameNode::init(bool managerInit)
 	return S_OK;
 }
 
+void gameNode::Start()
+{
+}
+
 void gameNode::release()
 {
 	if (_managerInit)

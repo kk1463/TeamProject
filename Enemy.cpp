@@ -14,7 +14,7 @@ HRESULT Enemy::init() // 에너미가 등장한다.
 	cout << "EnemyInit" << endl; // 에너미는 끝났다
 	_tiles = SCENEMANAGER->getCurrentScene()->getTile();
 
-	
+
 
 
 	en.leftMove = true;
@@ -35,8 +35,8 @@ void Enemy::release() // 에너미가 죽었다
 
 void Enemy::update() // 에너미가 움직인다.
 {
-	
-	
+
+
 	en.rc = RectMakeCenter(en.x, en.y, en.img->getFrameWidth(), en.img->getFrameHeight());
 	en.senseRC = RectMakeCenter(en.x, en.y, en.img->getFrameWidth() * 2, en.img->getFrameHeight() * 2);
 

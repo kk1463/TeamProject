@@ -1,6 +1,6 @@
 #pragma once
 #include"Enemy.h"
-class Rabbit:public Enemy
+class Rabbit :public Enemy
 {
 	bool move;
 	bool atk;

@@ -31,7 +31,7 @@ protected:
 	OBJECT _kinds;
 	POINT _center;
 	RECT _rc, _colRc;
-		
+
 	RECT en_colRc;		 //enemy용 체크렉트
 	RECT en_rightColRc;	 //enemy용 체크렉트
 	RECT en_leftColRc;	 //enemy용 체크렉트
@@ -43,7 +43,7 @@ protected:
 	int _frameX;
 	int _frameY;
 	animation* _ani;
-	
+
 public:
 	GameObject();
 	~GameObject();
@@ -69,7 +69,7 @@ public:
 
 	RECT getColRect() { return _colRc; }
 	void setColRect(RECT colRc) { _colRc = colRc; }
-	
+
 
 	RECT getCheckRect_Left() { return en_leftColRc; }
 	void setCheckRect_Left(RECT _en_leftColRc) { en_leftColRc = _en_leftColRc; }
@@ -80,7 +80,7 @@ public:
 	RECT getCheckRect_Bottom() { return en_botColRc; }
 	void setCheckRect_Bottom(RECT _en_botColRc) { en_botColRc = _en_botColRc; }
 
-	
+
 
 
 
@@ -88,7 +88,7 @@ public:
 	animation* getAni() { return _ani; }
 
 
-	
+
 };
 
 
