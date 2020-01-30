@@ -49,11 +49,12 @@ HRESULT playGround::init()
 	
 	
 
+	
 	SCENEMANAGER->addScene("stageOne", new StageOneScene);
 	SCENEMANAGER->addScene("Loading", new LoadingScene);
 	SCENEMANAGER->addScene("stageTwo", new StageTwoScene);
 
-	SCENEMANAGER->changeScene("stageTwo");
+	SCENEMANAGER->changeScene("Loading");
 
 	_pm = new PlayerManager;
 	_pm->init();

@@ -76,6 +76,9 @@
     <Filter Include="playGround\Object\Enemy\Boss">
       <UniqueIdentifier>{badf279a-5e9f-4ea0-b749-45605baf27b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2DGameFramework\loading">
+      <UniqueIdentifier>{b29a64b3-7da6-49fc-9d53-a712f7a1c7c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -162,9 +165,6 @@
     <ClInclude Include="StageOneScene.h">
       <Filter>playGround\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="LoadingScene.h">
-      <Filter>playGround\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>playGround\Object</Filter>
     </ClInclude>
@@ -209,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="Hydra_W.h">
       <Filter>playGround\Object\Enemy\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>playGround\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -278,9 +281,6 @@
     <ClCompile Include="PathFinder.cpp">
       <Filter>2DGameFramework\PathFinder</Filter>
     </ClCompile>
-    <ClCompile Include="LoadingScene.cpp">
-      <Filter>playGround\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="StageOneScene.cpp">
       <Filter>playGround\Scene</Filter>
     </ClCompile>
@@ -328,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="Hydra_W.cpp">
       <Filter>playGround\Object\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>playGround\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
