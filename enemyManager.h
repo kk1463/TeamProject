@@ -4,6 +4,7 @@
 #include"tagTile.h"
 
 
+
 class EnemyManager : public singletonBase<EnemyManager>
 {
 private:
@@ -14,6 +15,7 @@ private:
 	vEnemy _vEm;
 	viEnemy _viEm;
 
+	
 
 
 public:
@@ -23,6 +25,9 @@ public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
+
+	
+	vector<GameObject*> getEnemy() { return _vEm; }
 	void setEnemy(GameObject* enemy); //에너미 세팅
 
 	void setTile(vector<tagTile*> ins);
