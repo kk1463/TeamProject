@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "playGround.h"
-#include "TileMap.h"
 
 playGround::playGround()
 {
@@ -57,14 +56,9 @@ HRESULT playGround::init()
 
 	_pm = new PlayerManager;
 	_pm->init();
-	
+
 
 	return S_OK;
-
-
-	_em = new EnemyManager;
-	return S_OK;
-
 	
 
 

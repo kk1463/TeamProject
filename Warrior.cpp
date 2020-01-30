@@ -271,7 +271,7 @@ void Warrior::KeyControl()
 	}
 	if (!_playerInfo.atkState)
 	{
-		
+
 		if (KEYMANAGER->isOnceKeyDown('A'))
 		{
 
@@ -279,6 +279,7 @@ void Warrior::KeyControl()
 			_playerInfo.changeAni = true;
 			_playerInfo.atkNoMove = true;
 		}
+	
 		if (_playerInfo.atkState)
 		{
 			_playerInfo.state = P_ATK;

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+class gameNode;
 #define FPS 8
 enum EnemyState
 {
@@ -59,9 +60,8 @@ struct info
 class Enemy : public GameObject
 {
 protected:
-
 	info en;
-
+	vector<tagTile*> _tiles;
 
 public:
 	Enemy();
@@ -69,7 +69,7 @@ public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
-	
+	virtual void setTile(vector<tagTile*> ins);
 
 };
 

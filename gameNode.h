@@ -1,6 +1,6 @@
 #pragma once
 #include "image.h"
-#include "TileMap.h"
+#include"tagTile.h"
 #include"GameObject.h"
 #include"PlayerManager.h"
 
@@ -36,6 +36,8 @@ public:
 	virtual PlayerManager* getPlayerManager() { return NULL; };
 	virtual void setMap();
 	virtual vector<tagTile*> getTile();
+	virtual vector<GameObject*> getGameObject();
+
 	virtual void save();
 	virtual void load();
 	virtual void setGameObj(GameObject* obj);

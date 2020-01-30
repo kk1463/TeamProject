@@ -189,6 +189,11 @@ void BasicScene::render()
 	}
 }
 
+vector<GameObject*> BasicScene::getGameObject()
+{
+	return _gameObj;
+}
+
 BasicScene::BasicScene()
 {
 }

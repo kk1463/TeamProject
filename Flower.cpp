@@ -70,7 +70,7 @@ HRESULT Flower::init()
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
-
+	Enemy::init();
 	return S_OK;
 }
 
