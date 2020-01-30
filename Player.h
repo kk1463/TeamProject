@@ -3,6 +3,7 @@
 class gameNode;
 #define FPS 8
 
+
 enum PlayerName
 {
 	PN_WARRIOR,
@@ -26,6 +27,7 @@ enum Direction
 	P_UP,
 	P_DOWN
 };
+
 
 
 struct PlayerInfo
@@ -54,6 +56,7 @@ struct PlayerInfo
 };
 class Player : public GameObject
 {
+	Enemy* _en;
 
 protected:
 
@@ -75,5 +78,8 @@ public:
 	virtual void PlayerRectChange();
 	PlayerInfo getPlayerinfo() { return _playerInfo; }
 	RECT getColRc() { return _playerInfo.colRc; }
+
+	void setAddressPlayer(Enemy* en) { _en = en; }
+
 };
 

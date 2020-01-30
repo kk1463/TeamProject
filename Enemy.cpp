@@ -47,6 +47,9 @@ void Enemy::update() // 에너미가 움직인다.
 	this->setColRect(en.colRc);
 	this->setCenter(PointMake(en.x, en.y));
 
+	
+
+
 }
 
 void Enemy::setTile(vector<tagTile*> ins) // 에너미가 타일을 남기고 죽다.

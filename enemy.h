@@ -1,7 +1,10 @@
 #pragma once
 #include "GameObject.h"
+
+
 class gameNode;
-#define FPS 8
+
+#define FPS 10
 enum EnemyState
 {
 	Idle,
@@ -62,6 +65,8 @@ struct info
 
 class Enemy : public GameObject
 {
+	
+
 protected:
 	info en;
 	vector<tagTile*> _tiles;
@@ -72,8 +77,10 @@ public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
+	
 	virtual void setTile(vector<tagTile*> ins);
 	RECT GetEnColRc() { en.colRc; }
+	void setAddressPlayer(Player* _player) { _pl = _player; }
 
 };
 

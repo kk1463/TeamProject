@@ -313,7 +313,7 @@ void Warrior::KeyControl()
 			
 		}
 	}
-	cout << "어택카운트 : " << _playerInfo.atkCount << endl;
+	
 	Player::KeyControl();
 }
 
