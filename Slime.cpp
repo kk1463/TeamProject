@@ -50,7 +50,7 @@ HRESULT Slime::init()
 	int Slime_Dead[] = { 0,1,2,3,4,5,6,7,8 };
 	KEYANIMANAGER->addArrayFrameAnimation("S_dead", "S_dead", Slime_Dead, 9, FPS, true);
 
-	  
+
 
 	en.name = Name_Slime;
 
@@ -66,17 +66,17 @@ HRESULT Slime::init()
 	en.changeAni = true;
 	en.Ani->start();
 
-	en.x = WINSIZEX / 2+200;
-	en.y = WINSIZEY / 2-200;
+	en.x = WINSIZEX / 2 + 200;
+	en.y = WINSIZEY / 2 - 200;
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
 	Enemy::init();
 
-	
-	
-	 
+
+
+
 
 	return S_OK;
 }
@@ -106,11 +106,11 @@ void Slime::update()
 	//if (KEYMANAGER->isStayKeyDown('S'))Movecheck = 3;
 	//if (KEYMANAGER->isStayKeyDown('W'))Movecheck = 2;
 
-		   
-	if(!atk)S_move();
-	if(!atk)collision();
 
-	
+	if (!atk)S_move();
+	if (!atk)collision();
+
+
 	if (en.changeAni)
 	{
 		S_state();
@@ -118,7 +118,7 @@ void Slime::update()
 
 
 
-	
+
 
 
 
@@ -126,7 +126,7 @@ void Slime::update()
 
 void Slime::collision()
 {
-	
+
 	for (int i = 0; i < _tiles.size(); i++)
 	{
 		RECT temp;
@@ -276,20 +276,20 @@ void Slime::S_state()
 	switch (en.state)
 	{
 	case Idle:
-		
-			en.Ani = KEYANIMANAGER->findAnimation("S_idle");
-			en.img = IMAGEMANAGER->findImage("S_idle");
-			en.Ani->start();
-			en.changeAni = false;
-			break;
-		
+
+		en.Ani = KEYANIMANAGER->findAnimation("S_idle");
+		en.img = IMAGEMANAGER->findImage("S_idle");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+
 	case Run:
-		
-			en.Ani->start();
-			en.changeAni = false;
-			break;
-		
-		
+
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+
+
 	case Atk:
 		switch (en.dir)
 		{

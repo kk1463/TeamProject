@@ -11,11 +11,6 @@ StageTwoScene::~StageTwoScene()
 {
 }
 
-void StageTwoScene::Start()
-{
-	PLAYERMANGER->init();
-}
-
 HRESULT StageTwoScene::init()
 {
 	IMAGEMANAGER->addImage("Hydra", "img/Hydra.bmp", 303, 487, true, RGB(255, 0, 255));
