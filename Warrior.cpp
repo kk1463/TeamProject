@@ -74,7 +74,6 @@ void Warrior::release()
 void Warrior::update()
 {
 
-	Player::update();
 	KeyControl();
 	PlayerRectChange();
 	if (_playerInfo.changeAni)
@@ -95,13 +94,14 @@ void Warrior::update()
 	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 20, 3);
 	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 20, 3);
 
+	//_playerInfo.AtkRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+	//_playerInfo.rightAtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.topColRc.top + 20, 20, 70);
+	//_playerInfo.leftAtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.topColRc.top + 20, 20, 70);
+	//_playerInfo.topAtkRc = RectMakeCenter(_playerInfo.leftColRc.left +20, _playerInfo.topColRc.top,70,20);
+	//_playerInfo.botAtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 70, 20);
 
-	_playerInfo.rightAtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.colRc.top + 20, 20, 70);
-	_playerInfo.leftAtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.colRc.top + 20, 20, 70);
-	_playerInfo.topAtkRc = RectMakeCenter(_playerInfo.leftColRc.left +20, _playerInfo.topColRc.top,70,20);
-	_playerInfo.botAtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 70, 20);
 
-	
+	Player::update();
 }
 
 
@@ -485,22 +485,27 @@ void Warrior::PlayerRectChange()
 			break;
 		}
 		break;
+
 	case P_ATK:
 		switch (_playerInfo.direction)
 		{
 		case P_LEFT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x +70, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.topColRc.top + 20,60, 90);
 			break;
 
 		case P_RIGHT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x +50, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.topColRc.top ,60, 90);
 			break;
 
 		case P_DOWN:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 60, _playerInfo.position.y + 45, 30, 30);
+			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 90, 60);
 			break;
 		case P_UP:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.topColRc.top, 90, 60);
 			break;
 
 		}

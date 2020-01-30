@@ -53,7 +53,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Loading", new LoadingScene);
 	SCENEMANAGER->addScene("stageTwo", new StageTwoScene);
 
-	SCENEMANAGER->changeScene("Loading");
+	SCENEMANAGER->changeScene("stageTwo");
 
 	PLAYERMANGER->init();
 
@@ -91,7 +91,8 @@ void playGround::render()
 //========================================================
 	SCENEMANAGER->render();
 
-	
+	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getAtkRc();
+	Rectangle(getMemDC(), rc);
 
 
 //====================================================

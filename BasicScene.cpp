@@ -153,14 +153,14 @@ void BasicScene::render()
 		if (_gameObj[i]->getFrame() == Frame)
 		{
 			if ((_gameObj[i]->getObject() == PLAYER) ||
-				(_gameObj[i]->getObject() == RABBIT)||
-				(_gameObj[i]->getObject() == SLIME)||
+				(_gameObj[i]->getObject() == RABBIT) ||
+				(_gameObj[i]->getObject() == SLIME) ||
 				(_gameObj[i]->getObject() == FLOWER)
 				)
 			{
 				_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
 
-			
+
 			}
 			else
 			{
@@ -172,7 +172,7 @@ void BasicScene::render()
 		{
 			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y);
 		}
-		
+
 	}
 
 	//콜라이더 확인용

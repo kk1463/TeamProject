@@ -48,7 +48,7 @@ void Enemy::update() // 에너미가 움직인다.
 	this->setCenter(PointMake(en.x, en.y));
 
 
-	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
+
 
 
 }
