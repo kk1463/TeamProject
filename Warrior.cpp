@@ -126,66 +126,66 @@ void Warrior::KeyControl()
 	{
 		_playerInfo.speed = 4;
 	}
-
-
-	if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
+	if (!_playerInfo.atkNoMove)
 	{
 
-		_playerInfo.dirCount--;
-		if (_playerInfo.dirCount < 1)
+		if (KEYMANAGER->isOnceKeyUp(VK_LEFT))
 		{
-			_playerInfo.state = P_IDLE;
-			_playerInfo.direction = P_LEFT;
+
+			_playerInfo.dirCount--;
+			if (_playerInfo.dirCount < 1)
+			{
+				_playerInfo.state = P_IDLE;
+				_playerInfo.direction = P_LEFT;
+
+			}
+			_playerInfo.changeAni = true;
+
 
 		}
-		_playerInfo.changeAni = true;
-
-
-	}
-	if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
-	{
-		_playerInfo.dirCount--;
-		if (_playerInfo.dirCount < 1)
+		if (KEYMANAGER->isOnceKeyUp(VK_RIGHT))
 		{
-			_playerInfo.state = P_IDLE;
-			_playerInfo.direction = P_RIGHT;
+			_playerInfo.dirCount--;
+			if (_playerInfo.dirCount < 1)
+			{
+				_playerInfo.state = P_IDLE;
+				_playerInfo.direction = P_RIGHT;
+
+			}
+			_playerInfo.changeAni = true;
 
 		}
-		_playerInfo.changeAni = true;
 
-	}
-
-	if (KEYMANAGER->isOnceKeyUp(VK_UP))
-	{
-		_playerInfo.dirCount--;
-		if (_playerInfo.dirCount < 1)
+		if (KEYMANAGER->isOnceKeyUp(VK_UP))
 		{
-			_playerInfo.state = P_IDLE;
-			_playerInfo.direction = P_UP;
+			_playerInfo.dirCount--;
+			if (_playerInfo.dirCount < 1)
+			{
+				_playerInfo.state = P_IDLE;
+				_playerInfo.direction = P_UP;
+
+			}
+			_playerInfo.changeAni = true;
 
 		}
-		_playerInfo.changeAni = true;
 
-	}
-
-	if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
-	{
-		_playerInfo.dirCount--;
-
-		if (_playerInfo.dirCount < 1)
+		if (KEYMANAGER->isOnceKeyUp(VK_DOWN))
 		{
-			_playerInfo.state = P_IDLE;
-			_playerInfo.direction = P_DOWN;
+			_playerInfo.dirCount--;
+
+			if (_playerInfo.dirCount < 1)
+			{
+				_playerInfo.state = P_IDLE;
+				_playerInfo.direction = P_DOWN;
+
+			}
+			_playerInfo.changeAni = true;
 
 		}
-		_playerInfo.changeAni = true;
 
-	}
-
-	if (_playerInfo.movecheck)
-	{
-		if (!_playerInfo.atkNoMove)
+		if (_playerInfo.movecheck)
 		{
+
 			if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
 			{
 
@@ -266,6 +266,7 @@ void Warrior::KeyControl()
 					_playerInfo.position.y += _playerInfo.speed;
 				}
 			}
+
 		}
 	}
 	if (!_playerInfo.atkState)
@@ -290,7 +291,7 @@ void Warrior::KeyControl()
 	if (_playerInfo.atkState)
 	{
 		_playerInfo.atkCount++;
-		if (_playerInfo.atkCount > 30)
+		if (_playerInfo.atkCount > 27)
 		{
 			if (KEYMANAGER->isStayKeyDown(VK_LEFT)||
 				KEYMANAGER->isStayKeyDown(VK_RIGHT) || 
