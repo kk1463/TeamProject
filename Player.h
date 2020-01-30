@@ -70,6 +70,7 @@ public:
 	virtual void update();
 	virtual void KeyControl();
 	virtual void PlayerStateChange();
+	virtual void PlayerRectChange();
 	PlayerInfo getPlayerinfo() { return _playerInfo; }
 	RECT getColRc() { return _playerInfo.colRc; }
 };

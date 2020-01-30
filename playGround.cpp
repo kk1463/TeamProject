@@ -91,7 +91,7 @@ void playGround::render()
 	SCENEMANAGER->render();
 	
 	RECT rc=_pm->get_vPlayer()[0]->getColRc();
-	//Rectangle(getMemDC(), rc);
+	Rectangle(getMemDC(), rc);
 //====================================================
 	_backBuffer->render(getHDC(), 0, 0);
 }
