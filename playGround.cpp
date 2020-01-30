@@ -77,6 +77,7 @@ void playGround::update()
 	gameNode::update();
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
+	PLAYERMANGER->update();
 }
 
 

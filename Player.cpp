@@ -20,6 +20,7 @@ HRESULT Player::init()
 HRESULT Player::init(PlayerName playername)
 {
 	_totalTile = SCENEMANAGER->getCurrentScene()->getTile();
+	_vEnemy = ENEMYMANAGER->getEnemy();
 	return S_OK;
 
 }
@@ -30,7 +31,18 @@ void Player::release()
 
 void Player::update()
 {
-	
+	if (_playerInfo.atkState)
+	{
+		for (int i = 0;i < _vEnemy.size();i++)
+		{
+			RECT rc = _vEnemy[i]->getColRect();
+			RECT temp;
+			if (IntersectRect(&temp,&rc,&_playerInfo.rightColRc))
+			{
+				cout << _vEnemy[i]->getObject() << endl;
+			}
+		}
+	}
 }
 
 
