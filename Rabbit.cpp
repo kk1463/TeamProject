@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Rabbit.h"
 
-
 Rabbit::Rabbit()
 {
 }
@@ -96,8 +95,10 @@ HRESULT Rabbit::init()
 
 	Movecheck = RND->getFromIntTo(0, 4);
 	count = 0;
-	move = true;
-	atk = false;
+	en.move = true;
+	en.atk = false;
+	en.hit = false;
+	en.dead = false;
 
 
 	en.changeAni = true;
@@ -139,10 +140,30 @@ void Rabbit::update()
 	this->setCheckRect_Top(en.topColRc);
 	this->setCheckRect_Bottom(en.botColRc);
 
+	if (en.atk)
+	{
+		en.move = false;
+	}	
+	if (en.hit)
+	{
+		en.move = false;
+		en.atk = false;
+	}
+	else
+		en.move = true;
+	
+	if (!en.move)
+	{
+		en.leftMove = false;
+		en.rightMove = false;
+		en.upMove = false;
+		en.downMove = false;
+	}
+	
 
-	if (!atk)moving();
-
-	if (atk)attack();
+	if (en.move)moving();
+	if (en.atk)attack();
+	if (en.hit)hit();
 
 
 	if (en.changeAni)
@@ -159,15 +180,16 @@ void Rabbit::update()
 	RECT temp;
 	if (!IntersectRect(&temp, &en.senseRC, &rc))
 	{
-		atk = false;
+		en.atk = false;
 	}
 	if (IntersectRect(&temp, &en.senseRC, &rc))
 	{
-		atk = true;
+		en.atk = true;
 	}
 
 	Collision();
 
+	
 	
 
 }
@@ -199,10 +221,7 @@ void Rabbit::moving()
 		en.changeAni = true;
 		Movecheck = RND->getFromIntTo(0, 4);
 		count = 0;
-	}
-
-
-
+	}	   
 	switch (en.dir)
 	{
 	case LEFT:
@@ -211,7 +230,6 @@ void Rabbit::moving()
 		if(en.leftMove)
 		{
 		en.x -= en.SPEED;
-
 		}	
 		break;
 	case RIGHT:
@@ -239,9 +257,6 @@ void Rabbit::moving()
 		}
 		break;
 	}
-
-
-
 }
 
 void Rabbit::attack()
@@ -300,6 +315,66 @@ void Rabbit::attack()
 void Rabbit::hit()
 {
 	
+	en.state = Dmg;
+	en.SPEED = -2.0f;
+
+	count++;
+	if (Movecheck == 0)
+	{
+		en.dir = LEFT;
+	}
+	if (Movecheck == 1)
+	{
+		en.dir = RIGHT;
+	}
+	if (Movecheck == 2)
+	{
+		en.dir = UP;
+	}
+	if (Movecheck == 3)
+	{
+		en.dir = DOWN;
+	}
+	if (count >= 60)
+	{
+		en.changeAni = true;		
+		count = 0;
+	}
+	   	 
+	switch (en.dir)
+	{
+	case LEFT:
+		en.img = IMAGEMANAGER->findImage("R_dmg_left");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Left");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case RIGHT:
+		en.img = IMAGEMANAGER->findImage("R_dmg_right");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Right");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case DOWN:
+		en.img = IMAGEMANAGER->findImage("R_dmg_down");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Down");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case UP:
+		en.img = IMAGEMANAGER->findImage("R_dmg_up");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Up");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	}
+	
+}
+
+void Rabbit::trace()
+{
+	en.x -= -cosf(getPlayerAngle)*en.SPEED;
+	en.y -= sinf(getPlayerAngle)*en.SPEED;
 }
 
 
@@ -423,26 +498,22 @@ void Rabbit::R_state()
 		switch (en.dir)
 		{
 		case LEFT:
-			//en.Ani = KEYANIMANAGER->findAnimation("R_run_Left");
-			//en.img = IMAGEMANAGER->findImage("R_run_left");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case RIGHT:
-			//en.Ani = KEYANIMANAGER->findAnimation("R_run_Right");
-			//en.img = IMAGEMANAGER->findImage("R_run_right");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case DOWN:
-			//en.Ani = KEYANIMANAGER->findAnimation("R_run_Down");
-			//en.img = IMAGEMANAGER->findImage("R_run_down");
+		
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case UP:
-			//en.Ani = KEYANIMANAGER->findAnimation("R_run_Up");
-			//en.img = IMAGEMANAGER->findImage("R_run_up");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
@@ -481,26 +552,26 @@ void Rabbit::R_state()
 		switch (en.dir)
 		{
 		case LEFT:
-			en.img = IMAGEMANAGER->findImage("R_dmg_left");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Left");
+			//en.img = IMAGEMANAGER->findImage("R_dmg_left");
+			//en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Left");
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case RIGHT:
-			en.img = IMAGEMANAGER->findImage("R_dmg_right");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Right");
+			//en.img = IMAGEMANAGER->findImage("R_dmg_right");
+			//en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Right");
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case DOWN:
-			en.img = IMAGEMANAGER->findImage("R_dmg_down");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Down");
+			//en.img = IMAGEMANAGER->findImage("R_dmg_down");
+			//en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Down");
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case UP:
-			en.img = IMAGEMANAGER->findImage("R_dmg_up");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Up");
+			//en.img = IMAGEMANAGER->findImage("R_dmg_up");
+			//en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Up");
 			en.Ani->start();
 			en.changeAni = false;
 			break;
