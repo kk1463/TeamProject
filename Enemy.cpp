@@ -46,6 +46,9 @@ void Enemy::update()
 	this->setColRect(en.colRc);
 	this->setCenter(PointMake(en.x, en.y));
 
+	
+
+
 }
 
 void Enemy::setTile(vector<tagTile*> ins)

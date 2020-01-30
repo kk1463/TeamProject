@@ -20,7 +20,7 @@ public:
 	void attack();
 
 
-
+	void Collision();
 
 	void R_state();
 	void R_control();
