@@ -32,19 +32,24 @@ void TileMap::loadObj(string FileName,string StageName)
 	for (int i = 0; i < size / sizeof(OBJSTRUCT); i++)
 	{
 		bool check = false;
+		bool enemyCheck = false;
 		switch (ins[i].kinds)
 		{
 		case HYDRA:
 			obj = new Hydra;
+			enemyCheck = true;
 			break;
 		case RABBIT:
 			obj = new Rabbit;
+			enemyCheck = true;
 			break;
 		case SLIME:
 			obj = new Slime;
+			enemyCheck = true;
 			break; 
 		case FLOWER:
 			obj = new Flower;
+			enemyCheck = true;
 			break;
 		case PLAYER:
 			check = true;
@@ -53,9 +58,16 @@ void TileMap::loadObj(string FileName,string StageName)
 			obj = new GameObject;
 			break;
 		}
-		if(!check)
-		settingObj(obj, ins[i]);
+		if (!check)
+		{
+			settingObj(obj, ins[i]);
+		}
+		if (enemyCheck)
+		{
+			ENEMYMANAGER->setEnemy(obj);
+		}
 		SCENEMANAGER->findScene(StageName)->setGameObj(obj);
+		
 	}
 	CloseHandle(file);
 }

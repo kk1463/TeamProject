@@ -210,6 +210,9 @@
     <ClInclude Include="Hydra_W.h">
       <Filter>playGround\Object\Enemy\Boss</Filter>
     </ClInclude>
+    <ClInclude Include="tagTile.h">
+      <Filter>playGround\MapManager\Tile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -328,6 +331,9 @@
     </ClCompile>
     <ClCompile Include="Hydra_W.cpp">
       <Filter>playGround\Object\Enemy\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="tagTile.cpp">
+      <Filter>playGround\MapManager\Tile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,6 +19,7 @@ public:
 	virtual void update();
 	virtual void render();
 	virtual vector<tagTile*> getTile() { return _tiles; }
+	virtual vector<GameObject*> getGameObject();
 	BasicScene();
 	~BasicScene();
 };

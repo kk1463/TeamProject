@@ -11,6 +11,11 @@ Player::~Player()
 {
 }
 
+HRESULT Player::init()
+{
+	return S_OK;
+}
+
 HRESULT Player::init(PlayerName playername)
 {
 	_totalTile = SCENEMANAGER->getCurrentScene()->getTile();
@@ -106,7 +111,6 @@ void Player::KeyControl()
 			}
 		
 	}
-	cout << "Player"<<_playerInfo.dirCount << endl;
 }
 
 void Player::PlayerStateChange()

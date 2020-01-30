@@ -80,7 +80,11 @@ HRESULT sceneManager::changeScene(string sceneName)
 
 		//현재 씬에 바꾸려는 씬을 담는다
 		_currentScene = find->second;
-
+		vector<GameObject*> ins = _currentScene->getGameObject();
+		for (int i = 0; i < ins.size(); i++)
+		{
+			ins[i]->init();
+		}
 		return S_OK;
 	}
 

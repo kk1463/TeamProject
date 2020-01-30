@@ -1,5 +1,4 @@
 #pragma once
-
 enum frameImage
 {
 	Frame,
@@ -35,7 +34,7 @@ protected:
 	int _frameX;
 	int _frameY;
 	animation* _ani;
-
+	
 public:
 	GameObject();
 	~GameObject();
@@ -67,6 +66,7 @@ public:
 	animation* getAni() { return _ani; }
 
 
+	
 };
 
 

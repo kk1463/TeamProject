@@ -61,6 +61,7 @@ public:
 	Player();
 	~Player();
 
+	virtual HRESULT init();
 	virtual HRESULT init(PlayerName playername);
 	virtual void release();
 	virtual void update();

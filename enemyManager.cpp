@@ -31,9 +31,17 @@ void EnemyManager::update()
 	}
 }
 
-void EnemyManager::setEnemy(Enemy* enemy)
+void EnemyManager::setEnemy(GameObject* enemy)
 {
 	_vEm.push_back(enemy);
+}
+
+void EnemyManager::setTile(vector<tagTile*> ins)
+{
+	for (int i = 0; i < _vEm.size(); i++)
+	{
+		((Enemy*)_vEm[i])->setTile(ins);
+	}
 }
 
 

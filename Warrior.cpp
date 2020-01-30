@@ -274,7 +274,6 @@ void Warrior::KeyControl()
 
 		///////////////
 
-		cout <<"Warrior"<< _playerInfo.direction << endl;
 		Player::KeyControl();
 
 	

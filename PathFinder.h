@@ -1,6 +1,6 @@
 #pragma once
 #include <deque>
-#include"TileMap.h"
+#include"tagTile.h"
 #include<functional>
 //각 지점에 대한 평가 함수 = 출발에서 n까지 + n부터 목표까지
 //f(n) = g(n) + h(n)
