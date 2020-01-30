@@ -17,6 +17,8 @@ protected:
 public:
 	virtual void setGameObj(GameObject* obj);
 	void settingObj(GameObject* ins, OBJSTRUCT obj) {};
+
+	virtual void Start();
 	virtual void update();
 	virtual void render();
 	virtual vector<tagTile*> getTile() { return _tiles; }

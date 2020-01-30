@@ -70,6 +70,11 @@ void BasicScene::setGameObj(GameObject* obj)
 
 
 
+void BasicScene::Start()
+{
+	PLAYERMANGER->init();
+}
+
 void BasicScene::update()
 {
 	for (int i = 0; i < _gameObj.size(); i++)

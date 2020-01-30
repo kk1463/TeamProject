@@ -9,8 +9,10 @@ private:
 public:
 	StageOneScene();
 	~StageOneScene();
-
+	virtual void Start();
 	virtual HRESULT init();
 	virtual void render();
+
+	virtual void release();
 };
 

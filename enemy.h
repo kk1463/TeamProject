@@ -77,6 +77,9 @@ public:
 	virtual void update();
 	
 	virtual void setTile(vector<tagTile*> ins);
-	RECT GetEnColRc() { en.colRc; 
+	RECT GetEnColRc() 
+	{
+		en.colRc;
+	}
 };
 
