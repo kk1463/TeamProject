@@ -6,6 +6,8 @@
 #include"Hydra.h"
 #include"Flower.h"
 #include"Hydra_W.h"
+#include"Hydra_S.h"
+#include"Hydra_F.h"
 
 class BasicScene:public gameNode
 {

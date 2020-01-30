@@ -18,6 +18,7 @@ HRESULT PlayerManager::init()
 	_warrior->init(PN_WARRIOR);
 	_vPlayer.push_back(_warrior);
 	SCENEMANAGER->getCurrentScene()->setGameObj(_warrior);
+	cout << _vPlayer.size() << endl;
 	return S_OK;
 }
 
@@ -32,19 +33,20 @@ void PlayerManager::release()
 
 void PlayerManager::collision()
 {
-	RECT temp;
+	cout << _vPlayer.size() << endl;
 	vector<GameObject*>& objs = SCENEMANAGER->getCurrentScene()->getGameObject();
 	vector<GameObject*>::iterator Iter = objs.begin();
 	for (; Iter != objs.end();)
 	{
 		GameObject* temp = *Iter;
-		if (PtInRect(&temp->getColRect(), _ptMouse)&&temp->getObject()!=PLAYER)
+		
+		if (PtInRect(&temp->getColRect(), _ptMouse)&&temp->getObject()!=PLAYER)		
 		{
-			SCENEMANAGER->getCurrentScene()->deleteObject(temp);
+			cout << "Ãæµ¹!" << endl;
+			//SCENEMANAGER->getCurrentScene()->deleteObject(temp);
 			break;
 		}
 		else ++Iter;
-
 	}
 
 

@@ -38,7 +38,7 @@ protected:
 	RECT en_topColRc;	 //enemy용 체크렉트
 	RECT en_botColRc;	 //enemy용 체크렉트
 
-	RECT checkRc[4];
+	
 
 	int _frameX;
 	int _frameY;
