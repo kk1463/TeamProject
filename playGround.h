@@ -4,10 +4,6 @@
 #include"StageOneScene.h"
 #include"StageTwoScene.h"
 
-#include"PlayerManager.h"
-
-#include "EnemyManager.h"
-
 
 
 
@@ -24,9 +20,6 @@ class playGround : public gameNode
 {
 private:
 
-	PlayerManager* _pm;
-
-	EnemyManager* _em;
 
 public:
 	virtual HRESULT init();

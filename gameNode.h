@@ -2,7 +2,6 @@
 #include "image.h"
 #include"tagTile.h"
 #include"GameObject.h"
-#include"PlayerManager.h"
 
 
 
@@ -32,8 +31,6 @@ public:
 	virtual void release();			//메모리 해제 함수
 	virtual void update();			//연산 전용 함수
 	virtual void render();			//그리기 전용 함수
-	virtual void setPlayerManager(PlayerManager* pm) {};
-	virtual PlayerManager* getPlayerManager() { return NULL; };
 	virtual void setMap();
 	virtual vector<tagTile*> getTile();
 	virtual vector<GameObject*>& getGameObject();

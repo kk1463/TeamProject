@@ -2,15 +2,16 @@
 #include "Enemy.h"
 #include"gameNode.h"
 
-Enemy::Enemy()
+Enemy::Enemy() //에너미이다.
 {
 }
 
-Enemy::~Enemy()
+Enemy::~Enemy() // 에너미가 사라진다
 {
 }
-HRESULT Enemy::init()
+HRESULT Enemy::init() // 에너미가 등장한다.
 {
+	cout << "EnemyInit" << endl; // 에너미는 끝났다
 	_tiles = SCENEMANAGER->getCurrentScene()->getTile();
 
 	
@@ -26,13 +27,13 @@ HRESULT Enemy::init()
 }
 
 
-void Enemy::release()
+void Enemy::release() // 에너미가 죽었다
 {
 }
 
 
 
-void Enemy::update()
+void Enemy::update() // 에너미가 움직인다.
 {
 	
 	
@@ -46,9 +47,11 @@ void Enemy::update()
 	this->setColRect(en.colRc);
 	this->setCenter(PointMake(en.x, en.y));
 
+
+
 }
 
-void Enemy::setTile(vector<tagTile*> ins)
+void Enemy::setTile(vector<tagTile*> ins) // 에너미가 타일을 남기고 죽다.
 {
 	_tiles = ins;
 }

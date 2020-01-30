@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Slime.h"
 
-
 Slime::Slime()
 {
 }
@@ -51,10 +50,7 @@ HRESULT Slime::init()
 	int Slime_Dead[] = { 0,1,2,3,4,5,6,7,8 };
 	KEYANIMANAGER->addArrayFrameAnimation("S_dead", "S_dead", Slime_Dead, 9, FPS, true);
 
-
-
-
-
+	  
 
 	en.name = Name_Slime;
 
@@ -62,6 +58,11 @@ HRESULT Slime::init()
 
 	en.img = IMAGEMANAGER->findImage("S_idle");
 	en.Ani = KEYANIMANAGER->findAnimation("S_idle");
+
+	count = 0;
+	move = true;
+	atk = false;
+
 	en.changeAni = true;
 	en.Ani->start();
 
@@ -72,6 +73,10 @@ HRESULT Slime::init()
 	this->setAni(en.Ani);
 
 	Enemy::init();
+
+	
+	
+	 
 
 	return S_OK;
 }
@@ -95,6 +100,292 @@ void Slime::update()
 
 	Enemy::update();
 
+	//테스트 움직이기 용
+	//if (KEYMANAGER->isStayKeyDown('A'))Movecheck = 0;
+	//if (KEYMANAGER->isStayKeyDown('D'))Movecheck = 1;
+	//if (KEYMANAGER->isStayKeyDown('S'))Movecheck = 3;
+	//if (KEYMANAGER->isStayKeyDown('W'))Movecheck = 2;
 
+		   
+	if(!atk)S_move();
+	if(!atk)collision();
+
+	
+	if (en.changeAni)
+	{
+		S_state();
+	}
+
+
+
+	
+
+
+
+}
+
+void Slime::collision()
+{
+	
+	for (int i = 0; i < _tiles.size(); i++)
+	{
+		RECT temp;
+		if (en.dir == RIGHT)
+		{
+			if (IntersectRect(&temp, &en.rightColRc, &_tiles[i]->getRect())
+				&& _tiles[i]->getAttribute() == blocking)
+			{
+				en.rightMove = false;
+				break;
+			}
+			else
+			{
+				en.rightMove = true;
+			}
+		}
+		if (en.dir == LEFT)
+		{
+			if (IntersectRect(&temp, &en.leftColRc, &_tiles[i]->getRect())
+				&& _tiles[i]->getAttribute() == blocking)
+			{
+				en.leftMove = false;
+				break;
+			}
+			else
+			{
+				en.leftMove = true;
+			}
+		}
+		if (en.dir == DOWN)
+		{
+			if (IntersectRect(&temp, &en.botColRc, &_tiles[i]->getRect())
+				&& _tiles[i]->getAttribute() == blocking)
+			{
+				en.downMove = false;
+
+				break;
+			}
+
+			else
+			{
+
+				en.downMove = true;
+			}
+		}
+		if (en.dir == UP)
+		{
+			if (IntersectRect(&temp, &en.topColRc, &_tiles[i]->getRect())
+				&& _tiles[i]->getAttribute() == blocking)
+			{
+
+				en.upMove = false;
+				break;
+			}
+
+			else
+			{
+				en.upMove = true;
+
+			}
+		}
+	}
+}
+
+void Slime::S_move()
+{
+	en.state = Run;
+	en.SPEED = 1.7F;
+
+	count++;
+	if (Movecheck == 0)
+	{
+		en.dir = LEFT;
+	}
+	if (Movecheck == 1)
+	{
+		en.dir = RIGHT;
+	}
+	if (Movecheck == 2)
+	{
+		en.dir = UP;
+	}
+	if (Movecheck == 3)
+	{
+		en.dir = DOWN;
+	}
+	if (count >= 80)
+	{
+		en.changeAni = true;
+		Movecheck = RND->getFromIntTo(0, 4); //공격 테스트를 위해 잠시 잠굼
+		count = 0;
+	}
+
+
+
+	switch (en.dir)
+	{
+	case LEFT:
+		en.Ani = KEYANIMANAGER->findAnimation("S_Run");
+		en.img = IMAGEMANAGER->findImage("S_Run");
+		if (en.leftMove)
+		{
+			en.x -= en.SPEED;
+		}
+		break;
+	case RIGHT:
+		en.Ani = KEYANIMANAGER->findAnimation("S_Run");
+		en.img = IMAGEMANAGER->findImage("S_Run");
+		if (en.rightMove)
+		{
+			en.x += en.SPEED;
+		}
+		break;
+	case DOWN:
+		en.Ani = KEYANIMANAGER->findAnimation("S_Run");
+		en.img = IMAGEMANAGER->findImage("S_Run");
+		if (en.downMove)
+		{
+			en.y += en.SPEED;
+		}
+		break;
+	case UP:
+		en.Ani = KEYANIMANAGER->findAnimation("S_Run");
+		en.img = IMAGEMANAGER->findImage("S_Run");
+		if (en.upMove)
+		{
+			en.y -= en.SPEED;
+		}
+		break;
+	}
+}
+
+void Slime::S_state()
+{
+	switch (en.dir)
+	{
+	case LEFT:
+		break;
+	case RIGHT:
+		break;
+	case DOWN:
+		break;
+	case UP:
+		break;
+	}
+
+	switch (en.state)
+	{
+	case Idle:
+		
+			en.Ani = KEYANIMANAGER->findAnimation("S_idle");
+			en.img = IMAGEMANAGER->findImage("S_idle");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		
+	case Run:
+		
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		
+		
+	case Atk:
+		switch (en.dir)
+		{
+		case LEFT:
+			//en.img = IMAGEMANAGER->findImage("R_atk_left");
+			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Left");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case RIGHT:
+			//en.img = IMAGEMANAGER->findImage("R_atk_right");
+			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Right");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case DOWN:
+			//en.img = IMAGEMANAGER->findImage("R_atk_down");
+			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Down");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case UP:
+			//en.img = IMAGEMANAGER->findImage("R_atk_up");
+			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Up");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		}
+		break;
+	case Dmg:
+		switch (en.dir)
+		{
+		case LEFT:
+			en.img = IMAGEMANAGER->findImage("R_dmg_left");
+			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Left");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case RIGHT:
+			en.img = IMAGEMANAGER->findImage("R_dmg_right");
+			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Right");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case DOWN:
+			en.img = IMAGEMANAGER->findImage("R_dmg_down");
+			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Down");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case UP:
+			en.img = IMAGEMANAGER->findImage("R_dmg_up");
+			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Up");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		}
+		break;
+	case Dead:
+		switch (en.dir)
+		{
+		case LEFT:
+			en.img = IMAGEMANAGER->findImage("R_dead_Left");
+			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case RIGHT:
+			en.img = IMAGEMANAGER->findImage("R_dead_Right");
+			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case DOWN:
+			en.img = IMAGEMANAGER->findImage("R_dead_Left");
+			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		case UP:
+			en.img = IMAGEMANAGER->findImage("R_dead_Right");
+			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
+			en.Ani->start();
+			en.changeAni = false;
+			break;
+		}
+
+		break;
+	case deadEffect:
+		en.img = IMAGEMANAGER->findImage("R_deadEffect");
+		en.Ani = KEYANIMANAGER->findAnimation("R_deadEffect");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	default:
+		break;
+	}
 }
 

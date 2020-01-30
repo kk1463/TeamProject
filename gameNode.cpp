@@ -38,6 +38,7 @@ HRESULT gameNode::init(bool managerInit)
 		SCENEMANAGER->init();
 		KEYANIMANAGER->init();
 		ENEMYMANAGER->init();
+
 	}
 
 	return S_OK;

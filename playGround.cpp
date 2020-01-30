@@ -54,14 +54,8 @@ HRESULT playGround::init()
 
 	SCENEMANAGER->changeScene("stageTwo");
 
-	_pm = new PlayerManager;
-	_pm->setEnemyManager(_em);
-	_pm->init();
-	
+	PLAYERMANGER->init();
 
-	_em = new EnemyManager;
-	_em->setPlayerManager(_pm);
-	_em->init();
 
 	return S_OK;
 	
@@ -83,7 +77,6 @@ void playGround::update()
 	gameNode::update();
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
-	_pm->update();
 }
 
 
@@ -96,35 +89,6 @@ void playGround::render()
 //========================================================
 	SCENEMANAGER->render();
 
-	RECT rc=_pm->get_vPlayer()[0]->getColRc();
-	Rectangle(getMemDC(), rc);
-
-	if (KEYMANAGER->isToggleKey('2'))
-	{
-		RECT rc = _pm->get_vPlayer()[0]->getColRc();
-		Rectangle(getMemDC(), rc);
-
-		vector<GameObject*> ins = ENEMYMANAGER->getEnemy();
-		for (int i = 0;i < ins.size();i++)
-		{
-			RECT _rc = ins[i]->getColRect();
-			Rectangle(getMemDC(), _rc);
-			RECT _rc1 = ins[i]->getCheckRect_Bottom();
-			Rectangle(getMemDC(), _rc1);
-			RECT _rc2 = ins[i]->getCheckRect_Top();
-			Rectangle(getMemDC(), _rc2);
-			RECT _rc3 = ins[i]->getCheckRect_Right();
-			Rectangle(getMemDC(), _rc3);
-			RECT _rc4 = ins[i]->getCheckRect_Left();
-			Rectangle(getMemDC(), _rc4);			
-		}
-	}
-	if (KEYMANAGER->isOnceKeyDown('3'))
-	{
-		SCENEMANAGER->getCurrentScene()->eraseGameObj(0);
-	}
-	//Rectangle(getMemDC(), rc);
-	//cout << i << endl;
 	
 
 
