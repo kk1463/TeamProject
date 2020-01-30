@@ -63,9 +63,7 @@ void Player::KeyControl()
 				if (IntersectRect(&temp, &_playerInfo.leftColRc, &_totalTile[i]->getRect())
 					&& _totalTile[i]->getAttribute() == blocking)
 				{
-					
-						_playerInfo.leftMove = false;
-					
+					_playerInfo.leftMove = false;
 					break;
 				}
 				else 
@@ -79,9 +77,8 @@ void Player::KeyControl()
 				if (IntersectRect(&temp, &_playerInfo.botColRc, &_totalTile[i]->getRect())
 					&& _totalTile[i]->getAttribute() == blocking)
 				{
-					
-						_playerInfo.downMove = false;
-					
+					_playerInfo.downMove = false;
+						
 					break;
 				}
 
@@ -99,7 +96,7 @@ void Player::KeyControl()
 				{
 					
 						_playerInfo.upMove = false;
-					
+						
 					break;
 				}
 
@@ -111,6 +108,7 @@ void Player::KeyControl()
 			}
 		
 	}
+
 }
 
 void Player::PlayerStateChange()
