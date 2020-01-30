@@ -29,6 +29,7 @@ using namespace std;
 #include "TileMap.h"
 #include"PathFinder.h"
 #include"enemyManager.h"
+#include"PlayerManager.h"
 using namespace SEVENTEEN_UTIL;
 
 //=========================================
@@ -55,6 +56,7 @@ using namespace SEVENTEEN_UTIL;
 #define TILEMANAGER TileMap::getSingleton()
 #define PATHFINDER PathFinder::getSingleton()
 #define ENEMYMANAGER EnemyManager::getSingleton()
+#define PLAYERMANGER PlayerManager::getSingleton()
 
 #define SAFE_DELETE(p) {if(p) {delete(p); (p)=NULL;}}
 #define SAFE_RELEASE(p) {if(p) {(p)->release(); (p) = NULL;}}

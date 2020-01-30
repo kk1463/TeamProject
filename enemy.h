@@ -77,8 +77,6 @@ public:
 	virtual void update();
 	
 	virtual void setTile(vector<tagTile*> ins);
-	RECT GetEnColRc() { en.colRc; }
-	//void setAddressPlayer(Player* _player) { _pl = _player; }
-
+	RECT GetEnColRc() { en.colRc; 
 };
 

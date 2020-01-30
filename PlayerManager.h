@@ -4,9 +4,8 @@
 
 #include <vector>
 class gameNode;
-class EnemyManager;
 
-class PlayerManager 
+class PlayerManager :public singletonBase<PlayerManager>
 {
 private:
 
@@ -23,7 +22,6 @@ public:
 	void update();
 	void release();
 	vector<Player*> get_vPlayer() { return _vPlayer; }
-	void setEnemyManager(EnemyManager* em) { _em = em; }
 	void collision();
 };
 

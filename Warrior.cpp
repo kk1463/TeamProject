@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Warrior.h"
-
+#include"gameNode.h"
 
 Warrior::Warrior()
 {
@@ -74,7 +74,7 @@ void Warrior::release()
 void Warrior::update()
 {
 
-	
+	Player::update();
 	KeyControl();
 	PlayerRectChange();
 	if (_playerInfo.changeAni)
@@ -90,10 +90,18 @@ void Warrior::update()
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
 
 	this->setColRect(_playerInfo.colRc);
-	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right+2, _playerInfo.colRc.top + 20,3, 20);
+	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right+2, _playerInfo.colRc.top + 20, 3, 20);
 	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left-2 , _playerInfo.colRc.top + 20, 3, 20);
 	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left +20, _playerInfo.colRc.top-2 , 20, 3);
 	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom+2, 20, 3);
+
+
+	_playerInfo.rightAtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.colRc.top + 20, 20, 70);
+	_playerInfo.leftAtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.colRc.top + 20, 20, 70);
+	_playerInfo.topAtkRc = RectMakeCenter(_playerInfo.leftColRc.left +20, _playerInfo.topColRc.top,70,20);
+	_playerInfo.botAtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 70, 20);
+
+	
 }
 
 
