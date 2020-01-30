@@ -9,6 +9,8 @@
 #include "EnemyManager.h"
 
 
+
+
 #ifdef UNICODE
 #pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console")
 #else
@@ -24,10 +26,7 @@ private:
 
 	PlayerManager* _pm;
 
-
 	EnemyManager* _em;
-
-
 
 public:
 	virtual HRESULT init();

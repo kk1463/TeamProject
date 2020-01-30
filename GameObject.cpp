@@ -17,7 +17,7 @@ void GameObject::update()
 
 HRESULT GameObject::init()
 {
-	cout << "GameObjectInit" << endl;
+	//cout << "GameObjectInit" << endl;
 	switch (_kinds)
 	{
 	case HYDRA:

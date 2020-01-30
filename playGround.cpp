@@ -56,7 +56,8 @@ HRESULT playGround::init()
 
 	_pm = new PlayerManager;
 	_pm->init();
-
+	
+	
 
 	return S_OK;
 	
@@ -89,6 +90,32 @@ void playGround::render()
 	PatBlt(getMemDC(), 0, 0, 3, WINSIZEY, WHITENESS);
 //========================================================
 	SCENEMANAGER->render();
+	if (KEYMANAGER->isToggleKey('2'))
+	{
+		RECT rc = _pm->get_vPlayer()[0]->getColRc();
+		Rectangle(getMemDC(), rc);
+
+		vector<GameObject*> ins = ENEMYMANAGER->getEnemy();
+		for (int i = 0;i < ins.size();i++)
+		{
+			RECT _rc = ins[i]->getColRect();
+			Rectangle(getMemDC(), _rc);
+			RECT _rc1 = ins[i]->getCheckRect_Bottom();
+			Rectangle(getMemDC(), _rc1);
+			RECT _rc2 = ins[i]->getCheckRect_Top();
+			Rectangle(getMemDC(), _rc2);
+			RECT _rc3 = ins[i]->getCheckRect_Right();
+			Rectangle(getMemDC(), _rc3);
+			RECT _rc4 = ins[i]->getCheckRect_Left();
+			Rectangle(getMemDC(), _rc4);
+			
+		}
+	}
+	
+	//Rectangle(getMemDC(), rc);
+	//cout << i << endl;
+	
+
 //====================================================
 	_backBuffer->render(getHDC(), 0, 0);
 }
