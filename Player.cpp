@@ -21,6 +21,7 @@ HRESULT Player::init(PlayerName playername)
 {
 	_totalTile = SCENEMANAGER->getCurrentScene()->getTile();
 	_vEnemy = ENEMYMANAGER->getEnemy();
+	EFFECTMANAGER->addEffect("PlayerDead", "img/warrior/dead/PlayerDead.bmp", 960, 100, 120, 100, 1.0f, 0.2f, 50);
 	return S_OK;
 
 }
@@ -63,8 +64,10 @@ void Player::update()
 	cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
 
 	this->SetPlayerAtkRc(_playerInfo.AtkRc);
-	if (_playerInfo.hp <= 0)
+	if (_playerInfo.hp <= 0) 
 	{
+		EFFECTMANAGER->play("PlayerDead",PLAYERMANGER->get_vPlayer()[0]->getCenter().x+
+			40, PLAYERMANGER->get_vPlayer()[0]->getCenter().y+20);
 		PLAYERMANGER->erasePlayer(this);
 	}
 
@@ -112,6 +115,7 @@ void Player::KeyControl()
 			}
 		}
 	}
+	
 
 
 	for (int i = 0; i < _totalTile.size(); i++)
@@ -195,6 +199,7 @@ void Player::PlayerRectChange()
 void Player::attaked(int atk)
 {
 	_playerInfo.hp -= atk;
+	
 }
 
 

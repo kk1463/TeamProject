@@ -30,9 +30,9 @@ HRESULT StageOneScene::init()
 }
 
 void StageOneScene::render()
-{
+{ 
 	BasicScene::render();
-	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
+	//RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
 
-	Rectangle(getMemDC(), rc);
+	//Rectangle(getMemDC(), rc);
 }

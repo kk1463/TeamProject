@@ -57,7 +57,7 @@ HRESULT playGround::init()
 
 	SCENEMANAGER->changeScene("Loading");
 
-
+	HHPP = 100;
 
 	return S_OK;
 
@@ -81,11 +81,11 @@ void playGround::update()
 
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
-
+	EFFECTMANAGER->update();
 	
 
 	_um->update();
-
+	
 }
 
 // 이것은 랜드 함수이다.
@@ -99,20 +99,11 @@ void playGround::render()
 
 	
 		SCENEMANAGER->render();
-	
+		EFFECTMANAGER->render();
 
 
 		_um->render();
 	
-
-
-	
-	
-
-
-	
-
-
 	//====================================================
 	_backBuffer->render(getHDC(), 0, 0);
 }

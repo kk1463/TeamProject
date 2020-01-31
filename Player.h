@@ -54,7 +54,7 @@ struct PlayerInfo
 	RECT AtkRc;
 	RECT miniColRc;
 	int hp;
-	int atkPower;
+	
 
 };
 class Player : public GameObject
