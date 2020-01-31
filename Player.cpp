@@ -219,9 +219,63 @@ void Player::PlayerRectChange()
 void Player::attaked(int atk)
 {
 	_playerInfo.attcked = true;
-	_playerInfo.hp -= atk/50;
+	_playerInfo.hp -= atk;
 
-	
+	for (int i = 0; i < _vEnemy.size(); i++)
+	{
+		_playerInfo.playerDirNum = _vEnemy[i]->getEnemyDir();
+
+		float x = getCenterPos(_vEnemy[i]->getEnemyRect()).x;
+		float y = getCenterPos(_vEnemy[i]->getEnemyRect()).y;
+		
+			switch (_playerInfo.playerDirNum)
+			{
+			case 0:
+
+				if (_playerInfo.position.x < x)
+				{
+					_playerInfo.position.x -= 1;
+				}
+				if (_playerInfo.position.x > x)
+				{
+					_playerInfo.position.x += 1;
+				}
+				break;
+			case 1:
+				
+				if (_playerInfo.position.x < x)
+				{
+					_playerInfo.position.x -=1;
+				}
+				if (_playerInfo.position.x > x)
+				{
+					_playerInfo.position.x += 1;
+				}
+				break;
+			case 2:
+				
+				if (_playerInfo.position.y > y)
+				{
+					_playerInfo.position.y += 1;
+				}
+				if (_playerInfo.position.y < y)
+				{
+					_playerInfo.position.y -= 1;
+				}
+				break;
+			case 3:
+				
+				if (_playerInfo.position.y > y)
+				{
+					_playerInfo.position.y += 1;
+				}
+				if (_playerInfo.position.y < y)
+				{
+					_playerInfo.position.y -= 1;
+				}
+				break;
+			}
+	}
 
 }
 

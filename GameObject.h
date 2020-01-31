@@ -40,12 +40,13 @@ protected:
 	RECT en_leftColRc;	 //enemy용 체크렉트
 	RECT en_topColRc;	 //enemy용 체크렉트
 	RECT en_botColRc;	 //enemy용 체크렉트
-
+	RECT EnemyRc;
 
 	int _frameX;
 	int _frameY;
 	animation* _ani;
 	int playerDir;
+	int EnemyDir;
 
 public:
 	GameObject();
@@ -76,6 +77,10 @@ public:
 	RECT getPlayerRect() { return _playerRC; }
 	void setPlayerRect(RECT rc) { _playerRC = rc; }
 
+	RECT getEnemyRect() { return EnemyRc; }
+	void setEnemyRect(RECT rc) { EnemyRc = rc; }
+
+
 	//enemy용//
 	RECT getColRect() { return _colRc; }
 	void setColRect(RECT colRc) { _colRc = colRc; }
@@ -90,6 +95,10 @@ public:
 
 	int getPlayerDir() { return playerDir; }
 	void setPlayerDir(int a) { playerDir = a; }
+
+	int getEnemyDir() { return EnemyDir; }
+	void setEnemyDir(int dir) { EnemyDir = dir; }
+
 	virtual void attaked(int atk);
 	virtual int getHp() { return 0; }
 

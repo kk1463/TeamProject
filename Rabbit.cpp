@@ -290,40 +290,45 @@ void Rabbit::attack()
 	{
 		en.dir = DOWN;
 	}
-	RECT temp;
-	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
-	if ((en.Ani->getFrameNumber() == 11) && (IntersectRect(&temp, &en.attackCheckRC, &rc)))
+	if (PLAYERMANGER->get_vPlayer().size() > 0)
 	{
-		
-		if (PLAYERMANGER->get_vPlayer().size() > 0)
+		RECT temp;
+		RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
+		if ((en.Ani->getFrameNumber() == 11) && (IntersectRect(&temp, &en.attackCheckRC, &rc)))
 		{
-			PLAYERMANGER->get_vPlayer()[0]->attaked(5);
+
+
+
+
+			PLAYERMANGER->get_vPlayer()[0]->attaked(1);
+
+
 		}
-	}			
-	if (en.Ani->getMaxFrameNumber()==en.Ani->getFrameNumber()
-		|| en.Ani->getFrameNumber()==0)
-	{
-		en.changeAni = true;
-		count = 0;
-	}	   
-	switch (en.dir)
-	{
-	case LEFT:
-		en.img = IMAGEMANAGER->findImage("R_atk_left");
-		en.Ani = KEYANIMANAGER->findAnimation("R_atk_Left");
-		break;
-	case RIGHT:
-		en.img = IMAGEMANAGER->findImage("R_atk_right");
-		en.Ani = KEYANIMANAGER->findAnimation("R_atk_Right");
-		break;
-	case DOWN:
-		en.img = IMAGEMANAGER->findImage("R_atk_down");
-		en.Ani = KEYANIMANAGER->findAnimation("R_atk_Down");
-		break;
-	case UP:
-		en.img = IMAGEMANAGER->findImage("R_atk_up");
-		en.Ani = KEYANIMANAGER->findAnimation("R_atk_Up");
-		break;
+		if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber()
+			|| en.Ani->getFrameNumber() == 0)
+		{
+			en.changeAni = true;
+			count = 0;
+		}
+		switch (en.dir)
+		{
+		case LEFT:
+			en.img = IMAGEMANAGER->findImage("R_atk_left");
+			en.Ani = KEYANIMANAGER->findAnimation("R_atk_Left");
+			break;
+		case RIGHT:
+			en.img = IMAGEMANAGER->findImage("R_atk_right");
+			en.Ani = KEYANIMANAGER->findAnimation("R_atk_Right");
+			break;
+		case DOWN:
+			en.img = IMAGEMANAGER->findImage("R_atk_down");
+			en.Ani = KEYANIMANAGER->findAnimation("R_atk_Down");
+			break;
+		case UP:
+			en.img = IMAGEMANAGER->findImage("R_atk_up");
+			en.Ani = KEYANIMANAGER->findAnimation("R_atk_Up");
+			break;
+		}
 	}
 
 }

@@ -97,6 +97,7 @@ protected:
 	vector<tagTile*> _tiles;
 	float getPlayerPos, getPlayerAngle;
 
+
 public:
 	Enemy();
 	~Enemy();
