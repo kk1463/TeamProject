@@ -54,6 +54,8 @@ struct PlayerInfo
 	RECT AtkRc;
 	RECT miniColRc;
 	int hp;
+	int dmgCount = 0;
+	bool attcked = false;
 	
 
 };

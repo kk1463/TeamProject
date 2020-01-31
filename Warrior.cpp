@@ -22,8 +22,8 @@ HRESULT Warrior::init(PlayerName playername)
 	IMAGEMANAGER->addFrameImage("atk", "img/warrior/atk/atk.bmp", 1560, 200, 13, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("atkDown", "img/warrior/atk/AtkDown.bmp", 1560, 110, 13, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("atkUp", "img/warrior/atk/AtkUp.bmp", 1430, 100, 13, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("dmg", "img/warrior/dmg/dmg.bmp", 360,72, 4, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("dmg2", "img/warrior/dmg/dmg2.bmp", 400, 72, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("dmg", "img/warrior/dmg/Dmg3.bmp", 360,72, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("dmg2", "img/warrior/dmg/Dmg2.bmp", 400, 72, 4, 1, true, RGB(255, 0, 255));
 
 
 
@@ -41,7 +41,7 @@ HRESULT Warrior::init(PlayerName playername)
 	KEYANIMANAGER->addCoordinateFrameAnimation("atkDown", "atkDown", 0, 12, 20, false, false);
 	KEYANIMANAGER->addCoordinateFrameAnimation("atkUp", "atkUp", 0, 12, 20, false, false);
 	KEYANIMANAGER->addCoordinateFrameAnimation("dmgRight", "dmg", 0,1 , 20, false, false);
-	KEYANIMANAGER->addCoordinateFrameAnimation("dmgLeft", "dmg", 2,3 , 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgLeft", "dmg", 2,3, 20, false, false);
 	KEYANIMANAGER->addCoordinateFrameAnimation("dmgUp", "dmg2", 0,1 , 20, false, false);
 	KEYANIMANAGER->addCoordinateFrameAnimation("dmgDown", "dmg2", 2,3 , 20, false, false);
 	
@@ -470,13 +470,13 @@ void Warrior::PlayerStateChange()
 			break;
 
 		case P_DOWN:
-			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgDown");
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgUp");
 			_playerInfo.img = IMAGEMANAGER->findImage("dmg2");
 			_playerInfo.ani->start();
 			_playerInfo.changeAni = false;
 			break;
 		case P_UP:
-			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgUp");
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgDown");
 			_playerInfo.img = IMAGEMANAGER->findImage("dmg2");
 			_playerInfo.ani->start();
 			_playerInfo.changeAni = false;
