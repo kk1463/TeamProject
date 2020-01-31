@@ -82,6 +82,9 @@
     <Filter Include="playGround\Object\UI">
       <UniqueIdentifier>{a7534547-24d4-434c-8f8d-6e6fd2a74e41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Object\Item">
+      <UniqueIdentifier>{ff09e78c-3c38-47d9-9c7a-ec0d9b1c845a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -231,6 +234,12 @@
     <ClInclude Include="uiManager.h">
       <Filter>playGround\Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>playGround\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>playGround\Object\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -364,6 +373,12 @@
     </ClCompile>
     <ClCompile Include="pointer.cpp">
       <Filter>playGround\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>playGround\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>playGround\Object\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
