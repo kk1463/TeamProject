@@ -432,7 +432,7 @@ void Slime::S_attack()
 		switch (en.dir)
 		{
 		case LEFT:
-			en.img = IMAGEMANAGER->findImage("S_Atk_left");
+			en.img = IMAGEMANAGER->findImage("S_Atk_Left");
 			en.Ani = KEYANIMANAGER->findAnimation("S_Atk_Left");			
 			break;
 		case RIGHT:
