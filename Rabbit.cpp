@@ -184,13 +184,11 @@ void Rabbit::update()
 	}
 
 	Collision();
-<<<<<<< HEAD
-=======
+
 
 	
 	
 
->>>>>>> origin/son
 }
 
 void Rabbit::moving()
@@ -220,7 +218,7 @@ void Rabbit::moving()
 		en.changeAni = true;
 		Movecheck = RND->getFromIntTo(0, 4);
 		count = 0;
-	}	   
+	}
 	switch (en.dir)
 	{
 	case LEFT:
@@ -228,13 +226,12 @@ void Rabbit::moving()
 		en.img = IMAGEMANAGER->findImage("R_run_left");
 		if (en.leftMove)
 		{
-<<<<<<< HEAD
+
 			en.x -= en.SPEED;
 		}
-=======
-		en.x -= en.SPEED;
-		}	
->>>>>>> origin/son
+
+
+
 		break;
 	case RIGHT:
 		en.Ani = KEYANIMANAGER->findAnimation("R_run_Right");
@@ -316,8 +313,7 @@ void Rabbit::attack()
 
 }
 
-<<<<<<< HEAD
-=======
+
 void Rabbit::hit()
 {
 	
@@ -383,7 +379,7 @@ void Rabbit::trace()
 	en.y -= sinf(getPlayerAngle)*en.SPEED;
 }
 
->>>>>>> origin/son
+
 
 
 

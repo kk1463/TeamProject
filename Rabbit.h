@@ -17,7 +17,7 @@ public:
 	virtual void update();
 	void moving();
 	void attack();
-
+	void hit();
 
 	void trace();
 
