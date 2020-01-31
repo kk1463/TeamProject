@@ -56,7 +56,7 @@ struct PlayerInfo
 	int hp;
 	int dmgCount = 0;
 	bool attcked = false;
-	
+	int playerDirNum;
 
 };
 class Player : public GameObject

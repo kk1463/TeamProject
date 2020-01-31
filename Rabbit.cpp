@@ -298,7 +298,7 @@ void Rabbit::attack()
 		{
 
 
-			PLAYERMANGER->get_vPlayer()[0]->attaked(5);
+			PLAYERMANGER->get_vPlayer()[0]->attaked(1);
 
 		}
 		if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber()
