@@ -47,7 +47,7 @@ HRESULT GameObject::init(POINT pos, int fps, float SPEED)
 	return S_OK;
 }
 
-void GameObject::attaked()
+void GameObject::attaked(int atk)
 {
 
 }

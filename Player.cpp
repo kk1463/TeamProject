@@ -41,7 +41,7 @@ void Player::update()
 			{
 				if (_playerInfo.atkCount == 10)
 				{
-					_vEnemy[i]->attaked();
+					_vEnemy[i]->attaked(5);
 
 				}
 			}
@@ -63,7 +63,6 @@ void Player::update()
 	cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
 
 	this->SetPlayerAtkRc(_playerInfo.AtkRc);
-	this->setPlayerDir(_playerInfo.direction);
 
 
 }
