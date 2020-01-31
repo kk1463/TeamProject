@@ -38,8 +38,9 @@ HRESULT Rabbit::init()
 	IMAGEMANAGER->addFrameImage("R_dead_Right", "img/rabbit/R_dead_Right.bmp", 1344, 76, 14, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("R_dead_Left", "img/rabbit/R_dead_Left.bmp", 1344, 76, 14, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("R_deadEffect", "img/rabbit/R_deadEffect.bmp", 420, 48, 6, 1, true, RGB(255, 0, 255));
-
-
+	//이펙트매니져
+	EFFECTMANAGER->addEffect("R_dead_Right", "img/rabbit/R_dead_Right.bmp", 1344, 76, 96, 76, 1.0f, 0.2f, 50);
+	EFFECTMANAGER->addEffect("R_dead_Left", "img/rabbit/R_dead_Left.bmp", 1344, 76, 96, 76, 1.0f, 0.2f, 50);
 	//idle
 	int Rabbit_Idle_Left[] = { 0,1,2,3,4,5,6,7,8,9,10,11 };
 	KEYANIMANAGER->addArrayFrameAnimation("R_Idle_Left", "R_idle_left", Rabbit_Idle_Left, 12, FPS, true);
@@ -104,23 +105,16 @@ HRESULT Rabbit::init()
 	en.changeAni = true;
 	en.Ani->start();
 
-	en.x = WINSIZEX / 2;
-	en.y = WINSIZEY / 2;
 
+	en.hp = 5;
 
-	en.hp = 15;
-
-	en.hp = 10;
+	
 
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
 	Enemy::init();
-
-
-
-
 	return S_OK;
 }
 
@@ -132,30 +126,30 @@ void Rabbit::update()
 {
 	//R_control();
 
-	Enemy::update();
 
-	/*switch (en.Movecheck)
+
+	switch (en.Movecheck)
 	{
 	case 0:
-		int a = -40;
-		int b = 0;
+		en.atkX = -40;
+		en.atkY = 0;
 		break;
 	case 1:
-		int a = 40;
-		int b = 0;
+		en.atkX = 40;
+		en.atkY = 0;
 		break;
 	case 2:
-		int a = 0;
-		int b = -40;
+		en.atkX = 0;
+		en.atkY = -40;
 		break;
 	case 3:
-		int a = 0;
-		int b = 40;
+		en.atkX = 0;
+		en.atkY = 40;
 		break;
-	}*/
+	}
 
 	en.colRc = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
-	en.attackCheckRC = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
+	en.attackCheckRC = RectMakeCenter(en.x + 24+en.atkX, en.y+en.atkY + 25, 40, 40);
 
 	
 
@@ -205,7 +199,7 @@ void Rabbit::update()
 
 	Collision();
 
-
+	Enemy::update();
 
 
 }
@@ -296,13 +290,16 @@ void Rabbit::attack()
 	{
 		en.dir = DOWN;
 	}
-	if (en.Ani->getFrameNumber() == 11)
+	RECT temp;
+	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
+	if ((en.Ani->getFrameNumber() == 11) && (IntersectRect(&temp, &en.attackCheckRC, &rc)))
 	{
-		if (PLAYERMANGER->get_vPlayer().size() > 0) 
+		
+		if (PLAYERMANGER->get_vPlayer().size() > 0)
 		{
-			PLAYERMANGER->get_vPlayer()[0]->attaked(100);
+			PLAYERMANGER->get_vPlayer()[0]->attaked(5);
 		}
-	}
+	}			
 	if (en.Ani->getMaxFrameNumber()==en.Ani->getFrameNumber()
 		|| en.Ani->getFrameNumber()==0)
 	{
@@ -394,52 +391,26 @@ void Rabbit::die()
 	if (en.Movecheck == 0)
 	{
 		en.dir = LEFT;
+		EFFECTMANAGER->play("R_dead_Right", en.x, en.y);		
 	}
 	if (en.Movecheck == 1)
 	{
 		en.dir = RIGHT;
+		EFFECTMANAGER->play("R_dead_Right", en.x, en.y);
 	}
 	if (en.Movecheck == 2)
 	{
 		en.dir = UP;
+		EFFECTMANAGER->play("R_dead_Right", en.x, en.y);
 	}
 	if (en.Movecheck == 3)
 	{
 		en.dir = DOWN;
+		EFFECTMANAGER->play("R_dead_Right", en.x, en.y);
 	}
-	if (count >= 60)
-	{
-		en.changeAni = true;
-		count = 0;
-	}
-
-	switch (en.dir)
-	{
-	case LEFT:
-		en.img = IMAGEMANAGER->findImage("R_dead_Left");
-		en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
-		en.Ani->start();
 	
-		break;
-	case RIGHT:
-		en.img = IMAGEMANAGER->findImage("R_dead_Right");
-		en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
-		en.Ani->start();
-		
-		break;
-	case DOWN:
-		en.img = IMAGEMANAGER->findImage("R_dead_Left");
-		en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
-		en.Ani->start();
-		
-		break;
-	case UP:
-		en.img = IMAGEMANAGER->findImage("R_dead_Right");
-		en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
-		en.Ani->start();
-		
-		break;
-	}
+
+	
 }
 
 void Rabbit::trace()
@@ -447,25 +418,25 @@ void Rabbit::trace()
 	en.state = Run;
 	en.SPEED = 1.0f;
 
-
-	if (en.x > en.playerX)
-	{
-		en.Movecheck = 0;
-	}
-	else if (en.x < en.playerX)
+		
+	if ((getPlayerAngle>0)&& (getPlayerAngle <1))
 	{
 		en.Movecheck = 1;
 	}
-	else if (en.y > en.playerY)
+	if ((getPlayerAngle > 1) && (getPlayerAngle < 2.5))
 	{
 		en.Movecheck = 2;
 	}
-	else if (en.y < en.playerY)
+	if ((getPlayerAngle > -2.5) && (getPlayerAngle < 0))
 	{
 		en.Movecheck = 3;
 	}
-		
+	if ((getPlayerAngle > 2.5) || (getPlayerAngle < -2.5))
+	{
+		en.Movecheck =0;
+	}
 
+	
 	if (en.Movecheck == 0)
 	{
 		en.dir = LEFT;

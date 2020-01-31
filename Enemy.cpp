@@ -12,7 +12,7 @@ Enemy::~Enemy() // 에너미가 사라진다
 HRESULT Enemy::init() // 에너미가 등장한다.
 {
 	_tiles = SCENEMANAGER->getCurrentScene()->getTile();
-
+	
 
 
 	en.leftMove = true;
@@ -25,7 +25,8 @@ HRESULT Enemy::init() // 에너미가 등장한다.
 
 	en.playerX = en.playerY = 0;
 
-
+	en.x = getCenterPos(_rc).x;
+	en.y = getCenterPos(_rc).y;
 	return S_OK;
 }
 
@@ -42,7 +43,7 @@ void Enemy::update() // 에너미가 움직인다.
 
 	en.rc = RectMakeCenter(en.x, en.y, en.img->getFrameWidth(), en.img->getFrameHeight());
 	en.senseRC = RectMakeCenter(en.x, en.y, en.img->getFrameWidth() * 2, en.img->getFrameHeight() * 2);
-
+	
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
@@ -90,6 +91,8 @@ void Enemy::update() // 에너미가 움직인다.
 		en.playerY = getCenterPos(_vPlayer[0]->getPlayerRect()).y;
 		getPlayerPos = getDistance(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
 		getPlayerAngle = getAngle(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
+		en.PlayerAngle = getAngle(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
+		
 	}
 	else
 	{
@@ -98,7 +101,27 @@ void Enemy::update() // 에너미가 움직인다.
 	//에너미 삭제문은 update 제일 마지막에 놔둘것
 	if (en.hp < 0)
 	{
+		if (en.name == Name_Rabbit)
+		{
+			if (en.Movecheck == 1 || en.Movecheck == 3)
+			{
+
+				EFFECTMANAGER->play("R_dead_Right", en.x+20, en.y);
+			}
+			else
+			{
+				EFFECTMANAGER->play("R_dead_Left", en.x+20, en.y+10);
+			}
+		}
+		if (en.name == Name_Slime)
+		{			
+			EFFECTMANAGER->play("S_dead", en.x + 20, en.y + 10);
+		}
+
+
+
 		ENEMYMANAGER->eraseEnemy(this);
+		
 	}
 }
 
@@ -121,49 +144,50 @@ void Enemy::attaked(int atk)
 			en.Movecheck = 0;
 			if (en.x < x)
 			{
-				en.x -= 20;
+				en.x -= 15;
 			}
 			if (en.x > x)
 			{
-				en.x += 20;
+				en.x += 15;
 			}
 			break;
 		case 1://왼쪽
 			en.Movecheck = 1;
 			if (en.x < x)
 			{
-				en.x -= 20;
+				en.x -= 15;
 			}
 			if (en.x > x)
 			{
-				en.x += 20;
+				en.x += 15;
 			}
 			break;
 		case 2://탑
 			en.Movecheck = 3;
 			if (en.y > y)
 			{
-				en.y += 20;
+				en.y += 15;
 			}
 			if (en.y < y)
 			{
-				en.y -= 20;
+				en.y -= 15;
 			}
 			break;
 		case 3://바텀
 			en.Movecheck = 2;
 			if (en.y > y)
 			{
-				en.y += 20;
+				en.y += 15;
 			}
 			if (en.y < y)
 			{
-				en.y -= 20;
+				en.y -= 15;
 			}
 			break;
 		}
 	}
-	en._enState = hit1;		
+	en._enState = hit1;	
+	
 	en.angry = true;
 	en.hp -= atk;	
 }

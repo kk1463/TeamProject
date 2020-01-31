@@ -76,9 +76,11 @@ struct info
 	float hp;
 	int Movecheck;
 	int count;
+	int atkX, atkY;
 
 	int playerX, playerY;
 	int PlayerDirNumber;
+	float PlayerAngle;
 
 
 };
