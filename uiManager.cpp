@@ -29,8 +29,11 @@ HRESULT uiManager::init()
 	IMAGEMANAGER->addImage("∞©ø ", "∞©ø .bmp", 40, 31, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("π›¡ˆ", "π›¡ˆ.bmp", 30, 30, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("¡ˆ∆Œ¿Ã", "¡ˆ∆Œ¿Ã.bmp", 25, 43, true, RGB(255, 0, 255));
-	_knife = IMAGEMANAGER->addImage("ƒÆ", "ƒÆ.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Coin", "µ∑.bmp", 20, 19, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Potion", "∆˜º«.bmp", 25, 33, true, RGB(255, 0, 255));
 
+	_knife = IMAGEMANAGER->addImage("ƒÆ", "ƒÆ.bmp", 40, 40, true, RGB(255, 0, 255));
+	
 
 	_inven = IMAGEMANAGER->addImage("Inven", "¿Œ∫•.bmp", 697, 526, true, RGB(255, 0, 255));
 

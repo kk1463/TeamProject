@@ -32,6 +32,8 @@ public:
 
 	void addEffect(string effectName, const char* imageName, int imageWidth, int imageHeight,
 		int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer);
+	void addEffect(string effectName, const char * imageName, int imageWidth,
+		int imageHeight, int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer, CALLBACK_FUNCTION_TwoParam cbFunction);
 
 	void play(string effectName, int x, int y);
 

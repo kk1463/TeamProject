@@ -240,6 +240,21 @@
     <ClInclude Include="ItemManager.h">
       <Filter>playGround\Object\Item</Filter>
     </ClInclude>
+    <ClInclude Include="Armor.h">
+      <Filter>playGround\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>playGround\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Potion.h">
+      <Filter>playGround\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Ring.h">
+      <Filter>playGround\Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="Sword.h">
+      <Filter>playGround\Object\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -378,6 +393,21 @@
       <Filter>playGround\Object\Item</Filter>
     </ClCompile>
     <ClCompile Include="ItemManager.cpp">
+      <Filter>playGround\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Armor.cpp">
+      <Filter>playGround\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Potion.cpp">
+      <Filter>playGround\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>playGround\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Ring.cpp">
+      <Filter>playGround\Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="Sword.cpp">
       <Filter>playGround\Object\Item</Filter>
     </ClCompile>
   </ItemGroup>

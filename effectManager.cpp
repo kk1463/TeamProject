@@ -105,6 +105,32 @@ void effectManager::addEffect(string effectName, const char * imageName, int ima
 	_vTotalEffect.push_back(mArrEffect);
 }
 
+void effectManager::addEffect(string effectName, const char * imageName, int imageWidth, int imageHeight, int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer, CALLBACK_FUNCTION_TwoParam cbFunction)
+{
+	image* img;
+	arrEffects vEffectBuffer;
+	arrEffect mArrEffect;
+
+	if (IMAGEMANAGER->findImage(imageName))
+	{
+		img = IMAGEMANAGER->findImage(imageName);
+	}
+	else
+	{
+		img = IMAGEMANAGER->addImage(imageName, imageName, imageWidth, imageHeight, true, RGB(255, 0, 255));
+	}
+
+	for (int i = 0; i < buffer; ++i)
+	{
+		vEffectBuffer.push_back(new effect);
+		vEffectBuffer[i]->init(img, effectWidth, effectHeight, fps, elapsedTime,cbFunction);
+	}
+
+	mArrEffect.insert(pair<string, arrEffects>(effectName, vEffectBuffer));
+
+	_vTotalEffect.push_back(mArrEffect);
+}
+
 void effectManager::play(string effectName, int x, int y)
 {
 	iterTotalEffect vIter;

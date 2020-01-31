@@ -1,5 +1,9 @@
 #pragma once
-#include"Item.h"
+#include"Sword.h"
+#include"Ring.h"
+#include"Coin.h"
+#include"Armor.h"
+#include"Potion.h"
 
 class ItemManager:public singletonBase<ItemManager>
 {
@@ -13,6 +17,7 @@ public:
 
 	HRESULT init();
 	void release();
-	void setItemVector(GameObject* ins);
+	void makeItem(ItemKinds ins, POINT center);
+	void eraseItem(GameObject* ins);
 };
 

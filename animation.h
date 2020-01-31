@@ -3,7 +3,7 @@
 
 typedef void(*CALLBACK_FUNCTION)(void);
 typedef void(*CALLBACK_FUNCTION_PARAMETER)(void*);
-
+typedef void(*CALLBACK_FUNCTION_TwoParam)(void*,void*);
 //void*  뭐든 담을 수 있다 형변환만 하면
 
 class animation
