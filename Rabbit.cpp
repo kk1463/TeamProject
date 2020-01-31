@@ -104,9 +104,6 @@ HRESULT Rabbit::init()
 	en.changeAni = true;
 	en.Ani->start();
 
-	en.x = WINSIZEX / 2;
-	en.y = WINSIZEY / 2;
-
 
 	en.hp = 15;
 

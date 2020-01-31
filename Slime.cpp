@@ -66,9 +66,6 @@ HRESULT Slime::init()
 	en.changeAni = true;
 	en.Ani->start();
 
-	en.x = WINSIZEX / 2 + 200;
-	en.y = WINSIZEY / 2 - 200;
-
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
