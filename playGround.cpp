@@ -53,7 +53,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Loading", new LoadingScene);
 	SCENEMANAGER->addScene("stageTwo", new StageTwoScene);
 
-	SCENEMANAGER->changeScene("stageOne");
+	SCENEMANAGER->changeScene("Loading");
 
 
 
@@ -77,6 +77,7 @@ void playGround::update()
 	gameNode::update();
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
+	cout << PLAYERMANGER->get_vPlayer().size() << endl;
 }
 
 
@@ -90,7 +91,7 @@ void playGround::render()
 	SCENEMANAGER->render();
 
 
-
+	
 
 	//====================================================
 	_backBuffer->render(getHDC(), 0, 0);

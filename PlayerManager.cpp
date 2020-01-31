@@ -25,9 +25,10 @@ HRESULT PlayerManager::init()
 void PlayerManager::release()
 {
 	_viPlayer = _vPlayer.begin();
-	for (; _viPlayer != _vPlayer.end();)
+	while(_vPlayer.size()>0)
 	{
 		GameObject* ins = *_viPlayer;
+		_vPlayer.erase(_viPlayer);
 		SCENEMANAGER->getCurrentScene()->deleteObject(ins);
 	}
 	_vPlayer.clear();

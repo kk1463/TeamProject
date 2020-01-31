@@ -53,7 +53,14 @@ inline void Rectangle(HDC hdc, RECT& rc)
 {
 	Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
 }
-
+inline float getInterHeight(RECT rc)
+{
+	return (rc.bottom - rc.top);
+}
+inline float getInterWidth(RECT rc)
+{
+	return (rc.right - rc.left);
+}
 //============== 원 ===================
 //			Left, Top을 기준(그려줄DC, Left, Top, 가로크기, 세로크기)
 inline void EllipseMake(HDC hdc, int x, int y, int width, int height)

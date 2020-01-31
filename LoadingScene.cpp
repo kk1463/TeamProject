@@ -107,13 +107,7 @@ void LoadingScene::update()
 	//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 	//■■■■■■■■■■■■■■■■■■■■로딩창이 맥스가 되었을때 스페이스바를누르면 넘어가게■■■■■■■■■■
-	if (_currentCount == LOADINGMAX)
-	{
-		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
-		{
-			SCENEMANAGER->changeScene("stageOne");
-		}
-	}
+	
 	//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 	//■■■■■■■■■■애니메이션 속도조절■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -138,6 +132,13 @@ void LoadingScene::update()
 	_cloud1x -= 1;
 	_cloud2x -= 1.7f;
 	_cloud3x -= 1.3f;
+	if (_currentCount == LOADINGMAX)
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+		{
+			SCENEMANAGER->changeScene("stageOne");
+		}
+	}
 	//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 }
 
