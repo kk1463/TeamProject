@@ -12,7 +12,8 @@ enum EnemyState
 	Atk,
 	Dmg,
 	Dead,
-	deadEffect
+	deadEffect,
+	Up
 };
 
 enum State //상태패턴용 
