@@ -2,12 +2,11 @@
 #include"Enemy.h"
 class Rabbit :public Enemy
 {
-	
+
 	int count;
-	int Movecheck;
+	
 
 	RECT rc;
-
 
 public:
 	Rabbit();

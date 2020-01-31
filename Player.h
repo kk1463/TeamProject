@@ -79,5 +79,7 @@ public:
 	RECT getColRc() { return _playerInfo.colRc; }
 	RECT getAtkRc() { return _playerInfo.AtkRc; }
 
+	void getPlayerDir() { _playerInfo.direction; }//enemy 판정을위해 하나..
+
 };
 

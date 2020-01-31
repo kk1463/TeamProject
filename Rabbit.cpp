@@ -93,7 +93,7 @@ HRESULT Rabbit::init()
 	en.Ani = KEYANIMANAGER->findAnimation("R_Idle_Left");
 
 
-	Movecheck = RND->getFromIntTo(0, 4);
+	en.Movecheck = RND->getFromIntTo(0, 4);
 	count = 0;
 	en.move = true;
 	en.atk = false;
@@ -107,10 +107,15 @@ HRESULT Rabbit::init()
 	en.x = WINSIZEX / 2;
 	en.y = WINSIZEY / 2;
 
+	en.HP = 100;
+
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
 	Enemy::init();
+
+
+
 
 	return S_OK;
 }
@@ -136,30 +141,31 @@ void Rabbit::update()
 	this->setCheckRect_Top(en.topColRc);
 	this->setCheckRect_Bottom(en.botColRc);
 
-	if (en.atk)
-	{
-		en.move = false;
-	}	
-	if (en.hit)
-	{
-		en.move = false;
-		en.atk = false;
-	}
-	else
-		en.move = true;
-	
-	if (!en.move)
-	{
-		en.leftMove = false;
-		en.rightMove = false;
-		en.upMove = false;
-		en.downMove = false;
-	}
-	
 
-	if (en.move)moving();
-	if (en.atk)attack();
-	if (en.hit)hit();
+	
+	
+	switch (en._enState)
+	{
+	case move1:
+		moving();
+		break;
+	case atk1:
+		if (en.angry)
+		{
+			attack();
+		}
+		break;
+	case hit1:
+		hit();
+		break;
+	case dead1:
+		break;
+	default:
+		break;
+	}
+	
+	en._enState = move1;
+		
 
 
 	if (en.changeAni)
@@ -167,27 +173,10 @@ void Rabbit::update()
 		R_state();
 	}
 
-
-
-
-	rc = RectMakeCenter(_ptMouse.x, _ptMouse.y, 30, 30);
-
-
-	RECT temp;
-	if (!IntersectRect(&temp, &en.senseRC, &rc))
-	{
-		en.atk = false;
-	}
-	if (IntersectRect(&temp, &en.senseRC, &rc))
-	{
-		en.atk = true;
-	}
-
 	Collision();
 
 
-	
-	
+
 
 }
 
@@ -197,26 +186,26 @@ void Rabbit::moving()
 	en.SPEED = 0.7F;
 
 	count++;
-	if (Movecheck == 0)
+	if (en.Movecheck == 0)
 	{
 		en.dir = LEFT;
 	}
-	if (Movecheck == 1)
+	if (en.Movecheck == 1)
 	{
 		en.dir = RIGHT;
 	}
-	if (Movecheck == 2)
+	if (en.Movecheck == 2)
 	{
 		en.dir = UP;
 	}
-	if (Movecheck == 3)
+	if (en.Movecheck == 3)
 	{
 		en.dir = DOWN;
 	}
 	if (count >= 80)
 	{
 		en.changeAni = true;
-		Movecheck = RND->getFromIntTo(0, 4);
+		en.Movecheck = RND->getFromIntTo(0, 4);
 		count = 0;
 	}
 	switch (en.dir)
@@ -226,12 +215,8 @@ void Rabbit::moving()
 		en.img = IMAGEMANAGER->findImage("R_run_left");
 		if (en.leftMove)
 		{
-
 			en.x -= en.SPEED;
 		}
-
-
-
 		break;
 	case RIGHT:
 		en.Ani = KEYANIMANAGER->findAnimation("R_run_Right");
@@ -267,19 +252,19 @@ void Rabbit::attack()
 
 
 	count++;
-	if (Movecheck == 0)
+	if (en.Movecheck == 0)
 	{
 		en.dir = LEFT;
 	}
-	if (Movecheck == 1)
+	if (en.Movecheck == 1)
 	{
 		en.dir = RIGHT;
 	}
-	if (Movecheck == 2)
+	if (en.Movecheck == 2)
 	{
 		en.dir = UP;
 	}
-	if (Movecheck == 3)
+	if (en.Movecheck == 3)
 	{
 		en.dir = DOWN;
 	}
@@ -287,10 +272,7 @@ void Rabbit::attack()
 	{
 		en.changeAni = true;
 		count = 0;
-	}
-
-
-
+	}	   
 	switch (en.dir)
 	{
 	case LEFT:
@@ -313,47 +295,47 @@ void Rabbit::attack()
 
 }
 
-
 void Rabbit::hit()
 {
-	
-	en.state = Dmg;
-	en.SPEED = -2.0f;
 
-	count++;
-	if (Movecheck == 0)
+	en.state = Dmg;
+	
+	
+	
+
+	if (en.Movecheck == 0)
 	{
 		en.dir = LEFT;
 	}
-	if (Movecheck == 1)
+	if (en.Movecheck == 1)
 	{
 		en.dir = RIGHT;
 	}
-	if (Movecheck == 2)
-	{
+	if (en.Movecheck == 2)
+	{	
 		en.dir = UP;
 	}
-	if (Movecheck == 3)
+	if (en.Movecheck == 3)
 	{
 		en.dir = DOWN;
 	}
 	if (count >= 60)
 	{
-		en.changeAni = true;		
+		en.changeAni = true;
 		count = 0;
 	}
-	   	 
+
 	switch (en.dir)
 	{
 	case LEFT:
 		en.img = IMAGEMANAGER->findImage("R_dmg_left");
-		en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Left");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Left");		
 		en.Ani->start();
-		en.changeAni = false;
+		en.changeAni = false;		
 		break;
 	case RIGHT:
 		en.img = IMAGEMANAGER->findImage("R_dmg_right");
-		en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Right");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Right");		
 		en.Ani->start();
 		en.changeAni = false;
 		break;
@@ -370,7 +352,7 @@ void Rabbit::hit()
 		en.changeAni = false;
 		break;
 	}
-	
+
 }
 
 void Rabbit::trace()
@@ -378,7 +360,6 @@ void Rabbit::trace()
 	en.x -= -cosf(getPlayerAngle)*en.SPEED;
 	en.y -= sinf(getPlayerAngle)*en.SPEED;
 }
-
 
 
 
@@ -501,22 +482,22 @@ void Rabbit::R_state()
 		switch (en.dir)
 		{
 		case LEFT:
-			
+
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case RIGHT:
-			
+
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case DOWN:
-		
+
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case UP:
-			
+
 			en.Ani->start();
 			en.changeAni = false;
 			break;
@@ -525,27 +506,22 @@ void Rabbit::R_state()
 	case Atk:
 		switch (en.dir)
 		{
-		case LEFT:
-			//en.img = IMAGEMANAGER->findImage("R_atk_left");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Left");
+		case LEFT:			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case RIGHT:
-			//en.img = IMAGEMANAGER->findImage("R_atk_right");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Right");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case DOWN:
-			//en.img = IMAGEMANAGER->findImage("R_atk_down");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Down");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case UP:
-			//en.img = IMAGEMANAGER->findImage("R_atk_up");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Up");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
@@ -555,26 +531,22 @@ void Rabbit::R_state()
 		switch (en.dir)
 		{
 		case LEFT:
-			//en.img = IMAGEMANAGER->findImage("R_dmg_left");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Left");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case RIGHT:
-			//en.img = IMAGEMANAGER->findImage("R_dmg_right");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Right");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case DOWN:
-			//en.img = IMAGEMANAGER->findImage("R_dmg_down");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Down");
+
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case UP:
-			//en.img = IMAGEMANAGER->findImage("R_dmg_up");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Up");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;

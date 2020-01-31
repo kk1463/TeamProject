@@ -9,10 +9,13 @@ class PlayerManager :public singletonBase<PlayerManager>
 {
 private:
 
-	vector<Player*> _vPlayer;
-	vector<Player*>::iterator _viPlayer;
-	EnemyManager* _em;
 
+	
+
+	vector<GameObject*> _vPlayer;
+	vector<GameObject*>::iterator _viPlayer;
+	EnemyManager* _em;
+	 
 
 public:
 
@@ -21,6 +24,6 @@ public:
 
 	HRESULT init();
 	void release();
-	vector<Player*> get_vPlayer() { return _vPlayer; }
+	vector<GameObject*> get_vPlayer() { return _vPlayer; }
 };
 

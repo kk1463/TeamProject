@@ -15,13 +15,13 @@ HRESULT Enemy::init() // 에너미가 등장한다.
 
 
 
-
 	en.leftMove = true;
 	en.upMove = true;
 	en.downMove = true;
 	en.rightMove = true;
-	getPlayerPos = getPlayerAngle= 0;
-
+	
+	en.angry = false;
+	getPlayerPos = getPlayerAngle = 0;
 
 
 	return S_OK;
@@ -48,7 +48,23 @@ void Enemy::update() // 에너미가 움직인다.
 	this->setColRect(en.colRc);
 	this->setCenter(PointMake(en.x, en.y));
 
+	_vPlayer = PLAYERMANGER->get_vPlayer();
 
+	
+	for (int i = 0;i < _vPlayer.size();i++)
+	{
+		RECT temp;		
+		RECT rc = _vPlayer[0]->getColRect();
+		int _playerDir = _vPlayer[0]->getPlayerDir();
+		if ((IntersectRect(&temp, &en.colRc, &rc)&&(en.angry)))
+		{
+			en._enState = atk1;
+
+		}
+		
+	}
+
+	
 
 
 
@@ -78,21 +94,14 @@ void Enemy::update() // 에너미가 움직인다.
 	*/
 
 
-	
-	
 
 
 
 
-
-
-
-	
 }
 
 void Enemy::hit()
 {
-
 
 }
 

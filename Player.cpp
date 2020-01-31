@@ -42,11 +42,12 @@ void Player::update()
 				if (_playerInfo.atkCount == 10)
 				{
 					_vEnemy[i]->attaked();
-					
+
 				}
 			}
 		}
 	}
+
 
 
 	for (int i = 0; i < _totalTile.size(); i++)
@@ -58,7 +59,13 @@ void Player::update()
 		}
 	}
 
+
 	cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
+
+	this->SetPlayerAtkRc(_playerInfo.AtkRc);
+	this->setPlayerDir(_playerInfo.direction);
+
+
 }
 
 
@@ -66,87 +73,110 @@ void Player::update()
 void Player::KeyControl()
 {
 
-	
-	for (int i = 0; i < _totalTile.size(); i++)
+	for (int j = 0; j < _vEnemy.size(); j++)
 	{
-		for (int j = 0; j < _vEnemy.size(); j++)
+		RECT rc = _vEnemy[j]->getColRect();
+		RECT temp;
+		if (_playerInfo.direction == P_RIGHT|| _playerInfo.direction == P_LEFT)
 		{
-			RECT rc = _vEnemy[j]->getColRect();
-			RECT temp;
-
-			if (_playerInfo.direction == P_RIGHT)
+			if (IntersectRect(&temp, &_playerInfo.colRc, &_vEnemy[j]->getColRect()))
 			{
-				if (IntersectRect(&temp, &_playerInfo.rightColRc, &_totalTile[i]->getRect())
-					&& _totalTile[i]->getAttribute() == blocking)
+				if (getCenterPos(_playerInfo.colRc).y < getCenterPos(_vEnemy[j]->getColRect()).y)
 				{
-					_playerInfo.rightMove = false;
-					break;
+					_playerInfo.position.y -= 2;
 				}
 				else
 				{
-					_playerInfo.rightMove = true;
+					_playerInfo.position.y += 2;
 				}
-
-				if (IntersectRect(&temp, &_playerInfo.rightColRc, &_vEnemy[j]->getRect()))
-				{
-					_playerInfo.rightMove = false;
-					break;
-				}
-				else
-				{
-					_playerInfo.rightMove = true;
-				}
-
+				break;
 			}
-			if (_playerInfo.direction == P_LEFT)
+		}
+		else if(_playerInfo.direction == P_UP || _playerInfo.direction == P_DOWN)
+		{
+			if (IntersectRect(&temp, &_playerInfo.colRc, &_vEnemy[j]->getColRect()))
 			{
-				////
-				if (IntersectRect(&temp, &_playerInfo.leftColRc, &_totalTile[i]->getRect())
-					&& _totalTile[i]->getAttribute() == blocking)
+				if (getCenterPos(_playerInfo.colRc).x < getCenterPos(_vEnemy[j]->getColRect()).x)
 				{
-					_playerInfo.leftMove = false;
-					break;
+					_playerInfo.position.x -= 2;
 				}
 				else
 				{
-					_playerInfo.leftMove = true;
+					_playerInfo.position.x += 2;
 				}
-			}
-			if (_playerInfo.direction == P_DOWN)
-			{
-				if (IntersectRect(&temp, &_playerInfo.botColRc, &_totalTile[i]->getRect())
-					&& _totalTile[i]->getAttribute() == blocking)
-				{
-					_playerInfo.downMove = false;
-
-					break;
-				}
-
-				else
-				{
-
-					_playerInfo.downMove = true;
-				}
-			}
-			if (_playerInfo.direction == P_UP)
-			{
-				if (IntersectRect(&temp, &_playerInfo.topColRc, &_totalTile[i]->getRect())
-					&& _totalTile[i]->getAttribute() == blocking)
-				{
-
-					_playerInfo.upMove = false;
-
-					break;
-				}
-
-				else
-				{
-					_playerInfo.upMove = true;
-
-				}
+				break;
 			}
 		}
 	}
+
+
+	for (int i = 0; i < _totalTile.size(); i++)
+	{
+		RECT temp;
+
+		if (_playerInfo.direction == P_RIGHT)
+		{
+			if (IntersectRect(&temp, &_playerInfo.rightColRc, &_totalTile[i]->getRect())
+				&& _totalTile[i]->getAttribute() == blocking)
+			{
+				_playerInfo.rightMove = false;
+				break;
+			}
+			else
+			{
+				_playerInfo.rightMove = true;
+			}
+
+		}
+		if (_playerInfo.direction == P_LEFT)
+		{
+			////
+			if (IntersectRect(&temp, &_playerInfo.leftColRc, &_totalTile[i]->getRect())
+				&& _totalTile[i]->getAttribute() == blocking)
+			{
+				_playerInfo.leftMove = false;
+				break;
+			}
+			else
+			{
+				_playerInfo.leftMove = true;
+			}
+		}
+		if (_playerInfo.direction == P_DOWN)
+		{
+			if (IntersectRect(&temp, &_playerInfo.botColRc, &_totalTile[i]->getRect())
+				&& _totalTile[i]->getAttribute() == blocking)
+			{
+				_playerInfo.downMove = false;
+
+				break;
+			}
+
+			else
+			{
+
+				_playerInfo.downMove = true;
+			}
+		}
+		if (_playerInfo.direction == P_UP)
+		{
+			if (IntersectRect(&temp, &_playerInfo.topColRc, &_totalTile[i]->getRect())
+				&& _totalTile[i]->getAttribute() == blocking)
+			{
+
+				_playerInfo.upMove = false;
+
+				break;
+			}
+
+			else
+			{
+				_playerInfo.upMove = true;
+
+			}
+		}
+	}
+
 
 }
 

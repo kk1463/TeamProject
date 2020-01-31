@@ -89,8 +89,7 @@ void playGround::render()
 	//========================================================
 	SCENEMANAGER->render();
 
-	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getAtkRc();
-	Rectangle(getMemDC(), rc);
+
 
 
 	//====================================================
