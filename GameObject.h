@@ -87,7 +87,7 @@ public:
 
 	int getPlayerDir() { return playerDir; }
 	void setPlayerDir(int a) { playerDir = a; }
-	virtual void attaked();
+	virtual void attaked(int atk);
 
 
 

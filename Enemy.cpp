@@ -21,7 +21,9 @@ HRESULT Enemy::init() // 에너미가 등장한다.
 	en.rightMove = true;
 	
 	en.angry = false;
-	getPlayerPos = getPlayerAngle = 0;
+	getPlayerPos = getPlayerAngle = en.count=0;
+
+	
 
 
 	return S_OK;
@@ -36,7 +38,6 @@ void Enemy::release() // 에너미가 죽었다
 
 void Enemy::update() // 에너미가 움직인다.
 {
-
 
 	en.rc = RectMakeCenter(en.x, en.y, en.img->getFrameWidth(), en.img->getFrameHeight());
 	en.senseRC = RectMakeCenter(en.x, en.y, en.img->getFrameWidth() * 2, en.img->getFrameHeight() * 2);
@@ -56,25 +57,32 @@ void Enemy::update() // 에너미가 움직인다.
 		RECT temp;		
 		RECT rc = _vPlayer[0]->getColRect();
 		int _playerDir = _vPlayer[0]->getPlayerDir();
-		if ((IntersectRect(&temp, &en.colRc, &rc)&&(en.angry)))
+		if ((IntersectRect(&temp, &en.colRc, &rc)))//&&(en.angry)))
 		{
 			en._enState = atk1;
-
+			break;
 		}
 		
+	cout << _playerDir << endl;
+	}
+
+
+	if (en.hp < 0)
+	{
+		ENEMYMANAGER->eraseEnemy(this);
+	}
+	
+	if (en._enState != move1)
+	{
+		en.count++;
+		if (en.count > 20)
+		{
+			en._enState = move1;
+			en.count = 0;
+		}
 	}
 
 	
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -83,9 +91,29 @@ void Enemy::hit()
 
 }
 
-void Enemy::attaked()
+void Enemy::attaked(int atk)
 {
-	ENEMYMANAGER->eraseEnemy(this);
+	en.count++;
+	
+	switch (en.Movecheck)
+	{
+	case 0:		
+		break;
+	case 1:
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	}
+	
+	en._enState = hit1;
+	
+	
+	en.angry = true;
+	en.hp -= atk;
+	
+	
 }
 
 void Enemy::setTile(vector<tagTile*> ins) // 에너미가 타일을 남기고 죽다.

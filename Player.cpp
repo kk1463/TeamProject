@@ -41,7 +41,7 @@ void Player::update()
 			{
 				if (_playerInfo.atkCount == 10)
 				{
-					_vEnemy[i]->attaked();
+					_vEnemy[i]->attaked(5);
 
 				}
 			}

@@ -58,7 +58,7 @@ HRESULT Flower::init()
 
 
 	en.name = Name_Flower;
-
+	en.hp = 10;
 
 	en.img = IMAGEMANAGER->findImage("F_idle_Right");
 	en.Ani = KEYANIMANAGER->findAnimation("F_idle_Right");

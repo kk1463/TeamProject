@@ -107,7 +107,7 @@ HRESULT Rabbit::init()
 	en.x = WINSIZEX / 2;
 	en.y = WINSIZEY / 2;
 
-	en.HP = 100;
+	en.hp = 15;
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
@@ -136,6 +136,7 @@ void Rabbit::update()
 	en.topColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.top - 2, 30, 3);
 	en.botColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.bottom + 2, 30, 3);
 
+	
 	this->setCheckRect_Right(en.rightColRc);
 	this->setCheckRect_Left(en.leftColRc);
 	this->setCheckRect_Top(en.topColRc);
@@ -150,10 +151,7 @@ void Rabbit::update()
 		moving();
 		break;
 	case atk1:
-		if (en.angry)
-		{
-			attack();
-		}
+		attack();
 		break;
 	case hit1:
 		hit();
@@ -164,7 +162,7 @@ void Rabbit::update()
 		break;
 	}
 	
-	en._enState = move1;
+	
 		
 
 
@@ -299,10 +297,6 @@ void Rabbit::hit()
 {
 
 	en.state = Dmg;
-	
-	
-	
-
 	if (en.Movecheck == 0)
 	{
 		en.dir = LEFT;
@@ -353,6 +347,7 @@ void Rabbit::hit()
 		break;
 	}
 
+	
 }
 
 void Rabbit::trace()
