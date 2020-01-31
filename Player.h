@@ -53,6 +53,8 @@ struct PlayerInfo
 	RECT colRc, leftColRc, rightColRc, botColRc, topColRc; //전후좌우 충돌체크용 렉트
 	RECT AtkRc;
 	RECT miniColRc;
+	int hp;
+	int atkPower;
 
 };
 class Player : public GameObject
@@ -83,5 +85,9 @@ public:
 
 	void getPlayerDir() { _playerInfo.direction; }//enemy 판정을위해 하나..
 
+	int getPlayerHp() { return _playerInfo.hp; }
+	void setPlayerHp(int hp) { _playerInfo.hp = hp; }
+	virtual void attaked(int atk);
+	
 };
 

@@ -43,6 +43,7 @@ HRESULT Warrior::init(PlayerName playername)
 	_playerInfo.position.x = 300;
 	_playerInfo.position.y = 300;
 	_playerInfo.speed = 4;
+	_playerInfo.hp = 100;
 
 	this->setimage(IMAGEMANAGER->findImage("idleDown"));
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));

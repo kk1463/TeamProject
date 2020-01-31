@@ -73,6 +73,7 @@ struct info
 	float hp;
 	int Movecheck;
 	int count;
+	
 
 };
 

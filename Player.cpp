@@ -63,7 +63,10 @@ void Player::update()
 	cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
 
 	this->SetPlayerAtkRc(_playerInfo.AtkRc);
-
+	if (_playerInfo.hp <= 0)
+	{
+		PLAYERMANGER->erasePlayer(this);
+	}
 
 }
 
@@ -81,6 +84,7 @@ void Player::KeyControl()
 		{
 			if (IntersectRect(&temp, &_playerInfo.miniColRc, &_vEnemy[j]->getColRect()))
 			{
+				
 				if (getCenterPos(_playerInfo.miniColRc).y < getCenterPos(_vEnemy[j]->getColRect()).y)
 				{
 					_playerInfo.position.y -= 2;
@@ -186,6 +190,11 @@ void Player::PlayerStateChange()
 
 void Player::PlayerRectChange()
 {
+}
+
+void Player::attaked(int atk)
+{
+	_playerInfo.hp -= atk;
 }
 
 

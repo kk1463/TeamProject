@@ -25,5 +25,7 @@ public:
 	HRESULT init();
 	void release();
 	vector<GameObject*> get_vPlayer() { return _vPlayer; }
+	void erasePlayer(GameObject * ins);
+	
 };
 

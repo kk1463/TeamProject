@@ -66,10 +66,7 @@ void Enemy::update() // 에너미가 움직인다.
 	}
 
 
-	if (en.hp < 0)
-	{
-		ENEMYMANAGER->eraseEnemy(this);
-	}
+	
 	
 
 	if(en._enState ==hit1)
@@ -117,7 +114,11 @@ void Enemy::update() // 에너미가 움직인다.
 
 	}
 	*/
-
+	//에너미 삭제문은 update 제일 마지막에 놔둘것
+	if (en.hp < 0)
+	{
+		ENEMYMANAGER->eraseEnemy(this);
+	}
 }
 
 void Enemy::hit()
