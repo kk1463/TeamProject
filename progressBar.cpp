@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "progressBar.h"
-
+#include"gameNode.h"
 
 progressBar::progressBar()
 {
@@ -43,12 +43,12 @@ void progressBar::update()
 
 void progressBar::render()
 {
-	IMAGEMANAGER->render("backHp", getMemDC(),
+	IMAGEMANAGER->render("backHp", _backBuffer->getMemDC(),
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
 		_y + _progressBarBottom->getHeight() / 2, 0, 0,
 		_progressBarBottom->getWidth(), _progressBarBottom->getHeight());
 
-	IMAGEMANAGER->render("hpBar", getMemDC(),
+	IMAGEMANAGER->render("hpBar", _backBuffer->getMemDC(),
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
 		_y + _progressBarBottom->getHeight() / 2, 0, 0,
 		_width, _progressBarBottom->getHeight());
@@ -80,12 +80,12 @@ void progressBar::Mprelease()
 
 void progressBar::Mprender()
 {
-	IMAGEMANAGER->render("backHp", getMemDC(),
+	IMAGEMANAGER->render("backHp", _backBuffer->getMemDC(),
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
 		_yy + _progressBarBottom->getHeight() / 2, 0, 0,
 		_progressBarBottom->getWidth(), _progressBarBottom->getHeight());
 
-	IMAGEMANAGER->render("mpBar", getMemDC(),
+	IMAGEMANAGER->render("mpBar", _backBuffer->getMemDC(),
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
 		_yy + _progressBarBottom->getHeight() / 2, 0, 0,
 		_width, _progressBarBottom->getHeight());

@@ -3,7 +3,6 @@
 #include "Warrior.h"`	
 
 #include <vector>
-class gameNode;
 
 class PlayerManager :public singletonBase<PlayerManager>
 {

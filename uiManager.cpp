@@ -146,7 +146,7 @@ void uiManager::release()
 
 void uiManager::update()
 {
-
+	HP = PLAYERMANGER->get_vPlayer()[0]->getHp();
 	PlayerHp->setGauge(HP, 100);
 
 	PlayerMp->setGauge(MP, 100);

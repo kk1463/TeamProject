@@ -85,7 +85,7 @@ public:
 	RECT getminiColRc() { return _playerInfo.miniColRc; }
 	void getPlayerDir() { _playerInfo.direction; }//enemy 판정을위해 하나..
 
-	int getPlayerHp() { return _playerInfo.hp; }
+	virtual int getHp() { return _playerInfo.hp; }
 	void setPlayerHp(int hp) { _playerInfo.hp = hp; }
 	virtual void attaked(int atk);
 	

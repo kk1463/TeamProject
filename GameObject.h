@@ -92,7 +92,7 @@ public:
 	void setPlayerDir(int a) { playerDir = a; }
 	virtual void attaked(int atk);
 
-
+	virtual int getHp() { return 0; }
 
 	void setAni(animation* ani) { _ani = ani; }
 	animation* getAni() { return _ani; }

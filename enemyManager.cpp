@@ -17,6 +17,13 @@ HRESULT EnemyManager::init()
 
 void EnemyManager::release()
 {
+	_viEm = _vEm.begin();
+	while (_vEm.size() > 0)
+	{
+		GameObject* ins = *_viEm;
+		_vEm.erase(_viEm);
+		SCENEMANAGER->getCurrentScene()->deleteObject(ins);
+	}
 	_vEm.clear();
 }
 
