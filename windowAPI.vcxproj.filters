@@ -79,6 +79,9 @@
     <Filter Include="2DGameFramework\loading">
       <UniqueIdentifier>{b29a64b3-7da6-49fc-9d53-a712f7a1c7c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\Object\UI">
+      <UniqueIdentifier>{a7534547-24d4-434c-8f8d-6e6fd2a74e41}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -216,6 +219,18 @@
     <ClInclude Include="tagTile.h">
       <Filter>playGround\MapManager\Tile</Filter>
     </ClInclude>
+    <ClInclude Include="pointer.h">
+      <Filter>playGround\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="skillPointer.h">
+      <Filter>playGround\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ui.h">
+      <Filter>playGround\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="uiManager.h">
+      <Filter>playGround\Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -337,6 +352,18 @@
     </ClCompile>
     <ClCompile Include="tagTile.cpp">
       <Filter>playGround\MapManager\Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="ui.cpp">
+      <Filter>playGround\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="uiManager.cpp">
+      <Filter>playGround\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="skillPointer.cpp">
+      <Filter>playGround\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="pointer.cpp">
+      <Filter>playGround\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

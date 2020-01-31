@@ -3,7 +3,7 @@
 #include"LoadingScene.h"
 #include"StageOneScene.h"
 #include"StageTwoScene.h"
-
+#include "uiManager.h"
 
 
 
@@ -19,7 +19,8 @@
 class playGround : public gameNode
 {
 private:
-
+	uiManager* _um;
+	bool start = false;
 
 public:
 	virtual HRESULT init();
