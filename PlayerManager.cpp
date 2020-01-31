@@ -35,6 +35,23 @@ void PlayerManager::release()
 
 }
 
+void PlayerManager::erasePlayer(GameObject * ins)
+{
+	_viPlayer = _vPlayer.begin();
+	for (; _viPlayer != _vPlayer.end();)
+	{
+		GameObject* temp = *_viPlayer;
+		if (temp == ins)
+		{
+			_vPlayer.erase(_viPlayer);
+			SCENEMANAGER->getCurrentScene()->deleteObject(ins);
+			break;
+		}
+		else ++_viPlayer;
+
+	}
+}
+
 
 
 

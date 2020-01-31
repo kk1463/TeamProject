@@ -65,9 +65,7 @@ void Enemy::update() // 에너미가 움직인다.
 			break;
 		}	
 	}
-
 	
-
 	if(en._enState ==hit1)
 	{
 		en.count++;
@@ -86,15 +84,17 @@ void Enemy::update() // 에너미가 움직인다.
 			en.count = 0;
 		}
 	}	
+
 	en.playerX = getCenterPos(_vPlayer[0]->getPlayerRect()).x;
 	en.playerY = getCenterPos(_vPlayer[0]->getPlayerRect()).y;
 	getPlayerPos = getDistance(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
 	getPlayerAngle = getAngle(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
+
+	//에너미 삭제문은 update 제일 마지막에 놔둘것
 	if (en.hp < 0)
 	{
 		ENEMYMANAGER->eraseEnemy(this);
 	}
-
 }
 
 void Enemy::hit()

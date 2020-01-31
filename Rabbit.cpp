@@ -150,7 +150,7 @@ void Rabbit::update()
 		break;
 	}*/
 
-	//en.colRc = RectMakeCenter(en.x + 24+a, en.y + 25+b, 40, 40);
+	en.colRc = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
 	en.attackCheckRC = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
 
 	
@@ -292,7 +292,13 @@ void Rabbit::attack()
 	{
 		en.dir = DOWN;
 	}
-
+	if (en.Ani->getFrameNumber() == 11)
+	{
+		if (PLAYERMANGER->get_vPlayer().size() > 0) 
+		{
+			PLAYERMANGER->get_vPlayer()[0]->attaked(100);
+		}
+	}
 	if (en.Ani->getMaxFrameNumber()==en.Ani->getFrameNumber()
 		|| en.Ani->getFrameNumber()==0)
 	{
