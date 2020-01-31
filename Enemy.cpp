@@ -11,9 +11,7 @@ Enemy::~Enemy() // 에너미가 사라진다
 }
 HRESULT Enemy::init() // 에너미가 등장한다.
 {
-	cout << "EnemyInit" << endl; // 에너미는 끝났다
 	_tiles = SCENEMANAGER->getCurrentScene()->getTile();
-
 
 
 
@@ -21,8 +19,9 @@ HRESULT Enemy::init() // 에너미가 등장한다.
 	en.upMove = true;
 	en.downMove = true;
 	en.rightMove = true;
-	getPlayerPos = getPlayerAngle= 0;
-
+	
+	en.angry = false;
+	getPlayerPos = getPlayerAngle = 0;
 
 
 	return S_OK;
@@ -49,37 +48,22 @@ void Enemy::update() // 에너미가 움직인다.
 	this->setColRect(en.colRc);
 	this->setCenter(PointMake(en.x, en.y));
 
-
-
-
-
-
-	//_vPlayer = PLAYERMANGER->get_vPlayer();
-
-	//for (int i = 0;i < _vPlayer.size();i++)
-	//{
-	//	
-	//	RECT temp;
-	//	RECT rc = _vPlayer[0]->getColRect();
-
-	//	if (IntersectRect(&temp, &en.colRc, &rc))
-	//	{
-	//		en.hit = true;
-	//		
-	//	}
-	//	else
-	//		en.hit = false;
-
-	//	_vPlayer[0]->getCenter();
-
-	//	getPlayerPos = getDistance(en.x,en.y,_vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
-	//	getPlayerAngle = getAngle(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
-
-	//}
-	
-
+	_vPlayer = PLAYERMANGER->get_vPlayer();
 
 	
+	for (int i = 0;i < _vPlayer.size();i++)
+	{
+		RECT temp;		
+		RECT rc = _vPlayer[0]->getColRect();
+		int _playerDir = _vPlayer[0]->getPlayerDir();
+		if ((IntersectRect(&temp, &en.colRc, &rc)&&(en.angry)))
+		{
+			en._enState = atk1;
+
+		}
+		
+	}
+
 	
 
 
@@ -88,12 +72,14 @@ void Enemy::update() // 에너미가 움직인다.
 
 
 
-	
+
+
+
+
 }
 
 void Enemy::hit()
 {
-
 
 }
 

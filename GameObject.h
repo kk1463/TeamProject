@@ -31,6 +31,8 @@ protected:
 	OBJECT _kinds;
 	POINT _center;
 	RECT _rc, _colRc;
+	
+	RECT _PlayerAtkRc;	//player용 공격시 나오는 렉트
 
 	RECT en_colRc;		 //enemy용 체크렉트
 	RECT en_rightColRc;	 //enemy용 체크렉트
@@ -38,11 +40,11 @@ protected:
 	RECT en_topColRc;	 //enemy용 체크렉트
 	RECT en_botColRc;	 //enemy용 체크렉트
 
-	RECT checkRc[4];
 
 	int _frameX;
 	int _frameY;
 	animation* _ani;
+	int playerDir;
 
 public:
 	GameObject();
@@ -67,10 +69,13 @@ public:
 	RECT getRect() { return _rc; }
 	void setRect(RECT rc) { _rc = rc; }
 
+	RECT getPlayerAtkRc() { return _PlayerAtkRc; }
+	void SetPlayerAtkRc(RECT rc) { _PlayerAtkRc=rc; }
+	
+
+	//enemy용//
 	RECT getColRect() { return _colRc; }
 	void setColRect(RECT colRc) { _colRc = colRc; }
-
-
 	RECT getCheckRect_Left() { return en_leftColRc; }
 	void setCheckRect_Left(RECT _en_leftColRc) { en_leftColRc = _en_leftColRc; }
 	RECT getCheckRect_Right() { return en_rightColRc; }
@@ -80,7 +85,8 @@ public:
 	RECT getCheckRect_Bottom() { return en_botColRc; }
 	void setCheckRect_Bottom(RECT _en_botColRc) { en_botColRc = _en_botColRc; }
 
-
+	int getPlayerDir() { return playerDir; }
+	void setPlayerDir(int a) { playerDir = a; }
 
 
 

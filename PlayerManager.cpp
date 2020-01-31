@@ -42,7 +42,7 @@ void PlayerManager::collision()
 		GameObject* temp = *Iter;
 		if (PtInRect(&temp->getColRect(), _ptMouse) && temp->getObject() != PLAYER)
 		{
-			SCENEMANAGER->getCurrentScene()->deleteObject(temp);
+			//SCENEMANAGER->getCurrentScene()->deleteObject(temp);
 			break;
 		}
 		else ++Iter;

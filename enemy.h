@@ -15,6 +15,14 @@ enum EnemyState
 	deadEffect
 };
 
+enum State //상태패턴용 
+{
+	move1,
+	atk1,
+	hit1,
+	dead1
+};
+
 enum BossState
 {
 	Come,
@@ -49,6 +57,7 @@ struct info
 	RECT rc;
 	RECT senseRC;
 	float x, y;
+	State _enState;
 	image* img;
 	direction dir;
 	EnemyName name;
@@ -56,19 +65,19 @@ struct info
 	BossState _BossState;
 	animation* Ani;
 	bool changeAni;
-	bool hit,move,atk,dead;
+	bool hit, move, atk, dead,angry;
 	int fps;
-	int HP;
 	float SPEED;
 	bool leftMove, rightMove, upMove, downMove;  //타일에 충돌했을때 각 방향으로의 움직임을 막아줌
 	RECT colRc, leftColRc, rightColRc, botColRc, topColRc; //전후좌우 충돌체크용 렉트
-	
+	int HP;
+	int Movecheck;
 
 };
 
 class Enemy : public GameObject
 {
-
+	vector<GameObject*>  _vPlayer;
 
 protected:
 	info en;
@@ -82,15 +91,14 @@ public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
+	virtual void hit();
 
 	virtual void setTile(vector<tagTile*> ins);
 	RECT GetEnColRc() { en.colRc; }
 
-	
 	//hp 게터 세터
 	void getHp() { en.HP; }
-	void setHP(int _hp) {en.HP = _hp;}
-	void hit();
+	void setHP(int _hp) { en.HP = _hp; }
 
 };
 
