@@ -65,7 +65,7 @@ void Player::update()
 	}
 
 
-	cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
+	//cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
 
 	this->SetPlayerAtkRc(_playerInfo.AtkRc);
 

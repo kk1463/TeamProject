@@ -8,11 +8,7 @@ class Slime :public Enemy
 private:
 
 
-
-	bool move;
-	bool atk;
 	int count;
-	int Movecheck;
 
 public:
 	Slime();
@@ -20,8 +16,12 @@ public:
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
-	void collision();
-	void S_move();
+	void S_Collision();
+	void S_moving();
 	void S_state();
+	void S_attack();
+	void S_hit();
+	void S_die();
+	void S_trace();
 };
 

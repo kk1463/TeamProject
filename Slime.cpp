@@ -27,6 +27,10 @@ HRESULT Slime::init()
 	//dead
 	IMAGEMANAGER->addFrameImage("S_dead", "img/slime/S_dead.bmp", 954, 58, 9, 1, true, RGB(255, 0, 255));
 
+	EFFECTMANAGER->addEffect("S_dead", "img/slime/S_dead.bmp", 954, 58, 106, 58, 1.0f, 0.2f, 50);
+	
+
+
 
 	//idle
 	int Slime_Idle[] = { 0,1,2,3,4,5,6,7 };
@@ -60,8 +64,6 @@ HRESULT Slime::init()
 	en.Ani = KEYANIMANAGER->findAnimation("S_idle");
 
 	count = 0;
-	move = true;
-	atk = false;
 
 	en.changeAni = true;
 	en.Ani->start();
@@ -69,15 +71,14 @@ HRESULT Slime::init()
 	en.x = WINSIZEX / 2 + 200;
 	en.y = WINSIZEY / 2 - 200;
 
+
+	en.hp = 10;
+
+
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
 	Enemy::init();
-
-
-
-
-
 	return S_OK;
 }
 
@@ -87,7 +88,31 @@ void Slime::release()
 
 void Slime::update()
 {
+	Enemy::update();
+
+	switch (en.Movecheck)
+	{
+	case 0:
+		en.atkX = -40;
+		en.atkY = 0;
+		break;
+	case 1:
+		en.atkX = 40;
+		en.atkY = 0;
+		break;
+	case 2:
+		en.atkX = 0;
+		en.atkY = -40;
+		break;
+	case 3:
+		en.atkX = 0;
+		en.atkY = 40;
+		break;
+	}
+
 	en.colRc = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
+	en.attackCheckRC = RectMakeCenter(en.x + 24 + en.atkX, en.y + en.atkY + 25, 40, 40);
+
 	en.rightColRc = RectMakeCenter(en.colRc.right + 2, en.colRc.top + 20, 3, 30);
 	en.leftColRc = RectMakeCenter(en.colRc.left - 2, en.colRc.top + 20, 3, 30);
 	en.topColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.top - 2, 30, 3);
@@ -98,19 +123,32 @@ void Slime::update()
 	this->setCheckRect_Top(en.topColRc);
 	this->setCheckRect_Bottom(en.botColRc);
 
-	Enemy::update();
+	switch (en._enState)
+	{
+	case move1:
+		if (!en.angry)
+		{
+			S_moving();
+		}
+		else
+			S_trace();
+		break;
+	case atk1:
+		S_attack();
+		break;
+	case hit1:
+		S_hit();
+		break;
+	case dead1:
+		S_die();
+		break;
+	default:
+		break;
+	}
 
-	//테스트 움직이기 용
-	//if (KEYMANAGER->isStayKeyDown('A'))Movecheck = 0;
-	//if (KEYMANAGER->isStayKeyDown('D'))Movecheck = 1;
-	//if (KEYMANAGER->isStayKeyDown('S'))Movecheck = 3;
-	//if (KEYMANAGER->isStayKeyDown('W'))Movecheck = 2;
 
 
-	if (!atk)S_move();
-	if (!atk)collision();
-
-
+	
 	if (en.changeAni)
 	{
 		S_state();
@@ -124,7 +162,8 @@ void Slime::update()
 
 }
 
-void Slime::collision()
+
+void Slime::S_Collision()
 {
 
 	for (int i = 0; i < _tiles.size(); i++)
@@ -191,32 +230,32 @@ void Slime::collision()
 	}
 }
 
-void Slime::S_move()
+void Slime::S_moving()
 {
 	en.state = Run;
 	en.SPEED = 1.7F;
 
 	count++;
-	if (Movecheck == 0)
+	if (en.Movecheck == 0)
 	{
 		en.dir = LEFT;
 	}
-	if (Movecheck == 1)
+	if (en.Movecheck == 1)
 	{
 		en.dir = RIGHT;
 	}
-	if (Movecheck == 2)
+	if (en.Movecheck == 2)
 	{
 		en.dir = UP;
 	}
-	if (Movecheck == 3)
+	if (en.Movecheck == 3)
 	{
 		en.dir = DOWN;
 	}
 	if (count >= 80)
 	{
 		en.changeAni = true;
-		Movecheck = RND->getFromIntTo(0, 4); //공격 테스트를 위해 잠시 잠굼
+		en.Movecheck = RND->getFromIntTo(0, 4); 
 		count = 0;
 	}
 
@@ -294,26 +333,22 @@ void Slime::S_state()
 		switch (en.dir)
 		{
 		case LEFT:
-			//en.img = IMAGEMANAGER->findImage("R_atk_left");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Left");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case RIGHT:
-			//en.img = IMAGEMANAGER->findImage("R_atk_right");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Right");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case DOWN:
-			//en.img = IMAGEMANAGER->findImage("R_atk_down");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Down");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case UP:
-			//en.img = IMAGEMANAGER->findImage("R_atk_up");
-			//en.Ani = KEYANIMANAGER->findAnimation("R_atk_Up");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
@@ -323,26 +358,22 @@ void Slime::S_state()
 		switch (en.dir)
 		{
 		case LEFT:
-			en.img = IMAGEMANAGER->findImage("R_dmg_left");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Left");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case RIGHT:
-			en.img = IMAGEMANAGER->findImage("R_dmg_right");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Right");
+		
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case DOWN:
-			en.img = IMAGEMANAGER->findImage("R_dmg_down");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Down");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case UP:
-			en.img = IMAGEMANAGER->findImage("R_dmg_up");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dmg_Up");
+		
 			en.Ani->start();
 			en.changeAni = false;
 			break;
@@ -351,40 +382,222 @@ void Slime::S_state()
 	case Dead:
 		switch (en.dir)
 		{
-		case LEFT:
-			en.img = IMAGEMANAGER->findImage("R_dead_Left");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
-			en.Ani->start();
-			en.changeAni = false;
-			break;
-		case RIGHT:
-			en.img = IMAGEMANAGER->findImage("R_dead_Right");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
-			en.Ani->start();
-			en.changeAni = false;
-			break;
-		case DOWN:
-			en.img = IMAGEMANAGER->findImage("R_dead_Left");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
-			en.Ani->start();
-			en.changeAni = false;
-			break;
-		case UP:
-			en.img = IMAGEMANAGER->findImage("R_dead_Right");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
-			en.Ani->start();
-			en.changeAni = false;
-			break;
+		
 		}
 
 		break;
 	case deadEffect:
-		en.img = IMAGEMANAGER->findImage("R_deadEffect");
-		en.Ani = KEYANIMANAGER->findAnimation("R_deadEffect");
+		//en.img = IMAGEMANAGER->findImage("R_deadEffect");
+		//en.Ani = KEYANIMANAGER->findAnimation("R_deadEffect");
 		en.Ani->start();
 		en.changeAni = false;
 		break;
 	default:
+		break;
+	}
+}
+
+void Slime::S_attack()
+{
+	
+	if (en.Movecheck == 0)
+	{
+		en.dir = LEFT;
+	}
+	if (en.Movecheck == 1)
+	{
+		en.dir = RIGHT;
+	}
+	if (en.Movecheck == 2)
+	{
+		en.dir = UP;
+	}
+	if (en.Movecheck == 3)
+	{
+		en.dir = DOWN;
+	}
+	if (en.Ani->getFrameNumber() == 11)
+	{
+		if (PLAYERMANGER->get_vPlayer().size() > 0)
+		{
+			PLAYERMANGER->get_vPlayer()[0]->attaked(100);
+		}
+	}
+	if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber()
+		|| en.Ani->getFrameNumber() == 0)
+	{
+		en.changeAni = true;		
+	}
+	switch (en.dir)
+	{
+	case LEFT:
+		en.img = IMAGEMANAGER->findImage("S_atk_left");
+		en.Ani = KEYANIMANAGER->findAnimation("S_atk_Left");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case RIGHT:
+		en.img = IMAGEMANAGER->findImage("S_atk_right");
+		en.Ani = KEYANIMANAGER->findAnimation("S_atk_Right");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case DOWN:
+		en.img = IMAGEMANAGER->findImage("S_atk_down");
+		en.Ani = KEYANIMANAGER->findAnimation("S_atk_Down");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case UP:
+		en.img = IMAGEMANAGER->findImage("S_atk_up");
+		en.Ani = KEYANIMANAGER->findAnimation("S_atk_Up");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	}
+}
+
+void Slime::S_hit()
+{
+	en.state = Dmg;
+	if (en.Movecheck == 0)
+	{
+		en.dir = LEFT;
+	}
+	if (en.Movecheck == 1)
+	{
+		en.dir = RIGHT;
+	}
+	if (en.Movecheck == 2)
+	{
+		en.dir = UP;
+	}
+	if (en.Movecheck == 3)
+	{
+		en.dir = DOWN;
+	}
+	if (count >= 60)
+	{
+		en.changeAni = true;
+		count = 0;
+	}
+
+	switch (en.dir)
+	{
+	case LEFT:
+		en.img = IMAGEMANAGER->findImage("S_dmg_left");
+		en.Ani = KEYANIMANAGER->findAnimation("S_dmg_Left");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case RIGHT:
+		en.img = IMAGEMANAGER->findImage("S_dmg_right");
+		en.Ani = KEYANIMANAGER->findAnimation("S_dmg_Right");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case DOWN:
+		en.img = IMAGEMANAGER->findImage("S_dmg_down");
+		en.Ani = KEYANIMANAGER->findAnimation("S_dmg_Down");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	case UP:
+		en.img = IMAGEMANAGER->findImage("S_dmg_up");
+		en.Ani = KEYANIMANAGER->findAnimation("S_dmg_Up");
+		en.Ani->start();
+		en.changeAni = false;
+		break;
+	}
+}
+
+void Slime::S_die()
+{
+
+}
+
+void Slime::S_trace()
+{
+	en.state = Run;
+	en.SPEED = 1.0f;
+
+
+	if (en.x > en.playerX)
+	{
+		en.Movecheck = 0;
+	}
+	else if (en.x < en.playerX)
+	{
+		en.Movecheck = 1;
+	}
+	else if (en.y > en.playerY)
+	{
+		en.Movecheck = 2;
+	}
+	else if (en.y < en.playerY)
+	{
+		en.Movecheck = 3;
+	}
+
+
+	if (en.Movecheck == 0)
+	{
+		en.dir = LEFT;
+	}
+	if (en.Movecheck == 1)
+	{
+		en.dir = RIGHT;
+	}
+	if (en.Movecheck == 2)
+	{
+		en.dir = UP;
+	}
+	if (en.Movecheck == 3)
+	{
+		en.dir = DOWN;
+	}
+	if (count >= 80)
+	{
+		en.changeAni = true;
+		count = 0;
+	}
+	switch (en.dir)
+	{
+	case LEFT:
+		en.Ani = KEYANIMANAGER->findAnimation("S_run_Left");
+		en.img = IMAGEMANAGER->findImage("S_run_left");
+		if (en.leftMove)
+		{
+			en.x -= -cosf(getPlayerAngle)*en.SPEED;
+			en.y -= sinf(getPlayerAngle)*en.SPEED;
+		}
+		break;
+	case RIGHT:
+		en.Ani = KEYANIMANAGER->findAnimation("S_run_Right");
+		en.img = IMAGEMANAGER->findImage("S_run_right");
+		if (en.rightMove)
+		{
+			en.x -= -cosf(getPlayerAngle)*en.SPEED;
+			en.y -= sinf(getPlayerAngle)*en.SPEED;
+		}
+		break;
+	case DOWN:
+		en.Ani = KEYANIMANAGER->findAnimation("S_run_Down");
+		en.img = IMAGEMANAGER->findImage("S_run_down");
+		if (en.downMove)
+		{
+			en.x -= -cosf(getPlayerAngle)*en.SPEED;
+			en.y -= sinf(getPlayerAngle)*en.SPEED;
+		}
+		break;
+	case UP:
+		en.Ani = KEYANIMANAGER->findAnimation("S_run_Up");
+		en.img = IMAGEMANAGER->findImage("S_run_up");
+		if (en.upMove)
+		{
+			en.x -= -cosf(getPlayerAngle)*en.SPEED;
+			en.y -= sinf(getPlayerAngle)*en.SPEED;
+		}
 		break;
 	}
 }
