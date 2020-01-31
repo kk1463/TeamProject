@@ -290,7 +290,6 @@ void Rabbit::attack()
 	{
 		en.dir = DOWN;
 	}
-
 	if (PLAYERMANGER->get_vPlayer().size() > 0)
 	{
 		RECT temp;

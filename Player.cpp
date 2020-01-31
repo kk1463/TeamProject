@@ -65,7 +65,6 @@ void Player::update()
 	}
 
 
-	//cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
 
 	this->SetPlayerAtkRc(_playerInfo.AtkRc);
 
@@ -76,6 +75,22 @@ void Player::update()
 		PLAYERMANGER->erasePlayer(this);
 	}
 
+	if (_playerInfo.attcked)
+	{
+		_playerInfo.dmgCount++;
+		
+		_playerInfo.state = P_DMG;
+		_playerInfo.changeAni = true;
+
+		cout << _playerInfo.dmgCount << endl;
+	}
+
+	if (_playerInfo.dmgCount == 10)
+	{
+		_playerInfo.state = P_IDLE;
+		_playerInfo.attcked = false;
+		_playerInfo.dmgCount = 0;
+	}
 }
 
 
@@ -203,10 +218,11 @@ void Player::PlayerRectChange()
 
 void Player::attaked(int atk)
 {
+	_playerInfo.attcked = true;
 	_playerInfo.hp -= atk;
 
-	_playerInfo.state = P_DMG;
 	
+
 }
 
 
