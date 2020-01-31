@@ -17,6 +17,7 @@ HRESULT StageTwoScene::init()
 	_tiles = TILEMANAGER->load("Stage/StageTwo.txt");
 
 	TILEMANAGER->loadObj("Object/stageOne.txt", "stageTwo");
+	PLAYERMANGER->init();
 	return S_OK;
 }
 

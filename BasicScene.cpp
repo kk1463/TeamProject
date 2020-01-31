@@ -4,7 +4,7 @@
 
 void BasicScene::Start()
 {
-	PLAYERMANGER->init();
+	//PLAYERMANGER->init();
 }
 
 void BasicScene::setGameObj(GameObject* obj)

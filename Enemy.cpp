@@ -25,7 +25,8 @@ HRESULT Enemy::init() // 에너미가 등장한다.
 
 	en.playerX = en.playerY = 0;
 
-
+	en.x = getCenterPos(_rc).x;
+	en.y = getCenterPos(_rc).y;
 	return S_OK;
 }
 

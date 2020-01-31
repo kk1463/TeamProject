@@ -204,6 +204,8 @@ void Player::PlayerRectChange()
 void Player::attaked(int atk)
 {
 	_playerInfo.hp -= atk;
+
+	_playerInfo.state = P_DMG;
 	
 }
 

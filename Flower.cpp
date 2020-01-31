@@ -65,9 +65,6 @@ HRESULT Flower::init()
 	en.changeAni = true;
 	en.Ani->start();
 
-	en.x = WINSIZEX / 2;
-	en.y = WINSIZEY / 2;
-
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 

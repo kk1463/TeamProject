@@ -22,6 +22,9 @@ HRESULT Warrior::init(PlayerName playername)
 	IMAGEMANAGER->addFrameImage("atk", "img/warrior/atk/atk.bmp", 1560, 200, 13, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("atkDown", "img/warrior/atk/AtkDown.bmp", 1560, 110, 13, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("atkUp", "img/warrior/atk/AtkUp.bmp", 1430, 100, 13, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("dmg", "img/warrior/dmg/dmg.bmp", 360,72, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("dmg2", "img/warrior/dmg/dmg2.bmp", 400, 72, 4, 1, true, RGB(255, 0, 255));
+
 
 
 
@@ -37,7 +40,11 @@ HRESULT Warrior::init(PlayerName playername)
 	KEYANIMANAGER->addCoordinateFrameAnimation("atkLeft", "atk", 25, 13, 20, false, false);
 	KEYANIMANAGER->addCoordinateFrameAnimation("atkDown", "atkDown", 0, 12, 20, false, false);
 	KEYANIMANAGER->addCoordinateFrameAnimation("atkUp", "atkUp", 0, 12, 20, false, false);
-
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgRight", "dmg", 0,1 , 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgLeft", "dmg", 2,3 , 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgUp", "dmg2", 0,1 , 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgDown", "dmg2", 2,3 , 20, false, false);
+	
 	_playerInfo.playerName = PN_WARRIOR;
 
 	_playerInfo.position.x = 300;
@@ -442,6 +449,40 @@ void Warrior::PlayerStateChange()
 
 		}
 		break;
+
+	case P_DMG:
+		switch (_playerInfo.direction)
+		{
+		case P_LEFT:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgLeft");
+			_playerInfo.img = IMAGEMANAGER->findImage("dmg");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+
+			break;
+
+		case P_RIGHT:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgRight");
+			_playerInfo.img = IMAGEMANAGER->findImage("dmg");
+			_playerInfo.ani->start();
+
+			_playerInfo.changeAni = false;
+			break;
+
+		case P_DOWN:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgDown");
+			_playerInfo.img = IMAGEMANAGER->findImage("dmg2");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;
+		case P_UP:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgUp");
+			_playerInfo.img = IMAGEMANAGER->findImage("dmg2");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;
+		}
+		break;
 	}
 
 
@@ -531,6 +572,33 @@ void Warrior::PlayerRectChange()
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.topColRc.top, 90, 60);
 			break;
 
+		}
+		break;
+
+	case P_DMG:
+
+		switch (_playerInfo.direction)
+
+		{
+
+		case P_LEFT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
+			break;
+
+		case P_RIGHT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 25, 25);
+			break;
+
+		case P_DOWN:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
+			break;
+		case P_UP:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 25, 25);
+			break;
 		}
 		break;
 	}
