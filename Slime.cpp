@@ -107,7 +107,7 @@ void Slime::update()
 	}
 
 	en.colRc = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
-	en.attackCheckRC = RectMakeCenter(en.x + 24 + en.atkX, en.y + en.atkY + 25, 40, 40);
+	en.attackCheckRC = RectMakeCenter(en.x + 24 + en.atkX, en.y + en.atkY + 25, 60, 60);
 
 	en.rightColRc = RectMakeCenter(en.colRc.right + 2, en.colRc.top + 20, 3, 30);
 	en.leftColRc = RectMakeCenter(en.colRc.left - 2, en.colRc.top + 20, 3, 30);
@@ -130,13 +130,13 @@ void Slime::update()
 			S_trace();
 		break;
 	case atk1:
-	//	S_attack();
+		S_attack();
 		break;
 	case hit1:
 		S_hit();
 		break;
 	case dead1:
-	//	S_die();
+		S_die();
 		break;
 	default:
 		break;
@@ -395,6 +395,7 @@ void Slime::S_state()
 
 void Slime::S_attack()
 {
+	en.state = Atk;
 	
 	if (en.Movecheck == 0)
 	{
@@ -411,45 +412,42 @@ void Slime::S_attack()
 	if (en.Movecheck == 3)
 	{
 		en.dir = DOWN;
-	}
-	if (en.Ani->getFrameNumber() == 11)
+	}if (PLAYERMANGER->get_vPlayer().size() > 0)
 	{
-		if (PLAYERMANGER->get_vPlayer().size() > 0)
+		RECT temp;
+		RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
+		if ((en.Ani->getFrameNumber() == 11) && (IntersectRect(&temp, &en.attackCheckRC, &rc)))
 		{
-			PLAYERMANGER->get_vPlayer()[0]->attaked(100);
+
+			if (PLAYERMANGER->get_vPlayer().size() > 0)
+			{
+				PLAYERMANGER->get_vPlayer()[0]->attaked(5);
+			}
 		}
-	}
-	if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber()
-		|| en.Ani->getFrameNumber() == 0)
-	{
-		en.changeAni = true;		
-	}
-	switch (en.dir)
-	{
-	case LEFT:
-		en.img = IMAGEMANAGER->findImage("S_atk_left");
-		en.Ani = KEYANIMANAGER->findAnimation("S_atk_Left");
-		en.Ani->start();
-		en.changeAni = false;
-		break;
-	case RIGHT:
-		en.img = IMAGEMANAGER->findImage("S_atk_right");
-		en.Ani = KEYANIMANAGER->findAnimation("S_atk_Right");
-		en.Ani->start();
-		en.changeAni = false;
-		break;
-	case DOWN:
-		en.img = IMAGEMANAGER->findImage("S_atk_down");
-		en.Ani = KEYANIMANAGER->findAnimation("S_atk_Down");
-		en.Ani->start();
-		en.changeAni = false;
-		break;
-	case UP:
-		en.img = IMAGEMANAGER->findImage("S_atk_up");
-		en.Ani = KEYANIMANAGER->findAnimation("S_atk_Up");
-		en.Ani->start();
-		en.changeAni = false;
-		break;
+		if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber()
+			|| en.Ani->getFrameNumber() == 0)
+		{
+			en.changeAni = true;
+		}
+		switch (en.dir)
+		{
+		case LEFT:
+			en.img = IMAGEMANAGER->findImage("S_Atk_left");
+			en.Ani = KEYANIMANAGER->findAnimation("S_Atk_Left");			
+			break;
+		case RIGHT:
+			en.img = IMAGEMANAGER->findImage("S_Atk_Right");
+			en.Ani = KEYANIMANAGER->findAnimation("S_Atk_Right");		
+			break;
+		case DOWN:
+			en.img = IMAGEMANAGER->findImage("S_Atk_Down");
+			en.Ani = KEYANIMANAGER->findAnimation("S_Atk_Down");			
+			break;
+		case UP:
+			en.img = IMAGEMANAGER->findImage("S_Atk_Up");
+			en.Ani = KEYANIMANAGER->findAnimation("S_Atk_Up");			
+			break;
+		}
 	}
 }
 
