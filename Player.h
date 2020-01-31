@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 class gameNode;
-#define FPS 8
+#define FPS 10
 
 
 enum PlayerName
@@ -52,6 +52,9 @@ struct PlayerInfo
 	bool leftMove, rightMove, upMove, downMove;  //타일에 충돌했을때 각 방향으로의 움직임을 막아줌
 	RECT colRc, leftColRc, rightColRc, botColRc, topColRc; //전후좌우 충돌체크용 렉트
 	RECT AtkRc;
+	RECT miniColRc;
+	int hp;
+	
 
 };
 class Player : public GameObject
@@ -63,6 +66,7 @@ protected:
 	PlayerInfo _playerInfo;
 	Direction _direction;
 	RECT testrc;
+	bool _playerDie;
 	bool EnemyAttacked = false;
 public:
 	Player();
@@ -78,8 +82,12 @@ public:
 	PlayerInfo getPlayerinfo() { return _playerInfo; }
 	RECT getColRc() { return _playerInfo.colRc; }
 	RECT getAtkRc() { return _playerInfo.AtkRc; }
-
+	RECT getminiColRc() { return _playerInfo.miniColRc; }
 	void getPlayerDir() { _playerInfo.direction; }//enemy 판정을위해 하나..
+	virtual int getHp() { return  _playerInfo.hp; }
 
+	void setPlayerHp(int hp) { _playerInfo.hp = hp; }
+	virtual void attaked(int atk);
+	
 };
 

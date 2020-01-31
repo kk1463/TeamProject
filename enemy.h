@@ -20,7 +20,9 @@ enum State //상태패턴용
 	move1,
 	atk1,
 	hit1,
-	dead1
+	dead1,
+	deadEffect1
+
 };
 
 enum BossState
@@ -70,9 +72,16 @@ struct info
 	float SPEED;
 	bool leftMove, rightMove, upMove, downMove;  //타일에 충돌했을때 각 방향으로의 움직임을 막아줌
 	RECT colRc, leftColRc, rightColRc, botColRc, topColRc; //전후좌우 충돌체크용 렉트
+	RECT attackCheckRC;
 	float hp;
 	int Movecheck;
 	int count;
+	int atkX, atkY;
+
+	int playerX, playerY;
+	int PlayerDirNumber;
+	float PlayerAngle;
+
 
 };
 
@@ -102,8 +111,8 @@ public:
 	RECT GetEnColRc() { en.colRc; }
 
 	//hp 게터 세터
-	void getHp() { en.hp; }
-	void setHP(int _hp) { en.hp = _hp; }
+	virtual int getHp() { return en.hp; }
+	virtual void setHP(int _hp) { en.hp = _hp; }
 
 };
 

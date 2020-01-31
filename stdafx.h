@@ -30,6 +30,8 @@ using namespace std;
 #include"PathFinder.h"
 #include"enemyManager.h"
 #include"PlayerManager.h"
+#include"uiManager.h"
+#include"ItemManager.h"
 using namespace SEVENTEEN_UTIL;
 
 //=========================================
@@ -57,6 +59,8 @@ using namespace SEVENTEEN_UTIL;
 #define PATHFINDER PathFinder::getSingleton()
 #define ENEMYMANAGER EnemyManager::getSingleton()
 #define PLAYERMANGER PlayerManager::getSingleton()
+#define UIMANAGER	uiManager::getSingleton()
+#define ITEMMANAGER	ItemManager::getSingleton()
 
 #define SAFE_DELETE(p) {if(p) {delete(p); (p)=NULL;}}
 #define SAFE_RELEASE(p) {if(p) {(p)->release(); (p) = NULL;}}

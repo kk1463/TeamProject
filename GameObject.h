@@ -20,9 +20,9 @@ enum OBJECT
 	Rock,
 	Big_stone,
 	Stone,
+	ITEM,
 	OBJ_NONE
 };
-
 class GameObject
 {
 protected:
@@ -91,8 +91,7 @@ public:
 	int getPlayerDir() { return playerDir; }
 	void setPlayerDir(int a) { playerDir = a; }
 	virtual void attaked(int atk);
-
-
+	virtual int getHp() { return 0; }
 
 	void setAni(animation* ani) { _ani = ani; }
 	animation* getAni() { return _ani; }

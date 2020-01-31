@@ -21,6 +21,11 @@ HRESULT Player::init(PlayerName playername)
 {
 	_totalTile = SCENEMANAGER->getCurrentScene()->getTile();
 	_vEnemy = ENEMYMANAGER->getEnemy();
+
+	EFFECTMANAGER->addEffect("PlayerDead", "img/warrior/dead/PlayerDead.bmp", 2160, 100, 120, 100, 1.0f, 0.2f, 50);
+
+	_playerDie = false;
+
 	return S_OK;
 
 }
@@ -60,10 +65,16 @@ void Player::update()
 	}
 
 
-	cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
+	//cout<<getCenterPos(getColRect()).x<<","<< getCenterPos(getColRect()).y <<endl;
 
 	this->SetPlayerAtkRc(_playerInfo.AtkRc);
 
+	if (_playerInfo.hp <= 0) 
+	{
+		EFFECTMANAGER->play("PlayerDead",PLAYERMANGER->get_vPlayer()[0]->getCenter().x+
+			40, PLAYERMANGER->get_vPlayer()[0]->getCenter().y+20);
+		PLAYERMANGER->erasePlayer(this);
+	}
 
 }
 
@@ -76,11 +87,13 @@ void Player::KeyControl()
 	{
 		RECT rc = _vEnemy[j]->getColRect();
 		RECT temp;
+
 		if (_playerInfo.direction == P_RIGHT|| _playerInfo.direction == P_LEFT)
 		{
-			if (IntersectRect(&temp, &_playerInfo.colRc, &_vEnemy[j]->getColRect()))
+			if (IntersectRect(&temp, &_playerInfo.miniColRc, &_vEnemy[j]->getColRect()))
 			{
-				if (getCenterPos(_playerInfo.colRc).y < getCenterPos(_vEnemy[j]->getColRect()).y)
+				
+				if (getCenterPos(_playerInfo.miniColRc).y < getCenterPos(_vEnemy[j]->getColRect()).y)
 				{
 					_playerInfo.position.y -= 2;
 				}
@@ -93,9 +106,9 @@ void Player::KeyControl()
 		}
 		else if(_playerInfo.direction == P_UP || _playerInfo.direction == P_DOWN)
 		{
-			if (IntersectRect(&temp, &_playerInfo.colRc, &_vEnemy[j]->getColRect()))
+			if (IntersectRect(&temp, &_playerInfo.miniColRc, &_vEnemy[j]->getColRect()))
 			{
-				if (getCenterPos(_playerInfo.colRc).x < getCenterPos(_vEnemy[j]->getColRect()).x)
+				if (getCenterPos(_playerInfo.miniColRc).x < getCenterPos(_vEnemy[j]->getColRect()).x)
 				{
 					_playerInfo.position.x -= 2;
 				}
@@ -107,6 +120,7 @@ void Player::KeyControl()
 			}
 		}
 	}
+	
 
 
 	for (int i = 0; i < _totalTile.size(); i++)
@@ -186,6 +200,16 @@ void Player::PlayerStateChange()
 void Player::PlayerRectChange()
 {
 }
+
+void Player::attaked(int atk)
+{
+	_playerInfo.hp -= atk;
+
+	_playerInfo.state = P_DMG;
+	
+}
+
+
 
 
 

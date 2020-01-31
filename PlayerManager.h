@@ -3,7 +3,6 @@
 #include "Warrior.h"`	
 
 #include <vector>
-class gameNode;
 
 class PlayerManager :public singletonBase<PlayerManager>
 {
@@ -25,5 +24,7 @@ public:
 	HRESULT init();
 	void release();
 	vector<GameObject*> get_vPlayer() { return _vPlayer; }
+	void erasePlayer(GameObject * ins);
+	
 };
 

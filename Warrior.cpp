@@ -22,6 +22,9 @@ HRESULT Warrior::init(PlayerName playername)
 	IMAGEMANAGER->addFrameImage("atk", "img/warrior/atk/atk.bmp", 1560, 200, 13, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("atkDown", "img/warrior/atk/AtkDown.bmp", 1560, 110, 13, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("atkUp", "img/warrior/atk/AtkUp.bmp", 1430, 100, 13, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("dmg", "img/warrior/dmg/dmg.bmp", 360,72, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("dmg2", "img/warrior/dmg/dmg2.bmp", 400, 72, 4, 1, true, RGB(255, 0, 255));
+
 
 
 
@@ -37,12 +40,17 @@ HRESULT Warrior::init(PlayerName playername)
 	KEYANIMANAGER->addCoordinateFrameAnimation("atkLeft", "atk", 25, 13, 20, false, false);
 	KEYANIMANAGER->addCoordinateFrameAnimation("atkDown", "atkDown", 0, 12, 20, false, false);
 	KEYANIMANAGER->addCoordinateFrameAnimation("atkUp", "atkUp", 0, 12, 20, false, false);
-
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgRight", "dmg", 0,1 , 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgLeft", "dmg", 2,3 , 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgUp", "dmg2", 0,1 , 20, false, false);
+	KEYANIMANAGER->addCoordinateFrameAnimation("dmgDown", "dmg2", 2,3 , 20, false, false);
+	
 	_playerInfo.playerName = PN_WARRIOR;
 
 	_playerInfo.position.x = 300;
 	_playerInfo.position.y = 300;
 	_playerInfo.speed = 4;
+	_playerInfo.hp = 100;
 
 	this->setimage(IMAGEMANAGER->findImage("idleDown"));
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
@@ -73,44 +81,52 @@ void Warrior::release()
 
 void Warrior::update()
 {
-
-	KeyControl();
-	PlayerRectChange();
-	if (_playerInfo.changeAni)
+	if (!_playerDie) 
 	{
-		PlayerStateChange();
+		if (_playerInfo.hp <= 0)
+		{
+			
+			_playerDie = true;
+		}
+		KeyControl();
+		PlayerRectChange();
+		if (_playerInfo.changeAni)
+		{
+			PlayerStateChange();
+		}
+
+		_playerInfo.rc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2,
+			_playerInfo.img->getFrameWidth(), _playerInfo.img->getFrameHeight());
+		this->setimage(_playerInfo.img);
+		this->setAni(_playerInfo.ani);
+		this->setRect(_playerInfo.rc);
+		this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
+
+		this->setColRect(_playerInfo.colRc);
+		_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right + 2, _playerInfo.colRc.top + 20, 3, 20);
+		_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left - 2, _playerInfo.colRc.top + 20, 3, 20);
+		_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.top - 2, 20, 3);
+		_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom + 2, 20, 3);
+
+		//_playerInfo.AtkRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+		//_playerInfo.rightAtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.topColRc.top + 20, 20, 70);
+		//_playerInfo.leftAtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.topColRc.top + 20, 20, 70);
+		//_playerInfo.topAtkRc = RectMakeCenter(_playerInfo.leftColRc.left +20, _playerInfo.topColRc.top,70,20);
+		//_playerInfo.botAtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 70, 20);
+
+
+		Player::update();
+		this->setPlayerRect(_playerInfo.colRc);
+		this->setPlayerDir(_playerInfo.direction);
+
 	}
-
-	_playerInfo.rc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2,
-		_playerInfo.img->getFrameWidth(), _playerInfo.img->getFrameHeight());
-	this->setimage(_playerInfo.img);
-	this->setAni(_playerInfo.ani);
-	this->setRect(_playerInfo.rc);
-	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
-
-	this->setColRect(_playerInfo.colRc);
-	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right + 2, _playerInfo.colRc.top + 20, 3, 20);
-	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left - 2, _playerInfo.colRc.top + 20, 3, 20);
-	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.top - 2, 20, 3);
-	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom + 2, 20, 3);
-
-	//_playerInfo.AtkRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
-	//_playerInfo.rightAtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.topColRc.top + 20, 20, 70);
-	//_playerInfo.leftAtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.topColRc.top + 20, 20, 70);
-	//_playerInfo.topAtkRc = RectMakeCenter(_playerInfo.leftColRc.left +20, _playerInfo.topColRc.top,70,20);
-	//_playerInfo.botAtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 70, 20);
-
-
-	Player::update();
-	this->setPlayerRect(_playerInfo.colRc);
-	this->setPlayerDir(_playerInfo.direction);
 }
 
 
 void Warrior::KeyControl()
 {
 
-
+	
 	if (_playerInfo.dirCount < 0)
 	{
 		_playerInfo.dirCount = 0;
@@ -433,6 +449,40 @@ void Warrior::PlayerStateChange()
 
 		}
 		break;
+
+	case P_DMG:
+		switch (_playerInfo.direction)
+		{
+		case P_LEFT:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgLeft");
+			_playerInfo.img = IMAGEMANAGER->findImage("dmg");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+
+			break;
+
+		case P_RIGHT:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgRight");
+			_playerInfo.img = IMAGEMANAGER->findImage("dmg");
+			_playerInfo.ani->start();
+
+			_playerInfo.changeAni = false;
+			break;
+
+		case P_DOWN:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgDown");
+			_playerInfo.img = IMAGEMANAGER->findImage("dmg2");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;
+		case P_UP:
+			_playerInfo.ani = KEYANIMANAGER->findAnimation("dmgUp");
+			_playerInfo.img = IMAGEMANAGER->findImage("dmg2");
+			_playerInfo.ani->start();
+			_playerInfo.changeAni = false;
+			break;
+		}
+		break;
 	}
 
 
@@ -449,18 +499,22 @@ void Warrior::PlayerRectChange()
 		{
 		case P_LEFT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
 			break;
 
 		case P_RIGHT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 25,25);
 			break;
 
 		case P_DOWN:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 25, 25);
 
 			break;
 		case P_UP:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 25, 25);
 			break;
 		}
 		break;
@@ -473,17 +527,21 @@ void Warrior::PlayerRectChange()
 
 		case P_LEFT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
 			break;
 
 		case P_RIGHT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 25, 25);
 			break;
 
 		case P_DOWN:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
 			break;
 		case P_UP:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 25, 25);
 			break;
 		}
 		break;
@@ -493,23 +551,54 @@ void Warrior::PlayerRectChange()
 		{
 		case P_LEFT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 70, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 70, _playerInfo.position.y + 50, 25, 25);
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.topColRc.top + 20, 60, 90);
 			break;
 
 		case P_RIGHT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 50, 25, 25);
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.topColRc.top, 60, 90);
 			break;
 
 		case P_DOWN:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 60, _playerInfo.position.y + 45, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 60, _playerInfo.position.y + 45, 25, 25);
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 90, 60);
 			break;
 		case P_UP:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 50, 25, 25);
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.topColRc.top, 90, 60);
 			break;
 
+		}
+		break;
+
+	case P_DMG:
+
+		switch (_playerInfo.direction)
+
+		{
+
+		case P_LEFT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
+			break;
+
+		case P_RIGHT:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 25, 25);
+			break;
+
+		case P_DOWN:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
+			break;
+		case P_UP:
+			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 25, 25);
+			break;
 		}
 		break;
 	}

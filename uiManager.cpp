@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "uiManager.h"
-
+#include "gameNode.h"
 #include "progressBar.h"
 
 
@@ -81,12 +81,6 @@ HRESULT uiManager::init()
 	invenSelect1 = IMAGEMANAGER->addImage("인벤선택창1", "인벤선택창1.bmp", 200, 98, true, RGB(255, 0, 255));
 	invenSelect2 = IMAGEMANAGER->addImage("인벤선택창2", "인벤선택창2.bmp", 200, 98, true, RGB(255, 0, 255));
 
-	/*for (int i = 0;i < _pm->get_vPlayer().size();i++)
-	{
-		_playerItemVector.push_back(new uiInfo);
-	}*/
-
-
 	//인벤창 렉트
 	for (int i = 0; i < 12; ++i)
 	{
@@ -155,11 +149,17 @@ void uiManager::release()
 
 void uiManager::update()
 {
-
-	PlayerHp->update();
+	vector < GameObject* > container = PLAYERMANGER->get_vPlayer();
+	if (container.size() > 0)
+	{
+		HP = container[0]->getHp();
+	}
+	else
+	{
+		HP = 0;
+	}
 	PlayerHp->setGauge(HP, 100);
 
-	PlayerMp->Mpupdate();
 	PlayerMp->setGauge(MP, 100);
 
 
@@ -191,18 +191,15 @@ void uiManager::update()
 
 	
 	cout << MP << endl;
-	
-	if (KEYMANAGER->isOnceKeyDown('N'))
+	if (MP < 15)
 	{
-		if (HP >= 0)
-		{
-			HP -= 10;
-		}
-		if (MP >= 0)
-		{
-			MP -= 10;
-		}
+		_noMp = true;
 	}
+	else
+	{
+		_noMp = false;
+	}
+
 
 	/*if (KEYMANAGER->isOnceKeyDown('M'))
 	{
@@ -301,7 +298,7 @@ void uiManager::render()
 	//shield1->render(getMemDC(), 100, 500);
 	/*if(draw == true)
 	{
-		_knife->render(getMemDC(), 50, 30);
+		_knife->render(_backBuffer->getMemDC(), 50, 30);
 	}*/
 
 
@@ -317,47 +314,47 @@ void uiManager::render()
 		{
 			if (MP >= 12)
 			{
-				worriorSkill1->render(getMemDC(), 400, 20);
+				worriorSkill1->render(_backBuffer->getMemDC(), 400, 20);
 			}
 			if (MP >= 15)
 			{
-				worriorSkill2->render(getMemDC(), 480, 20);
+				worriorSkill2->render(_backBuffer->getMemDC(), 480, 20);
 			}
 			if (MP >= 20)
 			{
-				worriorSkill3->render(getMemDC(), 560, 20);
+				worriorSkill3->render(_backBuffer->getMemDC(), 560, 20);
 			}
 			if (MP >= 25)
 			{
-				worriorSkill4->render(getMemDC(), 640, 20);
+				worriorSkill4->render(_backBuffer->getMemDC(), 640, 20);
 			}
 		}
 	
 			if (MP < 12)
 			{
-				Skill1->render(getMemDC(), 400, 20);
+				Skill1->render(_backBuffer->getMemDC(), 400, 20);
 				_noMp == true;
 			}
 			if (MP < 15)
 			{
-				Skill2->render(getMemDC(), 480, 20);
+				Skill2->render(_backBuffer->getMemDC(), 480, 20);
 				_noMp == true;
 			}
 			if (MP < 20)
 			{
-				Skill3->render(getMemDC(), 560, 20);
+				Skill3->render(_backBuffer->getMemDC(), 560, 20);
 				_noMp == true;
 			}
 					
 			if (MP < 25)
 			{
-				Skill4->render(getMemDC(), 640, 20);
+				Skill4->render(_backBuffer->getMemDC(), 640, 20);
 				_noMp == true;
 			}
 		//}
 	}
 	//플레이어 hp,mp출력
-	hpUi->render(getMemDC(), 0, 10);
+	hpUi->render(_backBuffer->getMemDC(), 0, 10);
 	PlayerHp->render();
 	PlayerMp->Mprender();
 	
@@ -382,34 +379,42 @@ void uiManager::render()
 		//창 변경 적용
 		if (item == false)
 		{
-			_list1->frameRender(getMemDC(), WINSIZEX / 2 - 100, 10, 1, 0);
-			_list2->frameRender(getMemDC(), WINSIZEX / 2, 10, 0, 0);
+
+
+			_list1->frameRender(_backBuffer->getMemDC(), WINSIZEX / 2 - 100, 10, 1, 0);
+			_list2->frameRender(_backBuffer->getMemDC(), WINSIZEX / 2, 10, 0, 0);
 		}
 
 		if (item == true)
 		{
-			_list1->frameRender(getMemDC(), WINSIZEX / 2 - 100, 10, 0, 0);
-			_list2->frameRender(getMemDC(), WINSIZEX / 2, 10, 1, 0);
-			_skillInven->render(getMemDC(), 180, 120);
+			_list1->frameRender(_backBuffer->getMemDC(), WINSIZEX / 2 - 100, 10, 0, 0);
+			_list2->frameRender(_backBuffer->getMemDC(), WINSIZEX / 2, 10, 1, 0);
+			_skillInven->render(_backBuffer->getMemDC(), 180, 120);
 
 			//스킬 선택창 -> 아이템 선택창 이동
 			if (stay3 == false)
 			{
-				itemOn->render(getMemDC(), 210, 150);
-				worriorOff->render(getMemDC(), 230, 390);
+
+			
+				itemOn->render(_backBuffer->getMemDC(), 210, 150);
+				worriorOff->render(_backBuffer->getMemDC(), 230, 390);
 				
 				//아이템포인터
 				for (int k = 0; k < _vPointer.size(); k++)
 				{
 					if (num1 == k)
 					{
-						_vPointer[0]->getImage()->frameRender(getMemDC(), _rc3[box1[num1]].left, _rc3[box1[num1]].top, 1, 0);
+
+
+						_vPointer[0]->getImage()->frameRender(_backBuffer->getMemDC(), _rc3[box1[num1]].left, _rc3[box1[num1]].top, 1, 0);
 					}
 				}
-				_vPointer[0]->getImage()->frameRender(getMemDC(), _rc3[box1[num1]].left, _rc3[box1[num1]].top, 1, 0);
+
+
+				_vPointer[0]->getImage()->frameRender(_backBuffer->getMemDC(), _rc3[box1[num1]].left, _rc3[box1[num1]].top, 1, 0);
 				/*if (draw == true)
 				{
-					_knife->render(getMemDC(), 240, 218);
+					_knife->render(_backBuffer->getMemDC(), 240, 218);
 				}*/
 			}
 		}
@@ -418,29 +423,33 @@ void uiManager::render()
 
 		//if (draw == false)
 		//{
-			weapon->render(getMemDC(), 246, 220);
+			weapon->render(_backBuffer->getMemDC(), 246, 220);
 		//}
-		shield->render(getMemDC(), 353, 220);
-		armor->render(getMemDC(), 450, 220);
-		hat->render(getMemDC(), 557, 225);
-		accessories->render(getMemDC(), 246, 310);
-		accessories->render(getMemDC(), 350, 310);
-		shoes1->render(getMemDC(), 450, 305);
-		glasses->render(getMemDC(), 550, 315);
-		weapon->render(getMemDC(), 675, 220);
-		shield->render(getMemDC(), 768, 220);
-		hat->render(getMemDC(), 676, 308);
-		glasses->render(getMemDC(), 756, 315);
+		shield->render(_backBuffer->getMemDC(), 353, 220);
+		armor->render(_backBuffer->getMemDC(), 450, 220);
+		hat->render(_backBuffer->getMemDC(), 557, 225);
+		accessories->render(_backBuffer->getMemDC(), 246, 310);
+		accessories->render(_backBuffer->getMemDC(), 350, 310);
+		shoes1->render(_backBuffer->getMemDC(), 450, 305);
+		glasses->render(_backBuffer->getMemDC(), 550, 315);
+		weapon->render(_backBuffer->getMemDC(), 675, 220);
+		shield->render(_backBuffer->getMemDC(), 768, 220);
+		hat->render(_backBuffer->getMemDC(), 676, 308);
+		glasses->render(_backBuffer->getMemDC(), 756, 315);
 
 		
 
 		// 아이템 선택창
 		if (draw == true )
 		{
-			select1->render(getMemDC(), _rc3[box1[num1]].left + 90, _rc3[box1[num1]].top);
+
+			select1->render(_backBuffer->getMemDC(), _rc3[box1[num1]].left + 90, _rc3[box1[num1]].top);
+			
 			if(draw1 == true)
 			{
-				select2->render(getMemDC(), _rc3[box1[num1]].left + 90, _rc3[box1[num1]].top);
+				select2->render(_backBuffer->getMemDC(), _rc3[box1[num1]].left + 90, _rc3[box1[num1]].top);
+
+
 			}
 		}
 	}
@@ -448,46 +457,50 @@ void uiManager::render()
 	//아이템 선택창 -> 스킬 선택창 이동
 	if (stay3 == true)
 	{
-		itemOff->render(getMemDC(), 210, 150);
-		worriorOn->render(getMemDC(), 230, 390);
+		itemOff->render(_backBuffer->getMemDC(), 210, 150);
+		worriorOn->render(_backBuffer->getMemDC(), 230, 390);
 
 		//스킬창 포인터
 		for (int k = 0; k < _vSkillPointer.size(); k++)
 		{
 			if (num2 == k)
 			{
-				_vSkillPointer[k]->getImage()->frameRender(getMemDC(), _rc4[box2[num2]].left, _rc4[box2[num2]].top, 1, 0);
+				_vSkillPointer[k]->getImage()->frameRender(_backBuffer->getMemDC(), _rc4[box2[num2]].left, _rc4[box2[num2]].top, 1, 0);
 			}
 		}
 
-		//아이템 미착용 이미지
-		weapon->render(getMemDC(), 246, 220);
-		shield->render(getMemDC(), 353, 220);
-		armor->render(getMemDC(), 450, 220);
-		hat->render(getMemDC(), 557, 225);
-		accessories->render(getMemDC(), 246, 310);
-		accessories->render(getMemDC(), 350, 310);
-		shoes1->render(getMemDC(), 450, 305);
-		glasses->render(getMemDC(), 550, 315);
-		weapon->render(getMemDC(), 675, 220);
-		shield->render(getMemDC(), 768, 220);
-		hat->render(getMemDC(), 676, 308);
-		glasses->render(getMemDC(), 756, 315);
+
+		weapon->render(_backBuffer->getMemDC(), 246, 220);
+		shield->render(_backBuffer->getMemDC(), 353, 220);
+		armor->render(_backBuffer->getMemDC(), 450, 220);
+		hat->render(_backBuffer->getMemDC(), 557, 225);
+		accessories->render(_backBuffer->getMemDC(), 246, 310);
+		accessories->render(_backBuffer->getMemDC(), 350, 310);
+		shoes1->render(_backBuffer->getMemDC(), 450, 305);
+		glasses->render(_backBuffer->getMemDC(), 550, 315);
+		weapon->render(_backBuffer->getMemDC(), 675, 220);
+		shield->render(_backBuffer->getMemDC(), 768, 220);
+		hat->render(_backBuffer->getMemDC(), 676, 308);
+		glasses->render(_backBuffer->getMemDC(), 756, 315);
 	}
 
 
 	//인벤창 출력
 	if (stay == true)
 	{
-		_inven->render(getMemDC(), 180, 120);
-		_inven->render(getMemDC(), 180, 120);
+
+
+		_inven->render(_backBuffer->getMemDC(), 180, 120);
+
+		_inven->render(_backBuffer->getMemDC(), 180, 120);
+
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 3; j++)
 			{
-				_itemBox->render(getMemDC(), 240 + i * 150, 180 + j * 150);
-				_pointer->render(getMemDC(), 270 + i * 150, 200 + j * 150);
-				goldBar->render(getMemDC(), WINSIZEX / 2 + 150, 130);
+				_itemBox->render(_backBuffer->getMemDC(), 240 + i * 150, 180 + j * 150);
+				_pointer->render(_backBuffer->getMemDC(), 270 + i * 150, 200 + j * 150);
+				goldBar->render(_backBuffer->getMemDC(), WINSIZEX / 2 + 150, 130);
 			}
 		}
 
@@ -496,16 +509,19 @@ void uiManager::render()
 		{
 			if (num == k)
 			{
-				_vPointer[k]->getImage()->frameRender(getMemDC(), _rc2[box[num]].left, _rc2[box[num]].top, 1, 0);
+
+				_vPointer[k]->getImage()->frameRender(_backBuffer->getMemDC(), _rc2[box[num]].left, _rc2[box[num]].top, 1, 0);
+
+
 			}
 		}
 		//인벤 선택창
 		if (invenDraw == true)
 		{
-			invenSelect2->render(getMemDC(), _rc2[box[num]].left+90, _rc2[box[num]].top);
+			invenSelect2->render(_backBuffer->getMemDC(), _rc2[box[num]].left+90, _rc2[box[num]].top);
 			if (invenDraw1 == true)
 			{
-				invenSelect1->render(getMemDC(), _rc2[box[num]].left+90, _rc2[box[num]].top);
+				invenSelect1->render(_backBuffer->getMemDC(), _rc2[box[num]].left+90, _rc2[box[num]].top);
 			}
 		}
 	}
@@ -542,25 +558,30 @@ void uiManager::render()
 						switch (_playerItemVector[i]->_itemList[j]->getItemKinds())
 						{
 						case itemKinds::armor:
+<<<<<<< HEAD
 							IMAGEMANAGER->findImage("갑옷")->render(getMemDC(),
+=======
+
+							IMAGEMANAGER->findImage("갑옷")->render(_backBuffer->getMemDC(),
+>>>>>>> origin/master
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
 							break;
 
 						case itemKinds::ring:
-							IMAGEMANAGER->findImage("반지")->render(getMemDC(),
+							IMAGEMANAGER->findImage("반지")->render(_backBuffer->getMemDC(),
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
 							break;
 
 						case itemKinds::knife:
-							IMAGEMANAGER->findImage("칼")->render(getMemDC(),
+							IMAGEMANAGER->findImage("칼")->render(_backBuffer->getMemDC(),
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
 							break;
 
 						case itemKinds::stick:
-							IMAGEMANAGER->findImage("지팡이")->render(getMemDC(),
+							IMAGEMANAGER->findImage("지팡이")->render(_backBuffer->getMemDC(),
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
 							break;
