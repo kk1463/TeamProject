@@ -17,7 +17,7 @@ public:
 	void moving();
 	void attack();
 	void hit();
-
+	void die();
 	void trace();
 
 	void Collision();

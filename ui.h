@@ -1,14 +1,10 @@
 #pragma once
-
-
-
-#include "gameNode.h"
 enum uiName
 {
 	Pointer
 };
 
-class ui : public gameNode
+class ui 
 {
 protected:
 	image* _imageName;

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 class gameNode;
-#define FPS 8
+#define FPS 10
 
 
 enum PlayerName
@@ -66,6 +66,7 @@ protected:
 	PlayerInfo _playerInfo;
 	Direction _direction;
 	RECT testrc;
+	bool _playerDie;
 	bool EnemyAttacked = false;
 public:
 	Player();
@@ -82,7 +83,6 @@ public:
 	RECT getColRc() { return _playerInfo.colRc; }
 	RECT getAtkRc() { return _playerInfo.AtkRc; }
 	RECT getminiColRc() { return _playerInfo.miniColRc; }
-
 	void getPlayerDir() { _playerInfo.direction; }//enemy 판정을위해 하나..
 
 	int getPlayerHp() { return _playerInfo.hp; }

@@ -23,7 +23,7 @@ HRESULT Enemy::init() // 에너미가 등장한다.
 	en.angry = false;
 	getPlayerPos = getPlayerAngle = en.count=0;
 
-	
+	en.playerX = en.playerY = 0;
 
 
 	return S_OK;
@@ -38,9 +38,11 @@ void Enemy::release() // 에너미가 죽었다
 
 void Enemy::update() // 에너미가 움직인다.
 {
+	
 
 	en.rc = RectMakeCenter(en.x, en.y, en.img->getFrameWidth(), en.img->getFrameHeight());
 	en.senseRC = RectMakeCenter(en.x, en.y, en.img->getFrameWidth() * 2, en.img->getFrameHeight() * 2);
+	
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
@@ -56,19 +58,14 @@ void Enemy::update() // 에너미가 움직인다.
 	for (int i = 0;i < _vPlayer.size();i++)
 	{
 		RECT temp;		
-		RECT rc = _vPlayer[0]->getPlayerRect(); //왜 3개로 늘어낫지
-		
+		RECT rc = _vPlayer[0]->getColRect();		
 		if ((IntersectRect(&temp, &en.colRc, &rc) && en.angry))
 		{
-			en._enState = atk1;	
+			en._enState = atk1;
 			break;
-		}
+		}	
 	}
-
-
 	
-	
-
 	if(en._enState ==hit1)
 	{
 		en.count++;
@@ -81,39 +78,22 @@ void Enemy::update() // 에너미가 움직인다.
 	if (en._enState == atk1)
 	{
 		en.count++;
-		if (en.count > 100)
+		if (en.count > 80)
 		{
 			en._enState = move1;
 			en.count = 0;
 		}
-	}
-
-	
-
-
-	/*_vPlayer = PLAYERMANGER->get_vPlayer();
-
-	for (int i = 0;i < _vPlayer.size();i++)
+	}	
+	for (int i = 0; i < _vPlayer.size(); i++)
 	{
-		
-		RECT temp;
-		RECT rc = _vPlayer[0]->getColRect();
-
-		if (IntersectRect(&temp, &en.colRc, &rc))
+		if (_vPlayer.size() >= 1)
 		{
-			en.hit = true;
-			
+			en.playerX = getCenterPos(_vPlayer[0]->getPlayerRect()).x;
+			en.playerY = getCenterPos(_vPlayer[0]->getPlayerRect()).y;
+			getPlayerPos = getDistance(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
+			getPlayerAngle = getAngle(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
 		}
-		else
-			en.hit = false;
-
-		_vPlayer[0]->getCenter();
-
-		getPlayerPos = getDistance(en.x,en.y,_vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
-		getPlayerAngle = getAngle(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
-
 	}
-	*/
 	//에너미 삭제문은 update 제일 마지막에 놔둘것
 	if (en.hp < 0)
 	{
@@ -124,75 +104,67 @@ void Enemy::update() // 에너미가 움직인다.
 void Enemy::hit()
 {
 
-
 }
 
 void Enemy::attaked(int atk)
 {
-	int _playerDir = _vPlayer[0]->getPlayerDir();
+	en.PlayerDirNumber = _vPlayer[0]->getPlayerDir();
 	int x = getCenterPos(_vPlayer[0]->getPlayerRect()).x;
 	int y = getCenterPos(_vPlayer[0]->getPlayerRect()).y;
-	switch (_playerDir)//맞았을때 player방향마주보게
+
+	if (en.name == Name_Rabbit || en.name == Name_Slime)
 	{
-	case 0:	//오른쪽
-		en.Movecheck = 0;	
-		if (en.x < x)
+		switch (en.PlayerDirNumber)//맞았을때 player방향마주보게
 		{
-			en.x -= 20;
+		case 0:	//오른쪽
+			en.Movecheck = 0;
+			if (en.x < x)
+			{
+				en.x -= 20;
+			}
+			if (en.x > x)
+			{
+				en.x += 20;
+			}
+			break;
+		case 1://왼쪽
+			en.Movecheck = 1;
+			if (en.x < x)
+			{
+				en.x -= 20;
+			}
+			if (en.x > x)
+			{
+				en.x += 20;
+			}
+			break;
+		case 2://탑
+			en.Movecheck = 3;
+			if (en.y > y)
+			{
+				en.y += 20;
+			}
+			if (en.y < y)
+			{
+				en.y -= 20;
+			}
+			break;
+		case 3://바텀
+			en.Movecheck = 2;
+			if (en.y > y)
+			{
+				en.y += 20;
+			}
+			if (en.y < y)
+			{
+				en.y -= 20;
+			}
+			break;
 		}
-		if (en.x > x)
-		{
-			en.x += 20;
-		}
-		break;
-	case 1://왼쪽
-		en.Movecheck = 1;		
-		if (en.x < x)
-		{
-			en.x -= 20;
-		}
-		if (en.x > x)
-		{
-			en.x += 20;
-		}
-		break;
-	case 2://탑
-		en.Movecheck = 3;
-		if (en.y > y)
-		{
-			en.y += 20;
-		}
-		if (en.y < y)
-		{
-			en.y -= 20;
-		}
-		break;
-	case 3://바텀
-		en.Movecheck = 2;
-		if (en.y > y)
-		{
-			en.y += 20;
-		}
-		if (en.y < y)
-		{
-			en.y -= 20;
-		}
-		break;
-	}	
-
-
-	
-	
-
+	}
 	en._enState = hit1;		
-
-
-
 	en.angry = true;
-	en.hp -= atk;
-
-	
-	
+	en.hp -= atk;	
 }
 
 void Enemy::setTile(vector<tagTile*> ins) // 에너미가 타일을 남기고 죽다.

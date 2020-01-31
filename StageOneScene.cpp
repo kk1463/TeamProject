@@ -14,6 +14,7 @@ StageOneScene::~StageOneScene()
 void StageOneScene::update()
 {
 	BasicScene::update();
+	UIMANAGER->update();
   	if (ENEMYMANAGER->getEnemy().size()==0)
 	{
 		SCENEMANAGER->changeScene("stageTwo");
@@ -32,7 +33,11 @@ HRESULT StageOneScene::init()
 void StageOneScene::render()
 { 
 	BasicScene::render();
+
 	//RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
 
 	//Rectangle(getMemDC(), rc);
+
+	UIMANAGER->render();
+
 }

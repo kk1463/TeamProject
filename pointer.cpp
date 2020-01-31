@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "pointer.h"
-
+#include "gameNode.h"
 
 pointer::pointer()
 {
@@ -35,6 +35,6 @@ void pointer::render()
 
 void pointer::draw()
 {
-	_imageName->render(getMemDC(), _position.x, _position.y);
+	_imageName->render(_backBuffer->getMemDC(), _position.x, _position.y);
 }
 

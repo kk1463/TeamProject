@@ -107,7 +107,11 @@ HRESULT Rabbit::init()
 	en.x = WINSIZEX / 2;
 	en.y = WINSIZEY / 2;
 
+
 	en.hp = 15;
+
+	en.hp = 10;
+
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
@@ -130,7 +134,31 @@ void Rabbit::update()
 
 	Enemy::update();
 
+	/*switch (en.Movecheck)
+	{
+	case 0:
+		int a = -40;
+		int b = 0;
+		break;
+	case 1:
+		int a = 40;
+		int b = 0;
+		break;
+	case 2:
+		int a = 0;
+		int b = -40;
+		break;
+	case 3:
+		int a = 0;
+		int b = 40;
+		break;
+	}*/
+
 	en.colRc = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
+	en.attackCheckRC = RectMakeCenter(en.x + 24, en.y + 25, 40, 40);
+
+	
+
 	en.rightColRc = RectMakeCenter(en.colRc.right + 2, en.colRc.top + 20, 3, 30);
 	en.leftColRc = RectMakeCenter(en.colRc.left - 2, en.colRc.top + 20, 3, 30);
 	en.topColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.top - 2, 30, 3);
@@ -141,14 +169,17 @@ void Rabbit::update()
 	this->setCheckRect_Left(en.leftColRc);
 	this->setCheckRect_Top(en.topColRc);
 	this->setCheckRect_Bottom(en.botColRc);
-
-
 	
 	
 	switch (en._enState)
 	{
 	case move1:
-		moving();
+		if (!en.angry)
+		{
+			moving();
+		}
+		else
+			trace();
 		break;
 	case atk1:
 		attack();
@@ -157,6 +188,7 @@ void Rabbit::update()
 		hit();
 		break;
 	case dead1:
+		die();
 		break;
 	default:
 		break;
@@ -245,10 +277,8 @@ void Rabbit::moving()
 
 void Rabbit::attack()
 {
-
 	en.state = Atk;
-
-
+	
 	count++;
 	if (en.Movecheck == 0)
 	{
@@ -266,7 +296,15 @@ void Rabbit::attack()
 	{
 		en.dir = DOWN;
 	}
-	if (count >= 60)
+	if (en.Ani->getFrameNumber() == 11)
+	{
+		if (PLAYERMANGER->get_vPlayer().size() > 0) 
+		{
+			PLAYERMANGER->get_vPlayer()[0]->attaked(100);
+		}
+	}
+	if (en.Ani->getMaxFrameNumber()==en.Ani->getFrameNumber()
+		|| en.Ani->getFrameNumber()==0)
 	{
 		en.changeAni = true;
 		count = 0;
@@ -350,10 +388,144 @@ void Rabbit::hit()
 	
 }
 
-void Rabbit::trace()
+void Rabbit::die()
 {
-	en.x -= -cosf(getPlayerAngle)*en.SPEED;
-	en.y -= sinf(getPlayerAngle)*en.SPEED;
+	en.state = Dead;
+	if (en.Movecheck == 0)
+	{
+		en.dir = LEFT;
+	}
+	if (en.Movecheck == 1)
+	{
+		en.dir = RIGHT;
+	}
+	if (en.Movecheck == 2)
+	{
+		en.dir = UP;
+	}
+	if (en.Movecheck == 3)
+	{
+		en.dir = DOWN;
+	}
+	if (count >= 60)
+	{
+		en.changeAni = true;
+		count = 0;
+	}
+
+	switch (en.dir)
+	{
+	case LEFT:
+		en.img = IMAGEMANAGER->findImage("R_dead_Left");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
+		en.Ani->start();
+	
+		break;
+	case RIGHT:
+		en.img = IMAGEMANAGER->findImage("R_dead_Right");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
+		en.Ani->start();
+		
+		break;
+	case DOWN:
+		en.img = IMAGEMANAGER->findImage("R_dead_Left");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
+		en.Ani->start();
+		
+		break;
+	case UP:
+		en.img = IMAGEMANAGER->findImage("R_dead_Right");
+		en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
+		en.Ani->start();
+		
+		break;
+	}
+}
+
+void Rabbit::trace()
+{   
+	en.state = Run;
+	en.SPEED = 1.0f;
+
+
+	if (en.x > en.playerX)
+	{
+		en.Movecheck = 0;
+	}
+	else if (en.x < en.playerX)
+	{
+		en.Movecheck = 1;
+	}
+	else if (en.y > en.playerY)
+	{
+		en.Movecheck = 2;
+	}
+	else if (en.y < en.playerY)
+	{
+		en.Movecheck = 3;
+	}
+		
+
+	if (en.Movecheck == 0)
+	{
+		en.dir = LEFT;
+	}
+	if (en.Movecheck == 1)
+	{
+		en.dir = RIGHT;
+	}
+	if (en.Movecheck == 2)
+	{
+		en.dir = UP;
+	}
+	if (en.Movecheck == 3)
+	{
+		en.dir = DOWN;
+	}
+	if (count >= 80)
+	{
+		en.changeAni = true;	
+		count = 0;
+	}
+	switch (en.dir)
+	{
+	case LEFT:
+		en.Ani = KEYANIMANAGER->findAnimation("R_run_Left");
+		en.img = IMAGEMANAGER->findImage("R_run_left");
+		if (en.leftMove)
+		{
+			en.x -= -cosf(getPlayerAngle)*en.SPEED;
+			en.y -= sinf(getPlayerAngle)*en.SPEED;
+		}
+		break;
+	case RIGHT:
+		en.Ani = KEYANIMANAGER->findAnimation("R_run_Right");
+		en.img = IMAGEMANAGER->findImage("R_run_right");
+		if (en.rightMove)
+		{
+			en.x -= -cosf(getPlayerAngle)*en.SPEED;
+			en.y -= sinf(getPlayerAngle)*en.SPEED;
+		}
+		break;
+	case DOWN:
+		en.Ani = KEYANIMANAGER->findAnimation("R_run_Down");
+		en.img = IMAGEMANAGER->findImage("R_run_down");
+		if (en.downMove)
+		{
+			en.x -= -cosf(getPlayerAngle)*en.SPEED;
+			en.y -= sinf(getPlayerAngle)*en.SPEED;
+		}
+		break;
+	case UP:
+		en.Ani = KEYANIMANAGER->findAnimation("R_run_Up");
+		en.img = IMAGEMANAGER->findImage("R_run_up");
+		if (en.upMove)
+		{
+			en.x -= -cosf(getPlayerAngle)*en.SPEED;
+			en.y -= sinf(getPlayerAngle)*en.SPEED;
+		}
+		break;
+	}
 }
 
 
@@ -551,26 +723,19 @@ void Rabbit::R_state()
 		switch (en.dir)
 		{
 		case LEFT:
-			en.img = IMAGEMANAGER->findImage("R_dead_Left");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
+			
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case RIGHT:
-			en.img = IMAGEMANAGER->findImage("R_dead_Right");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case DOWN:
-			en.img = IMAGEMANAGER->findImage("R_dead_Left");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Left");
 			en.Ani->start();
 			en.changeAni = false;
 			break;
 		case UP:
-			en.img = IMAGEMANAGER->findImage("R_dead_Right");
-			en.Ani = KEYANIMANAGER->findAnimation("R_dead_Right");
 			en.Ani->start();
 			en.changeAni = false;
 			break;

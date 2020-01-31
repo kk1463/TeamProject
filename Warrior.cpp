@@ -74,44 +74,52 @@ void Warrior::release()
 
 void Warrior::update()
 {
-
-	KeyControl();
-	PlayerRectChange();
-	if (_playerInfo.changeAni)
+	if (!_playerDie) 
 	{
-		PlayerStateChange();
+		if (_playerInfo.hp <= 0)
+		{
+			
+			_playerDie = true;
+		}
+		KeyControl();
+		PlayerRectChange();
+		if (_playerInfo.changeAni)
+		{
+			PlayerStateChange();
+		}
+
+		_playerInfo.rc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2,
+			_playerInfo.img->getFrameWidth(), _playerInfo.img->getFrameHeight());
+		this->setimage(_playerInfo.img);
+		this->setAni(_playerInfo.ani);
+		this->setRect(_playerInfo.rc);
+		this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
+
+		this->setColRect(_playerInfo.colRc);
+		_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right + 2, _playerInfo.colRc.top + 20, 3, 20);
+		_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left - 2, _playerInfo.colRc.top + 20, 3, 20);
+		_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.top - 2, 20, 3);
+		_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom + 2, 20, 3);
+
+		//_playerInfo.AtkRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+		//_playerInfo.rightAtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.topColRc.top + 20, 20, 70);
+		//_playerInfo.leftAtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.topColRc.top + 20, 20, 70);
+		//_playerInfo.topAtkRc = RectMakeCenter(_playerInfo.leftColRc.left +20, _playerInfo.topColRc.top,70,20);
+		//_playerInfo.botAtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 70, 20);
+
+
+		Player::update();
+		this->setPlayerRect(_playerInfo.colRc);
+		this->setPlayerDir(_playerInfo.direction);
+
 	}
-
-	_playerInfo.rc = RectMakeCenter(_playerInfo.position.x + _playerInfo.img->getFrameWidth() / 2, _playerInfo.position.y + _playerInfo.img->getFrameHeight() / 2,
-		_playerInfo.img->getFrameWidth(), _playerInfo.img->getFrameHeight());
-	this->setimage(_playerInfo.img);
-	this->setAni(_playerInfo.ani);
-	this->setRect(_playerInfo.rc);
-	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
-
-	this->setColRect(_playerInfo.colRc);
-	_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right + 2, _playerInfo.colRc.top + 20, 3, 20);
-	_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left - 2, _playerInfo.colRc.top + 20, 3, 20);
-	_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.top - 2, 20, 3);
-	_playerInfo.botColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.bottom + 2, 20, 3);
-
-	//_playerInfo.AtkRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
-	//_playerInfo.rightAtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.topColRc.top + 20, 20, 70);
-	//_playerInfo.leftAtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.topColRc.top + 20, 20, 70);
-	//_playerInfo.topAtkRc = RectMakeCenter(_playerInfo.leftColRc.left +20, _playerInfo.topColRc.top,70,20);
-	//_playerInfo.botAtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 70, 20);
-
-
-	Player::update();
-	this->setPlayerRect(_playerInfo.colRc);
-	this->setPlayerDir(_playerInfo.direction);
 }
 
 
 void Warrior::KeyControl()
 {
 
-
+	
 	if (_playerInfo.dirCount < 0)
 	{
 		_playerInfo.dirCount = 0;
