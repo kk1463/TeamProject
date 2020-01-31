@@ -10,6 +10,7 @@ class PlayerManager :public singletonBase<PlayerManager>
 private:
 
 	vector<Player*> _vPlayer;
+	vector<Player*>::iterator _viPlayer;
 	EnemyManager* _em;
 
 
@@ -19,9 +20,7 @@ public:
 	~PlayerManager();
 
 	HRESULT init();
-	void update();
 	void release();
 	vector<Player*> get_vPlayer() { return _vPlayer; }
-	void collision();
 };
 
