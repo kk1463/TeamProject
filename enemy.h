@@ -69,6 +69,8 @@ struct info
 class Enemy : public GameObject
 {
 
+	vector<GameObject*> _vPlayer;
+
 
 protected:
 	info en;

@@ -41,22 +41,25 @@ void Player::update()
 			{
 				EnemyAttacked = true;
 				cout << _vEnemy[i]->getObject() << endl;
+
+				if (EnemyAttacked && _playerInfo.atkState == false)
+				{
+					EnemyAttacked = false;
+				}
+				if (EnemyAttacked&&_playerInfo.atkCount == 10)
+				{
+					cout << "공격당함" << endl;
+					//여기에 적HP를 감소시켜준다
+				}
+				
 			}
 		}
-	}
-	if (EnemyAttacked && _playerInfo.atkState == false)
-	{
-		EnemyAttacked = false;
-	}
-	if (EnemyAttacked&&_playerInfo.atkCount == 10)
-	{
-		cout << "공격당함" << endl;
-		//여기에 적HP를 감소시켜준다
 	}
 	if (!EnemyAttacked&&_playerInfo.atkState == false)
 	{
 		cout << "공격끝" << endl;
 	}
+	
 	if (KEYMANAGER->isOnceKeyDown('5')) //삭제되는부분
 	{
 		SCENEMANAGER->getCurrentScene()->deleteObject(this);
