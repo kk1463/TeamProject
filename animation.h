@@ -58,7 +58,7 @@ public:
 
 	//애니메이션 프레임 재생속도 셋팅
 	void setFPS(int framePerSec);
-
+	int getindex() { return _nowPlayIndex; }
 	//렌더링
 	void frameUpdate(float elapsedTime);
 

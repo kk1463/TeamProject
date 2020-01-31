@@ -53,9 +53,9 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Loading", new LoadingScene);
 	SCENEMANAGER->addScene("stageTwo", new StageTwoScene);
 
-	SCENEMANAGER->changeScene("Loading");
+	SCENEMANAGER->changeScene("stageOne");
 
-	PLAYERMANGER->init();
+	
 
 
 	return S_OK;
@@ -89,8 +89,8 @@ void playGround::render()
 	PatBlt(getMemDC(), 0, 0, 3, WINSIZEY, WHITENESS);
 	//========================================================
 	SCENEMANAGER->render();
-
-
+	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
+	Rectangle(getMemDC(), rc);
 
 
 	//====================================================

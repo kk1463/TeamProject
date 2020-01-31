@@ -17,6 +17,7 @@ HRESULT Flower::init()
 	//idle
 	IMAGEMANAGER->addFrameImage("F_idle_Right", "img/flower/idle_Right.bmp", 1660, 126, 10, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("F_idle_Left", "img/flower/idle_Left.bmp", 1660, 126, 10, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("F_idle", "img/flower/idle.bmp", 328, 128, 2, 1, true, RGB(255, 0, 255));
 	//Atk						
 	IMAGEMANAGER->addFrameImage("F_Atk_Left", "img/flower/Atk_Left.bmp", 3304, 176, 14, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("F_Atk_Right", "img/flower/Atk_Right.bmp", 3304, 176, 14, 1, true, RGB(255, 0, 255));
@@ -35,6 +36,8 @@ HRESULT Flower::init()
 	KEYANIMANAGER->addArrayFrameAnimation("F_idle_Right", "F_idle_Right", Flower_Idle_Right, 10, FPS, true);
 	int Flower_Idle_Left[] = { 0,1,2,3,4,5,6,7,8,9 };
 	KEYANIMANAGER->addArrayFrameAnimation("F_idle_Left", "F_idle_Left", Flower_Idle_Left, 10, FPS, true);
+	int Flower_Idle[] = { 0,1 };
+	KEYANIMANAGER->addArrayFrameAnimation("F_idle", "F_idle", Flower_Idle, 2, FPS, true);
 	//Atk
 	int Flower_Atk_Left[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13 };
 	KEYANIMANAGER->addArrayFrameAnimation("F_Atk_Left", "F_Atk_Left", Flower_Atk_Left, 14, FPS, true);
@@ -60,10 +63,15 @@ HRESULT Flower::init()
 	en.name = Name_Flower;
 
 
-	en.img = IMAGEMANAGER->findImage("F_idle_Right");
-	en.Ani = KEYANIMANAGER->findAnimation("F_idle_Right");
+	en.img = IMAGEMANAGER->findImage("F_idle");
+	en.Ani = KEYANIMANAGER->findAnimation("F_idle");
 	en.changeAni = true;
 	en.Ani->start();
+
+	_up = true;
+	left = false;
+	right = false;
+	atk = false;
 
 	en.x = WINSIZEX / 2;
 	en.y = WINSIZEY / 2;
@@ -94,10 +102,147 @@ void Flower::update()
 	this->setCheckRect_Top(en.topColRc);
 	this->setCheckRect_Bottom(en.botColRc);
 
+	if (!en.changeAni)
+	{
+		F_state();
+	}
+
+	moving();
 
 
 
+}
 
+void Flower::moving()
+{
+	RECT temp;
+	// ■■■■■■■■■■■처음 등장 상태■■■■■■■■■■■■
+	if (_up)
+	{
+		en.state = Idle;
+		en.dir = DOWN;
+		en.changeAni = true;
+		RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
+		POINT ins = getCenterPos(PLAYERMANGER->get_vPlayer()[0]->getColRect());
+		cout << rc.left << endl;
+		cout << ins.x << "," << ins.y << endl;
+		//if (getDistance(en.x,en.y,PLAYERMANGER->get_vPlayer()[0]->getCenter().x, PLAYERMANGER->get_vPlayer()[0]->getCenter().y)<40)
+		if (IntersectRect(&temp, &en.colRc, &rc))
+		{
+			en.state = Up;
+			en.dir = LEFT;
+		}
+		if (en.state == Up && en.Ani->getindex() == 17)
+		{
+			_up = false;
+			left = true;
+			en.changeAni = true;
+
+		}
+	}
+
+
+
+	// ■■■■■■■■■■■■방향전환 아이들■■■■■■■■■■■■
+	if (left)
+	{
+		en.state = Idle;
+		if (en.state == Idle && en.x > _ptMouse.x)
+		{
+			en.dir = LEFT;
+			en.changeAni = true;
+			left = false;
+			right = true;
+
+		}
+	}
+	if (right)
+	{
+		en.state = Idle;
+		if (en.state == Idle && en.x < _ptMouse.x)
+		{
+			en.dir = RIGHT;
+			en.changeAni = true;
+			left = true;
+			right = false;
+
+		}
+
+	}
+
+	/*if (IntersectRect(&temp, &atkL, &rc))
+	{
+		en.state = Atk;
+		en.dir = LEFT;
+
+	}*/
+}
+
+void Flower::F_state()
+{
+		switch (en.state)
+		{
+		case Up: 
+			switch (en.dir)
+			{
+			case LEFT:
+				en.Ani = KEYANIMANAGER->findAnimation("F_UP_Left");
+				en.img = IMAGEMANAGER->findImage("F_UP_Left");
+				en.Ani->start();
+				en.changeAni = false;
+				break;
+
+			case RIGHT:
+				en.Ani = KEYANIMANAGER->findAnimation("F_UP_Right");
+				en.img = IMAGEMANAGER->findImage("F_UP_Right");
+				en.Ani->start();
+				en.changeAni = false;
+				break;
+			}
+			break;
+		case Idle:
+			switch (en.dir)
+			{
+			case LEFT:
+				en.Ani = KEYANIMANAGER->findAnimation("F_idle_Left");
+				en.img = IMAGEMANAGER->findImage("F_idle_Left");
+				en.Ani->start();
+				en.changeAni = false;
+				break;
+			case RIGHT:
+				en.Ani = KEYANIMANAGER->findAnimation("F_idle_Right");
+				en.img = IMAGEMANAGER->findImage("F_idle_Right");
+				en.Ani->start();
+				en.changeAni = false;
+				break;
+			case DOWN:
+				en.Ani = KEYANIMANAGER->findAnimation("F_idle");
+				en.img = IMAGEMANAGER->findImage("F_idle");
+				en.Ani->start();
+				en.changeAni = false;
+			}
+			break;
+		case Atk:
+			switch (en.dir)
+			{
+			case LEFT:
+				en.Ani = KEYANIMANAGER->findAnimation("F_Atk_Left");
+				en.img = IMAGEMANAGER->findImage("F_Atk_Left");
+				en.Ani->start();
+				en.changeAni = false;
+				break;
+			case RIGHT:
+				en.Ani = KEYANIMANAGER->findAnimation("F_Atk_Right");
+				en.img = IMAGEMANAGER->findImage("F_Atk_Right");
+				en.Ani->start();
+				en.changeAni = false;
+				break;
+			}
+			break;
+		 
+
+		}
+	
 }
 
 
