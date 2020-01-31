@@ -2,8 +2,7 @@
 #include"Enemy.h"
 class Rabbit :public Enemy
 {
-	bool move;
-	bool atk;
+	
 	int count;
 	int Movecheck;
 
@@ -18,7 +17,9 @@ public:
 	virtual void update();
 	void moving();
 	void attack();
+	void hit();
 
+	void trace();
 
 	void Collision();
 
