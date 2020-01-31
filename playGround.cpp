@@ -57,6 +57,8 @@ HRESULT playGround::init()
 
 	PLAYERMANGER->init();
 
+	_um = new uiManager;
+	_um->init();
 
 	return S_OK;
 
@@ -79,6 +81,8 @@ void playGround::update()
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
 	PLAYERMANGER->update();
+
+	_um->update();
 }
 
 
@@ -93,7 +97,7 @@ void playGround::render()
 
 	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getAtkRc();
 	Rectangle(getMemDC(), rc);
-
+	_um->render();
 
 	//====================================================
 	_backBuffer->render(getHDC(), 0, 0);
