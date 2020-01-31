@@ -70,11 +70,6 @@ void BasicScene::setGameObj(GameObject* obj)
 
 
 
-void BasicScene::Start()
-{
-	PLAYERMANGER->init();
-}
-
 void BasicScene::update()
 {
 	for (int i = 0; i < _gameObj.size(); i++)
@@ -97,7 +92,7 @@ void BasicScene::update()
 
 void BasicScene::render()
 {
-	
+
 	IMAGEMANAGER->findImage("BackGround")->render(getMemDC(), 0, 0);
 
 	for (int i = 0; i < _tiles.size(); ++i)
@@ -158,15 +153,14 @@ void BasicScene::render()
 		if (_gameObj[i]->getFrame() == Frame)
 		{
 			if ((_gameObj[i]->getObject() == PLAYER) ||
-				(_gameObj[i]->getObject() == RABBIT)||
-				(_gameObj[i]->getObject() == SLIME)||
-				(_gameObj[i]->getObject() == FLOWER)||
-				(_gameObj[i]->getObject() == HYDRA)
+				(_gameObj[i]->getObject() == RABBIT) ||
+				(_gameObj[i]->getObject() == SLIME) ||
+				(_gameObj[i]->getObject() == FLOWER)
 				)
 			{
 				_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
 
-			
+
 			}
 			else
 			{
@@ -178,7 +172,7 @@ void BasicScene::render()
 		{
 			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y);
 		}
-		
+
 	}
 
 	//콜라이더 확인용
@@ -191,7 +185,7 @@ void BasicScene::render()
 			Rectangle(_backBuffer->getMemDC(), temp);
 		}
 
-		
+
 	}
 }
 

@@ -105,15 +105,11 @@ HRESULT Rabbit::init()
 
 	en.x = WINSIZEX / 2;
 	en.y = WINSIZEY / 2;
-	en.HP = 100;
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
 	Enemy::init();
-
-
-
 
 	return S_OK;
 }
@@ -167,13 +163,10 @@ void Rabbit::update()
 	}
 
 	Collision();
-
-	
-
 }
 
 void Rabbit::moving()
-{	
+{
 	en.state = Run;
 	en.SPEED = 0.7F;
 
@@ -208,11 +201,10 @@ void Rabbit::moving()
 	case LEFT:
 		en.Ani = KEYANIMANAGER->findAnimation("R_run_Left");
 		en.img = IMAGEMANAGER->findImage("R_run_left");
-		if(en.leftMove)
+		if (en.leftMove)
 		{
-		en.x -= en.SPEED;
-
-		}	
+			en.x -= en.SPEED;
+		}
 		break;
 	case RIGHT:
 		en.Ani = KEYANIMANAGER->findAnimation("R_run_Right");
@@ -248,7 +240,7 @@ void Rabbit::attack()
 {
 
 	en.state = Atk;
-	
+
 
 	count++;
 	if (Movecheck == 0)
@@ -269,7 +261,7 @@ void Rabbit::attack()
 	}
 	if (count >= 80)
 	{
-		en.changeAni = true;	
+		en.changeAni = true;
 		count = 0;
 	}
 
@@ -295,11 +287,6 @@ void Rabbit::attack()
 		break;
 	}
 
-}
-
-void Rabbit::hit()
-{
-	
 }
 
 

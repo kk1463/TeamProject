@@ -22,7 +22,7 @@ HRESULT playGround::init()
 	IMAGEMANAGER->addFrameImage("Boss_Map_Fall", "img/Stage/Boss_Map(F).bmp", 0, 0, 800, 640, SAMPLETILEX, SAMPLETILEY, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("Boss_Map_Summer", "img/Stage/Boss_Map(S).bmp", 0, 0, 800, 640, SAMPLETILEX, SAMPLETILEY, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("Boss_Map_Winter", "img/Stage/Boss_Map(W).bmp", 0, 0, 800, 640, SAMPLETILEX, SAMPLETILEY, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("BackGround", "img/Stage/BackGround.bmp", WINSIZEX, WINSIZEY,false,RGB(0,0,0));
+	IMAGEMANAGER->addImage("BackGround", "img/Stage/BackGround.bmp", WINSIZEX, WINSIZEY, false, RGB(0, 0, 0));
 
 
 	IMAGEMANAGER->addImage("Hydra", "img/Hydra.bmp", 303, 487, true, RGB(255, 0, 255));
@@ -45,21 +45,21 @@ HRESULT playGround::init()
 
 	IMAGEMANAGER->addImage("ladder_right", "img/MapObject/사다리_오른쪽.bmp", 371, 234, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("ladder_left", "img/MapObject/사다리_왼쪽.bmp", 364, 184, true, RGB(255, 0, 255));
-	
-	
 
-	
+
+
+
 	SCENEMANAGER->addScene("stageOne", new StageOneScene);
 	SCENEMANAGER->addScene("Loading", new LoadingScene);
 	SCENEMANAGER->addScene("stageTwo", new StageTwoScene);
 
-	SCENEMANAGER->changeScene("Loading");
+	SCENEMANAGER->changeScene("stageTwo");
 
 	PLAYERMANGER->init();
 
 
 	return S_OK;
-	
+
 
 
 }
@@ -78,6 +78,7 @@ void playGround::update()
 	gameNode::update();
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
+	PLAYERMANGER->update();
 }
 
 
@@ -87,18 +88,14 @@ void playGround::render()
 {
 
 	PatBlt(getMemDC(), 0, 0, 3, WINSIZEY, WHITENESS);
-//========================================================
+	//========================================================
 	SCENEMANAGER->render();
 
-	vector<GameObject*>ins = ENEMYMANAGER->getEnemy();
-	for (int i = 0;i < ins.size();i++)
-	{
-		
-	}
-	
+	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getAtkRc();
+	Rectangle(getMemDC(), rc);
 
 
-//====================================================
+	//====================================================
 	_backBuffer->render(getHDC(), 0, 0);
 }
 

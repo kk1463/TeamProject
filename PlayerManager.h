@@ -9,7 +9,7 @@ class PlayerManager :public singletonBase<PlayerManager>
 {
 private:
 
-	vector<GameObject*> _vPlayer;
+	vector<Player*> _vPlayer;
 	EnemyManager* _em;
 
 
@@ -21,10 +21,7 @@ public:
 	HRESULT init();
 	void update();
 	void release();
-	vector<GameObject*> get_vPlayer() 
-	{ 
-		return _vPlayer;
-	}
+	vector<Player*> get_vPlayer() { return _vPlayer; }
 	void collision();
 };
 

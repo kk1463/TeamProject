@@ -15,7 +15,7 @@ private:
 	vEnemy _vEm;
 	viEnemy _viEm;
 	PlayerManager* _pm;
-	
+
 
 
 public:
@@ -26,7 +26,7 @@ public:
 	virtual void release();
 	virtual void update();
 
-	
+
 	vector<GameObject*> getEnemy() { return _vEm; }
 
 	void setEnemy(GameObject* enemy); //에너미 세팅

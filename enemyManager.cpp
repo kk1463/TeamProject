@@ -28,7 +28,7 @@ void EnemyManager::update()
 
 
 
-	for (int i = 0;i < _vEm.size();i++)
+	for (int i = 0; i < _vEm.size(); i++)
 	{
 		_vEm[i]->update();
 	}
@@ -36,11 +36,11 @@ void EnemyManager::update()
 
 void EnemyManager::setEnemy(GameObject* enemy)
 {
-	
-	
+
+
 	_vEm.push_back(enemy);
 
-	
+
 
 }
 

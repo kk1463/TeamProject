@@ -2,12 +2,12 @@
 #include"BasicScene.h"
 #include "gameNode.h"
 
-#define LOADINGMAX 30
+#define LOADINGMAX 0
 
 class progressBar;
 
 
-class LoadingScene:public BasicScene
+class LoadingScene :public BasicScene
 {
 private:
 	progressBar* _loadingBar;
@@ -36,9 +36,9 @@ private:
 public:
 	LoadingScene();
 	~LoadingScene();
-	
+
 	int _currentCount;
-	virtual void Start();
+
 	HRESULT init();
 	void release();
 	void update();

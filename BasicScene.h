@@ -6,10 +6,9 @@
 #include"Hydra.h"
 #include"Flower.h"
 #include"Hydra_W.h"
-#include"Hydra_S.h"
-#include"Hydra_F.h"
 
-class BasicScene:public gameNode
+
+class BasicScene :public gameNode
 {
 protected:
 	vector<GameObject*> _gameObj;
@@ -19,8 +18,6 @@ protected:
 public:
 	virtual void setGameObj(GameObject* obj);
 	void settingObj(GameObject* ins, OBJSTRUCT obj) {};
-
-	virtual void Start();
 	virtual void update();
 	virtual void render();
 	virtual vector<tagTile*> getTile() { return _tiles; }

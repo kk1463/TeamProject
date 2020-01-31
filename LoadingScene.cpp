@@ -6,8 +6,8 @@
 LoadingScene::LoadingScene()
 	: _background(nullptr), _loadingBar(nullptr),
 	_currentCount(0)
-	
-{	
+
+{
 }
 
 
@@ -15,14 +15,10 @@ LoadingScene::~LoadingScene()
 {
 }
 
-void LoadingScene::Start()
-{
-}
-
 HRESULT LoadingScene::init()
 {
 	//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■이미지■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-	_background = IMAGEMANAGER->addImage("Loading", "백그라운드_배경.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));		
+	_background = IMAGEMANAGER->addImage("Loading", "백그라운드_배경.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 	_lodingcall = IMAGEMANAGER->addImage("test", "표식.bmp", 500, 500, true, RGB(255, 0, 255));
 	_baegyeong = IMAGEMANAGER->addImage("baegyeong", "배경이미지.bmp", 946, 716, true, RGB(255, 0, 255));
 	_lodingIcon = IMAGEMANAGER->addImage("Icon", "로딩.bmp", 388, 64, true, RGB(255, 0, 255));
@@ -38,7 +34,7 @@ HRESULT LoadingScene::init()
 
 	//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
-	
+
 
 	//■■■■■■■■■■■■■■■■■■■■■■로딩 바■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 	_loadingBar = new progressBar;
@@ -59,7 +55,7 @@ HRESULT LoadingScene::init()
 	_fire->setPlayFrame(1, 8, false, true);
 	_fire->setFPS(1);
 	_fire->start();
-	
+
 	//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■구름이동■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 	_cloud1x = 100;
 	_cloud2x = 700;
@@ -81,7 +77,7 @@ HRESULT LoadingScene::init()
 		NULL,
 		0
 	);
-	
+
 	return S_OK;
 }
 
@@ -105,7 +101,7 @@ void LoadingScene::update()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
 		{
-			SCENEMANAGER->changeScene("stageTwo");
+			SCENEMANAGER->changeScene("stageOne");
 		}
 	}
 	//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -151,13 +147,13 @@ void LoadingScene::render()
 		_lodingIcon->alphaRender(getMemDC(), 400, 800, _loadingStart);
 		_lodingMonster->aniRender(getMemDC(), 800, 770, _loadingAni);
 	}
-	
+
 	if (_currentCount == LOADINGMAX)
 	{
 		_swith = true;
-		_pressButton->alphaRender(getMemDC(), 200, 830,_pressStart);
+		_pressButton->alphaRender(getMemDC(), 200, 830, _pressStart);
 	}
-	
+
 }
 
 DWORD threadFunction(LPVOID lpParameter)

@@ -93,6 +93,11 @@ void Flower::update()
 	this->setCheckRect_Left(en.leftColRc);
 	this->setCheckRect_Top(en.topColRc);
 	this->setCheckRect_Bottom(en.botColRc);
+
+
+
+
+
 }
 
 
