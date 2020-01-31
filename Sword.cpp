@@ -4,7 +4,7 @@
 
 Sword::Sword()
 {
-	_image = IMAGEMANAGER->findImage("Į");
+	_image = IMAGEMANAGER->findImage("Sword");
 }
 
 

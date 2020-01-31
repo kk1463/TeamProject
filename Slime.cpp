@@ -27,7 +27,7 @@ HRESULT Slime::init()
 	//dead
 	IMAGEMANAGER->addFrameImage("S_dead", "img/slime/S_dead.bmp", 954, 58, 9, 1, true, RGB(255, 0, 255));
 
-	EFFECTMANAGER->addEffect("S_dead", "img/slime/S_dead.bmp", 954, 58, 106, 58, 1.0f, 0.2f, 50);
+	EFFECTMANAGER->addEffect("S_dead", "img/slime/S_dead.bmp", 954, 58, 106, 58, 1.0f, 0.2f, 50,true);
 	
 
 

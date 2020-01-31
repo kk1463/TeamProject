@@ -2,7 +2,7 @@
 #include "singletonBase.h"
 #include <vector>
 #include <map>
-
+class ItemManager;
 class effect;
 
 class effectManager : public singletonBase<effectManager>
@@ -19,8 +19,6 @@ private:
 
 private:
 	arrTotalEffect _vTotalEffect;
-
-
 public:
 	effectManager();
 	~effectManager();
@@ -29,11 +27,11 @@ public:
 	void release();
 	void update();
 	void render();
-
+	
 	void addEffect(string effectName, const char* imageName, int imageWidth, int imageHeight,
 		int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer);
-	void addEffect(string effectName, const char * imageName, int imageWidth,
-		int imageHeight, int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer, CALLBACK_FUNCTION_TwoParam cbFunction);
+	void addEffect(string effectName, const char* imageName, int imageWidth, int imageHeight,
+		int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer,bool makeItem);
 
 	void play(string effectName, int x, int y);
 

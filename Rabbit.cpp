@@ -39,8 +39,8 @@ HRESULT Rabbit::init()
 	IMAGEMANAGER->addFrameImage("R_dead_Left", "img/rabbit/R_dead_Left.bmp", 1344, 76, 14, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("R_deadEffect", "img/rabbit/R_deadEffect.bmp", 420, 48, 6, 1, true, RGB(255, 0, 255));
 	//이펙트매니져
-	EFFECTMANAGER->addEffect("R_dead_Right", "img/rabbit/R_dead_Right.bmp", 1344, 76, 96, 76, 1.0f, 0.2f, 50);
-	EFFECTMANAGER->addEffect("R_dead_Left", "img/rabbit/R_dead_Left.bmp", 1344, 76, 96, 76, 1.0f, 0.2f, 50);
+	EFFECTMANAGER->addEffect("R_dead_Right", "img/rabbit/R_dead_Right.bmp", 1344, 76, 96, 76, 1.0f, 0.2f, 50,true);
+	EFFECTMANAGER->addEffect("R_dead_Left", "img/rabbit/R_dead_Left.bmp", 1344, 76, 96, 76, 1.0f, 0.2f, 50,true);
 	//idle
 	int Rabbit_Idle_Left[] = { 0,1,2,3,4,5,6,7,8,9,10,11 };
 	KEYANIMANAGER->addArrayFrameAnimation("R_Idle_Left", "R_idle_left", Rabbit_Idle_Left, 12, FPS, true);

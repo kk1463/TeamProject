@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "effect.h"
 #include "animation.h"
-
+#include"ItemManager.h"
 
 effect::effect()
 	: _effectImage(NULL),
@@ -35,7 +35,7 @@ HRESULT effect::init(image* effectImage, int frameW, int frameH, int fps, float 
 	return S_OK;
 }
 
-HRESULT effect::init(image * effectImage, int frameW, int frameH, int fps, float elapsedTime, CALLBACK_FUNCTION_TwoParam cbFunction)
+HRESULT effect::init(image * effectImage, int frameW, int frameH, int fps, float elapsedTime, bool makeItem)
 {
 	//이펙트 이미지가 없으면 실패를 띄워라
 	if (!effectImage) return E_FAIL;
@@ -50,11 +50,11 @@ HRESULT effect::init(image * effectImage, int frameW, int frameH, int fps, float
 	_effectAnimation->setDefPlayFrame(false, false);
 	_effectAnimation->setFPS(fps);
 	_effectAnimation->stop();
-
-	_cbFunction = cbFunction;
-
+	_makeItem = makeItem;
 	return S_OK;
 }
+
+
 
 void effect::release()
 {
@@ -67,11 +67,7 @@ void effect::update()
 	//이펙트 애니메이션 실행 변수가 false면 실행하지마라
 	if (!_isRunning)
 	{
-		if (_cbFunction) 
-		{
-			ItemKinds ins = ItemKinds::ARMOR;
-			_cbFunction(&ins,&PointMake(_x,_y));
-		}
+		
 		return;
 	}
 
@@ -80,6 +76,10 @@ void effect::update()
 	//만약 애니메이션 재생신호가 false면 이펙트를 꺼라
 	if (!_effectAnimation->isPlay())
 	{
+		if (_makeItem)
+		{
+			ITEMMANAGER->makeItem((ItemKinds)(RND->getFromIntTo(0,5)), PointMake(_x, _y));
+		}
 		killEffect();
 	}
 

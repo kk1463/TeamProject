@@ -4,7 +4,7 @@
 
 Armor::Armor()
 {
-	_image = IMAGEMANAGER->findImage("°©¿Ê");
+	_image = IMAGEMANAGER->findImage("Armor");
 }
 
 

@@ -4,7 +4,7 @@
 
 Ring::Ring()
 {
-	IMAGEMANAGER->findImage("¹ÝÁö");
+	_image=IMAGEMANAGER->findImage("Ring");
 }
 
 

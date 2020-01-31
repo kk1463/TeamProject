@@ -4,7 +4,7 @@
 #include"Coin.h"
 #include"Armor.h"
 #include"Potion.h"
-
+typedef void(ItemManager::*_cbFunction)(ItemKinds, POINT);
 class ItemManager:public singletonBase<ItemManager>
 {
 private :

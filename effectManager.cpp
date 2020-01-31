@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "effectManager.h"
 #include "effect.h"
+#include"ItemManager.h"
 
 effectManager::effectManager()
 {
@@ -79,7 +80,8 @@ void effectManager::render()
 	}
 }
 
-void effectManager::addEffect(string effectName, const char * imageName, int imageWidth, int imageHeight, int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer)
+void effectManager::addEffect(string effectName, const char * imageName, int imageWidth, int imageHeight,
+	int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer)
 {
 	image* img;
 	arrEffects vEffectBuffer;
@@ -105,7 +107,8 @@ void effectManager::addEffect(string effectName, const char * imageName, int ima
 	_vTotalEffect.push_back(mArrEffect);
 }
 
-void effectManager::addEffect(string effectName, const char * imageName, int imageWidth, int imageHeight, int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer, CALLBACK_FUNCTION_TwoParam cbFunction)
+void effectManager::addEffect(string effectName, const char * imageName, int imageWidth, int imageHeight, 
+	int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer, bool makeItem)
 {
 	image* img;
 	arrEffects vEffectBuffer;
@@ -123,13 +126,18 @@ void effectManager::addEffect(string effectName, const char * imageName, int ima
 	for (int i = 0; i < buffer; ++i)
 	{
 		vEffectBuffer.push_back(new effect);
-		vEffectBuffer[i]->init(img, effectWidth, effectHeight, fps, elapsedTime,cbFunction);
+		vEffectBuffer[i]->init(img, effectWidth, effectHeight, fps, elapsedTime,makeItem);
 	}
 
 	mArrEffect.insert(pair<string, arrEffects>(effectName, vEffectBuffer));
 
 	_vTotalEffect.push_back(mArrEffect);
+	
 }
+
+
+
+
 
 void effectManager::play(string effectName, int x, int y)
 {
