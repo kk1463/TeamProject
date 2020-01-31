@@ -38,6 +38,7 @@ HRESULT gameNode::init(bool managerInit)
 		SCENEMANAGER->init();
 		KEYANIMANAGER->init();
 		ENEMYMANAGER->init();
+		UIMANAGER->init();
 
 	}
 
@@ -73,6 +74,8 @@ void gameNode::release()
 		TILEMANAGER->releaseSingleton();
 		ENEMYMANAGER->releaseSingleton();
 		PLAYERMANGER->releaseSingleton();
+		UIMANAGER->release();
+		UIMANAGER->releaseSingleton();
 	}
 
 	ReleaseDC(_hWnd, _hdc);

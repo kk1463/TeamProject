@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ui.h"
-
+#include "gameNode.h"
 
 ui::ui()
 {
@@ -36,7 +36,7 @@ void ui::render()
 
 void ui::draw()
 {
-	_imageName->render(getMemDC(), _position.x, _position.y);
+	_imageName->render(_backBuffer->getMemDC(), _position.x, _position.y);
 }
 
 

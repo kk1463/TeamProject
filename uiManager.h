@@ -1,6 +1,4 @@
 #pragma once
-#include "gameNode.h"
-#include "ui.h"
 
 //#include "item.h"
 //#include "itemManager.h"
@@ -24,7 +22,7 @@ struct uiInfo
 };
 
 
-class uiManager : public gameNode
+class uiManager :public singletonBase<uiManager>
 {
 private:
 
