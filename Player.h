@@ -52,6 +52,7 @@ struct PlayerInfo
 	bool leftMove, rightMove, upMove, downMove;  //타일에 충돌했을때 각 방향으로의 움직임을 막아줌
 	RECT colRc, leftColRc, rightColRc, botColRc, topColRc; //전후좌우 충돌체크용 렉트
 	RECT AtkRc;
+	RECT miniColRc;
 
 };
 class Player : public GameObject
@@ -78,6 +79,7 @@ public:
 	PlayerInfo getPlayerinfo() { return _playerInfo; }
 	RECT getColRc() { return _playerInfo.colRc; }
 	RECT getAtkRc() { return _playerInfo.AtkRc; }
+	RECT getminiColRc() { return _playerInfo.miniColRc; }
 
 	void getPlayerDir() { _playerInfo.direction; }//enemy 판정을위해 하나..
 

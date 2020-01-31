@@ -76,11 +76,12 @@ void Player::KeyControl()
 	{
 		RECT rc = _vEnemy[j]->getColRect();
 		RECT temp;
+
 		if (_playerInfo.direction == P_RIGHT|| _playerInfo.direction == P_LEFT)
 		{
-			if (IntersectRect(&temp, &_playerInfo.colRc, &_vEnemy[j]->getColRect()))
+			if (IntersectRect(&temp, &_playerInfo.miniColRc, &_vEnemy[j]->getColRect()))
 			{
-				if (getCenterPos(_playerInfo.colRc).y < getCenterPos(_vEnemy[j]->getColRect()).y)
+				if (getCenterPos(_playerInfo.miniColRc).y < getCenterPos(_vEnemy[j]->getColRect()).y)
 				{
 					_playerInfo.position.y -= 2;
 				}
@@ -93,9 +94,9 @@ void Player::KeyControl()
 		}
 		else if(_playerInfo.direction == P_UP || _playerInfo.direction == P_DOWN)
 		{
-			if (IntersectRect(&temp, &_playerInfo.colRc, &_vEnemy[j]->getColRect()))
+			if (IntersectRect(&temp, &_playerInfo.miniColRc, &_vEnemy[j]->getColRect()))
 			{
-				if (getCenterPos(_playerInfo.colRc).x < getCenterPos(_vEnemy[j]->getColRect()).x)
+				if (getCenterPos(_playerInfo.miniColRc).x < getCenterPos(_vEnemy[j]->getColRect()).x)
 				{
 					_playerInfo.position.x -= 2;
 				}

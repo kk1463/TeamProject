@@ -449,18 +449,22 @@ void Warrior::PlayerRectChange()
 		{
 		case P_LEFT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
 			break;
 
 		case P_RIGHT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 25,25);
 			break;
 
 		case P_DOWN:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 25, 25);
 
 			break;
 		case P_UP:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 25, 25);
 			break;
 		}
 		break;
@@ -473,17 +477,21 @@ void Warrior::PlayerRectChange()
 
 		case P_LEFT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
 			break;
 
 		case P_RIGHT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 40, _playerInfo.position.y + 40, 25, 25);
 			break;
 
 		case P_DOWN:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 40, 25, 25);
 			break;
 		case P_UP:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 40, 25, 25);
 			break;
 		}
 		break;
@@ -493,20 +501,24 @@ void Warrior::PlayerRectChange()
 		{
 		case P_LEFT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 70, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 70, _playerInfo.position.y + 50, 25, 25);
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left, _playerInfo.topColRc.top + 20, 60, 90);
 			break;
 
 		case P_RIGHT:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 50, _playerInfo.position.y + 50, 25, 25);
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.rightColRc.right, _playerInfo.topColRc.top, 60, 90);
 			break;
 
 		case P_DOWN:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 60, _playerInfo.position.y + 45, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 60, _playerInfo.position.y + 45, 25, 25);
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.botColRc.bottom, 90, 60);
 			break;
 		case P_UP:
 			_playerInfo.colRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 50, 30, 30);
+			_playerInfo.miniColRc = RectMakeCenter(_playerInfo.position.x + 55, _playerInfo.position.y + 50, 25, 25);
 			_playerInfo.AtkRc = RectMakeCenter(_playerInfo.leftColRc.left + 20, _playerInfo.topColRc.top, 90, 60);
 			break;
 
