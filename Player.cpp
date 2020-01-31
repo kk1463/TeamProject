@@ -219,7 +219,7 @@ void Player::PlayerRectChange()
 void Player::attaked(int atk)
 {
 	_playerInfo.attcked = true;
-	_playerInfo.hp -= atk/50;
+	_playerInfo.hp -= atk;
 
 	
 
