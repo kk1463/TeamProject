@@ -53,7 +53,7 @@ HRESULT playGround::init()
 	SCENEMANAGER->addScene("Loading", new LoadingScene);
 	SCENEMANAGER->addScene("stageTwo", new StageTwoScene);
 
-	SCENEMANAGER->changeScene("stageTwo");
+	SCENEMANAGER->changeScene("Loading");
 
 	PLAYERMANGER->init();
 
@@ -78,7 +78,6 @@ void playGround::update()
 	gameNode::update();
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
-	PLAYERMANGER->update();
 }
 
 

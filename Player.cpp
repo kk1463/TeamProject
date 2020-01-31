@@ -39,32 +39,23 @@ void Player::update()
 			RECT temp;
 			if (IntersectRect(&temp, &rc, &_playerInfo.AtkRc))
 			{
-				EnemyAttacked = true;
-				cout << _vEnemy[i]->getObject() << endl;
+				if (_playerInfo.atkCount == 10)
+				{
+					_vEnemy[i]->attaked();
+
+				}
 			}
 		}
-		if (EnemyAttacked && _playerInfo.atkState == false)
-		{
-			EnemyAttacked = false;
-		}
-		if (EnemyAttacked&&_playerInfo.atkCount == 10)
-		{
-			cout << "공격당함" << endl;
-			//여기에 적HP를 감소시켜준다
-		}
-		
 	}
-	if (!EnemyAttacked&&_playerInfo.atkState == false)
+	for (int i = 0; i < _totalTile.size(); i++)
 	{
-		cout << "공격끝" << endl;
-	}
-	
-	if (KEYMANAGER->isOnceKeyDown('5')) //삭제되는부분
-	{
-		SCENEMANAGER->getCurrentScene()->deleteObject(this);
+		if (PtInRect(&_totalTile[i]->getRect(), getCenterPos(_colRc)))
+		{
+			_tileIdx = i;
+			break;
+		}
 	}
 
-	
 	this->SetPlayerAtkRc(_playerInfo.AtkRc);
 	this->setPlayerDir(_playerInfo.direction);
 
@@ -86,10 +77,8 @@ void Player::KeyControl()
 			{
 
 				_playerInfo.rightMove = false;
-
 				break;
 			}
-
 			else
 			{
 				_playerInfo.rightMove = true;
@@ -109,7 +98,6 @@ void Player::KeyControl()
 				_playerInfo.leftMove = true;
 			}
 		}
-		////
 		if (_playerInfo.direction == P_DOWN)
 		{
 			if (IntersectRect(&temp, &_playerInfo.botColRc, &_totalTile[i]->getRect())
@@ -125,7 +113,6 @@ void Player::KeyControl()
 
 				_playerInfo.downMove = true;
 			}
-			////
 		}
 		if (_playerInfo.direction == P_UP)
 		{

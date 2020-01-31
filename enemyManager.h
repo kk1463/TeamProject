@@ -24,7 +24,6 @@ public:
 
 	virtual HRESULT init();
 	virtual void release();
-	virtual void update();
 
 
 	vector<GameObject*> getEnemy() { return _vEm; }
@@ -36,7 +35,7 @@ public:
 	void eraseEnemy(int num) { _vEm.erase(_vEm.begin() + num); }
 
 	void setPlayerManager(PlayerManager* pm) { _pm = pm; }
-
+	void eraseEnemy(GameObject* ins);
 };
 
 

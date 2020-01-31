@@ -57,6 +57,7 @@ struct PlayerInfo
 class Player : public GameObject
 {
 protected:
+	int _tileIdx;
 	vector<GameObject*> _vEnemy;
 	vector<tagTile*> _totalTile;
 	PlayerInfo _playerInfo;

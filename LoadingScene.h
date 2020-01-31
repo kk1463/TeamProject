@@ -40,9 +40,9 @@ public:
 	int _currentCount;
 
 	HRESULT init();
-	void release();
-	void update();
-	void render();
+	virtual void release();
+	virtual void update();
+	virtual void render();
 
 };
 

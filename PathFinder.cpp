@@ -61,8 +61,10 @@ vector<tagTile*> PathFinder::GetPath(vector<tagTile*> totalTile, tagTile * start
 
 
 		//검사할 길이 없다면 끝
-		if (openList.size() == 0) break;
-
+		if (openList.size() == 0)
+		{
+			break;
+		}
 
 	}
 	ReleaseList();

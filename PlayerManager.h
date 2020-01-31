@@ -19,9 +19,7 @@ public:
 	~PlayerManager();
 
 	HRESULT init();
-	void update();
 	void release();
 	vector<GameObject*> get_vPlayer() { return _vPlayer; }
-	void collision();
 };
 

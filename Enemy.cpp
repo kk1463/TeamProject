@@ -83,6 +83,11 @@ void Enemy::hit()
 
 }
 
+void Enemy::attaked()
+{
+	ENEMYMANAGER->eraseEnemy(this);
+}
+
 void Enemy::setTile(vector<tagTile*> ins) // 에너미가 타일을 남기고 죽다.
 {
 	_tiles = ins;

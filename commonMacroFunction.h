@@ -33,7 +33,10 @@ inline RECT RectMakeCenter(int centerX, int centerY, int width, int height)
 	return rc;
 }
 
-
+inline POINT getCenterPos(RECT rc)
+{
+	return PointMake((rc.left + rc.right) / 2, (rc.top + rc.bottom) / 2);
+}
 //============== 사 각 형 =====================
 //       Left, Top을 기준(그려줄DC, Left, Top, 가로크기, 세로크기)
 inline void RectangleMake(HDC hdc, int x, int y, int width, int height)

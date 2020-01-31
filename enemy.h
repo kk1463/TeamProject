@@ -93,6 +93,8 @@ public:
 	virtual void update();
 	virtual void hit();
 
+	virtual void attaked();
+
 	virtual void setTile(vector<tagTile*> ins);
 	RECT GetEnColRc() { en.colRc; }
 
