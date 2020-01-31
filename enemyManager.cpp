@@ -19,6 +19,7 @@ HRESULT EnemyManager::init()
 
 void EnemyManager::release()
 {
+	_vEm.clear();
 }
 
 void EnemyManager::update()

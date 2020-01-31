@@ -28,14 +28,11 @@ void PlayerManager::update()
 
 void PlayerManager::release()
 {
+	_vPlayer.clear();
 }
 
 void PlayerManager::collision()
 {
-
-
-
-
 
 	RECT temp;
 	vector<GameObject*>& objs = SCENEMANAGER->getCurrentScene()->getGameObject();
@@ -50,11 +47,6 @@ void PlayerManager::collision()
 		}
 		else ++Iter;
 	}
-
-
-
-
-
 
 }
 
