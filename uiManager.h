@@ -39,6 +39,7 @@ private:
 	POINTS pos;
 	int _currentFrameX;
 	PlayerManager* _pm;
+
 	vector<uiInfo*> _playerItemVector;
 
 
@@ -109,8 +110,16 @@ private:
 	image* select1;
 	image* select2;
 	bool _noMp;
-
-
+	bool move;
+	int moveCount;
+	image* _shield;
+	image* _armor;
+	image* _ring;
+	image* _stick;
+	image* invenSelect1;
+	image* invenSelect2;
+	bool invenDraw;
+	bool invenDraw1;
 public:
 	uiManager();
 	~uiManager();
@@ -124,7 +133,7 @@ public:
 
 
 	virtual void HitDamage(float damage);
-
+	int getcount() { return moveCount; }
 
 
 	bool getStay();

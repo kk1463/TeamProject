@@ -23,6 +23,7 @@ HRESULT ui::init(const char * imageName, POINT position, uiName name)
 
 void ui::release()
 {
+
 }
 
 void ui::update()

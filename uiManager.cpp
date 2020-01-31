@@ -26,10 +26,11 @@ HRESULT uiManager::init()
 	PlayerMp->setGauge(100, 100);
 
 
-	IMAGEMANAGER->addImage("갑옷", "갑옷.bmp", 40, 31, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("반지", "반지.bmp", 30, 30, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("지팡이", "지팡이.bmp", 25, 43, true, RGB(255, 0, 255));
+	_armor = IMAGEMANAGER->addImage("갑옷", "갑옷.bmp", 40, 31, true, RGB(255, 0, 255));
+	_ring = IMAGEMANAGER->addImage("반지", "반지.bmp", 30, 30, true, RGB(255, 0, 255));
+	_stick = IMAGEMANAGER->addImage("지팡이", "지팡이.bmp", 25, 43, true, RGB(255, 0, 255));
 	_knife = IMAGEMANAGER->addImage("칼", "칼.bmp", 40, 40, true, RGB(255, 0, 255));
+	_shield = IMAGEMANAGER->addImage("나무방패", "나무방패.bmp", 30, 36, true, RGB(255, 0, 255));
 
 
 	_inven = IMAGEMANAGER->addImage("Inven", "인벤.bmp", 697, 526, true, RGB(255, 0, 255));
@@ -77,7 +78,8 @@ HRESULT uiManager::init()
 
 	select1 = IMAGEMANAGER->addImage("선택창1", "선택창1.bmp", 200, 100, true, RGB(255, 0, 255));
 	select2 = IMAGEMANAGER->addImage("선택창2", "선택창2.bmp", 200, 100, true, RGB(255, 0, 255));
-
+	invenSelect1 = IMAGEMANAGER->addImage("인벤선택창1", "인벤선택창1.bmp", 200, 98, true, RGB(255, 0, 255));
+	invenSelect2 = IMAGEMANAGER->addImage("인벤선택창2", "인벤선택창2.bmp", 200, 98, true, RGB(255, 0, 255));
 
 	/*for (int i = 0;i < _pm->get_vPlayer().size();i++)
 	{
@@ -148,6 +150,7 @@ HRESULT uiManager::init()
 
 void uiManager::release()
 {
+
 }
 
 void uiManager::update()
@@ -170,39 +173,23 @@ void uiManager::update()
 	{
 		switch (_pm->get_vPlayer()[i]->getPlayerinfo()->playerName)
 		{
-
 		case 0:
-
 			for (int j = 0;j < _pm->get_vPlayer()[i]->getPlayerinfo()->_vPlayerItem.size();j++)
 			{
-
 				ins->_itemList.push_back(_pm->get_vPlayer()[i]->getPlayerinfo()->_vPlayerItem[j]);
 				ins->_itemPos.push_back(PointMake(280 + (j % 4) * 150, 210 + (j / 4) * 150));
 				_playerItemVector[0] = ins;
 			}
-
-
 			break;
 		}
-
 	}*/
 
 	if (MP < 100 )
 	{
-	
 		MP += 0.2;
-
 	}
 
-	if (MP < 15)
-	{
-		_noMp = true;
-	}
-	else
-	{
-		_noMp = false;
-	}
-		
+	
 	cout << MP << endl;
 	
 	if (KEYMANAGER->isOnceKeyDown('N'))
@@ -221,25 +208,89 @@ void uiManager::update()
 	{
 		//draw = true;
 	}*/
-	if (KEYMANAGER->isOnceKeyDown('Z'))
-	{
-		draw = true;
-	}
-	if (KEYMANAGER->isOnceKeyDown('K'))
-	{
-		draw1 = true;
+		//인벤, 아이템 선택창 출력
 		if (KEYMANAGER->isOnceKeyDown('Z'))
 		{
-			draw = true;
+			if (stay3 == false)
+			{
+				draw = true;
+			}
+			if (stay == true)
+			{
+				invenDraw = true;
+			}
+			move = true;
+			moveCount += 1;
+
+			//아이템 착용창-> 인벤으로  아이템 이동
+			if (draw1 == true)
+			{
+				if (KEYMANAGER->isOnceKeyDown('Z'))
+				{
+					/*uiInfo* ins = new uiInfo;
+					for (int j = 0;j < PLAYERMANGER->get_vPlayer().size(); j++)
+						{
+							ins->_itemList.push_back(PLAYERMANGER->get_vPlayer()[j]->getplayeri);
+							ins->_itemPos.push_back(PointMake(280 + (j % 4) * 150, 210 + (j / 4) * 150));
+							_playerItemVector[0] = ins;
+						}*/
+				}
+			}
+
+			//아이템착용창에서 ->인벤창 화면이동 
+			if (draw1 == false)
+			{
+				if (moveCount == 2)
+				{
+					stay = true;
+					move = false;
+					item = false;
+				}
+			}
+
+			//아이템 지우기
+			if (invenDraw1 == true)
+			{
+				if (moveCount == 2)
+				{
+					//item class 이동
+					//_um->getcount();
+					//removeItem(i);
+				}
+
+			}
 		}
-	}
-	if (KEYMANAGER->isOnceKeyDown('I'))
+		//카운트 = 2 ->화면지움
+	if (moveCount == 2)
 	{
-		draw1 = false;
+		move = false;
+		draw = false;
+		invenDraw = false;
+		moveCount = 0;
 	}
+
+	//선택창 위아래 이동
+	if (move == true)
+	{
+		if (KEYMANAGER->isOnceKeyDown('K'))
+		{
+			draw1 = true;
+			invenDraw1 = true;
+		}
+
+		if (KEYMANAGER->isOnceKeyDown('I'))
+		{
+			draw1 = false;
+			invenDraw1 = false;
+		}
+		
+	}
+	//선택창 취소
 	if (KEYMANAGER->isOnceKeyDown('X'))
 	{
 		draw = false;
+		invenDraw = false;
+		moveCount += 1;
 	}
 	keyControl();
 }
@@ -247,7 +298,7 @@ void uiManager::update()
 
 void uiManager::render()
 {
-
+	//shield1->render(getMemDC(), 100, 500);
 	/*if(draw == true)
 	{
 		_knife->render(getMemDC(), 50, 30);
@@ -259,6 +310,7 @@ void uiManager::render()
 		(*_viUi)->render();
 	}
 
+	//스킬당 마나비례 이미지 출력
 	if (skill == false)
 	{
 		if (_noMp == false)
@@ -280,40 +332,39 @@ void uiManager::render()
 				worriorSkill4->render(getMemDC(), 640, 20);
 			}
 		}
-		
-			if (MP < 15)
+	
+			if (MP < 12)
 			{
 				Skill1->render(getMemDC(), 400, 20);
 				_noMp == true;
 			}
-			if (MP < 18)
+			if (MP < 15)
 			{
 				Skill2->render(getMemDC(), 480, 20);
 				_noMp == true;
 			}
-			if (MP < 23)
+			if (MP < 20)
 			{
 				Skill3->render(getMemDC(), 560, 20);
 				_noMp == true;
 			}
 					
-			if (MP < 28)
+			if (MP < 25)
 			{
 				Skill4->render(getMemDC(), 640, 20);
 				_noMp == true;
 			}
 		//}
 	}
+	//플레이어 hp,mp출력
 	hpUi->render(getMemDC(), 0, 10);
 	PlayerHp->render();
 	PlayerMp->Mprender();
 	
-
+	//인벤ui 적용
 	if (KEYMANAGER->isOnceKeyDown('Y'))
-
 	{
 		count += 1;
-
 		stay = true;
 		skill = true;
 		stay2 = true;
@@ -328,9 +379,9 @@ void uiManager::render()
 
 	if (stay2 == true)
 	{
+		//창 변경 적용
 		if (item == false)
 		{
-
 			_list1->frameRender(getMemDC(), WINSIZEX / 2 - 100, 10, 1, 0);
 			_list2->frameRender(getMemDC(), WINSIZEX / 2, 10, 0, 0);
 		}
@@ -341,11 +392,9 @@ void uiManager::render()
 			_list2->frameRender(getMemDC(), WINSIZEX / 2, 10, 1, 0);
 			_skillInven->render(getMemDC(), 180, 120);
 
-
-
+			//스킬 선택창 -> 아이템 선택창 이동
 			if (stay3 == false)
 			{
-			
 				itemOn->render(getMemDC(), 210, 150);
 				worriorOff->render(getMemDC(), 230, 390);
 				
@@ -354,22 +403,18 @@ void uiManager::render()
 				{
 					if (num1 == k)
 					{
-
 						_vPointer[0]->getImage()->frameRender(getMemDC(), _rc3[box1[num1]].left, _rc3[box1[num1]].top, 1, 0);
 					}
-					
-					
 				}
-
 				_vPointer[0]->getImage()->frameRender(getMemDC(), _rc3[box1[num1]].left, _rc3[box1[num1]].top, 1, 0);
 				/*if (draw == true)
 				{
 					_knife->render(getMemDC(), 240, 218);
 				}*/
 			}
-
 		}
 
+		//아이템 미착용 이미지
 
 		//if (draw == false)
 		//{
@@ -387,18 +432,20 @@ void uiManager::render()
 		hat->render(getMemDC(), 676, 308);
 		glasses->render(getMemDC(), 756, 315);
 
-		if (draw == true)
+		
+
+		// 아이템 선택창
+		if (draw == true )
 		{
 			select1->render(getMemDC(), _rc3[box1[num1]].left + 90, _rc3[box1[num1]].top);
-			
 			if(draw1 == true)
 			{
 				select2->render(getMemDC(), _rc3[box1[num1]].left + 90, _rc3[box1[num1]].top);
-
 			}
 		}
-
 	}
+
+	//아이템 선택창 -> 스킬 선택창 이동
 	if (stay3 == true)
 	{
 		itemOff->render(getMemDC(), 210, 150);
@@ -413,6 +460,7 @@ void uiManager::render()
 			}
 		}
 
+		//아이템 미착용 이미지
 		weapon->render(getMemDC(), 246, 220);
 		shield->render(getMemDC(), 353, 220);
 		armor->render(getMemDC(), 450, 220);
@@ -428,17 +476,11 @@ void uiManager::render()
 	}
 
 
-	
-
-
+	//인벤창 출력
 	if (stay == true)
 	{
-
 		_inven->render(getMemDC(), 180, 120);
-
 		_inven->render(getMemDC(), 180, 120);
-
-
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 3; j++)
@@ -455,17 +497,19 @@ void uiManager::render()
 			if (num == k)
 			{
 				_vPointer[k]->getImage()->frameRender(getMemDC(), _rc2[box[num]].left, _rc2[box[num]].top, 1, 0);
-
-
 			}
-
-
-
 		}
-
+		//인벤 선택창
+		if (invenDraw == true)
+		{
+			invenSelect2->render(getMemDC(), _rc2[box[num]].left+90, _rc2[box[num]].top);
+			if (invenDraw1 == true)
+			{
+				invenSelect1->render(getMemDC(), _rc2[box[num]].left+90, _rc2[box[num]].top);
+			}
+		}
 	}
 	
-
 
 	if (KEYMANAGER->isOnceKeyDown('H'))
 	{
@@ -489,52 +533,42 @@ void uiManager::render()
 
 		if (stay == true)
 		{
-
-
 			/*for (int i = 0;i < _playerItemVector.size();i++)
 			{
-
 				for (int j = 0;j < _playerItemVector[i]->_itemList.size();j++)
 				{
 					for (int l = 0;l < _pm->get_vPlayer().size();l++)
 					{
 						switch (_playerItemVector[i]->_itemList[j]->getItemKinds())
 						{
-
 						case itemKinds::armor:
-
 							IMAGEMANAGER->findImage("갑옷")->render(getMemDC(),
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
-
 							break;
+
 						case itemKinds::ring:
 							IMAGEMANAGER->findImage("반지")->render(getMemDC(),
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
-
 							break;
+
 						case itemKinds::knife:
 							IMAGEMANAGER->findImage("칼")->render(getMemDC(),
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
-
 							break;
+
 						case itemKinds::stick:
 							IMAGEMANAGER->findImage("지팡이")->render(getMemDC(),
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
 							break;
-
 						}
-
 					}
-
 				}
-
 			}*/
 		}
-
 }
 
 void uiManager::setUi()
@@ -549,7 +583,6 @@ void uiManager::setUi()
 	ui2->init("포인터", PointMake(_pointerX1, _pointerY1), Pointer);
 	_vPointer.push_back(ui2);
 
-
 	ui* ui3;
 	ui3 = new skillPointer;
 	ui3->init("스킬포인터", PointMake(280, 420), Pointer);
@@ -559,74 +592,67 @@ void uiManager::setUi()
 
 void uiManager::keyControl()
 {
-	if (item == false)
+	if (move == false)
 	{
-		if (KEYMANAGER->isOnceKeyDown('I'))
+		if (item == false)
 		{
-			if (box[num] >= 4 && box[num] <= 11) box[num] -= 4;
-
+			if (KEYMANAGER->isOnceKeyDown('I'))
+			{
+				if (box[num] >= 4 && box[num] <= 11) box[num] -= 4;
+			}
+			if (KEYMANAGER->isOnceKeyDown('K'))
+			{
+				if (box[num] >= 0 && box[num] <= 7) box[num] += 4;
+			}
+			if (KEYMANAGER->isOnceKeyDown('J'))
+			{
+				if (box[num] != 0) box[num] -= 1;
+			}
+			if (KEYMANAGER->isOnceKeyDown('L'))
+			{
+				if (box[num] != 11) box[num] += 1;
+			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('K'))
-		{
-			if (box[num] >= 0 && box[num] <= 7) box[num] += 4;
 
+		if (item == true && stay3 == false)
+		{
+			if (KEYMANAGER->isOnceKeyDown('I'))
+			{
+				if (box1[num1] >= 6 && box1[num1] <= 11) box1[num1] -= 6;
+			}
+			if (KEYMANAGER->isOnceKeyDown('K'))
+			{
+				if (box1[num1] >= 0 && box1[num1] <= 5) box1[num1] += 6;
+			}
+			if (KEYMANAGER->isOnceKeyDown('J'))
+			{
+				if (box1[num1] != 0) box1[num1] -= 1;
+			}
+			if (KEYMANAGER->isOnceKeyDown('L'))
+			{
+				if (box1[num1] != 11) box1[num1] += 1;
+			}
 		}
-		if (KEYMANAGER->isOnceKeyDown('J'))
+
+		if (item == true && stay3 == true)
 		{
-			if (box[num] != 0) box[num] -= 1;
 
-		}
-		if (KEYMANAGER->isOnceKeyDown('L'))
-		{
-			if (box[num] != 11) box[num] += 1;
-		}
-	}
-
-	if (item == true && stay3 == false)
-	{
-
-		if (KEYMANAGER->isOnceKeyDown('I'))
-		{
-			if (box1[num1] >= 6 && box1[num1] <= 11) box1[num1] -= 6;
-
-		}
-		if (KEYMANAGER->isOnceKeyDown('K'))
-		{
-			if (box1[num1] >= 0 && box1[num1] <= 5) box1[num1] += 6;
-
-		}
-		if (KEYMANAGER->isOnceKeyDown('J'))
-		{
-			if (box1[num1] != 0) box1[num1] -= 1;
-
-		}
-		if (KEYMANAGER->isOnceKeyDown('L'))
-		{
-			if (box1[num1] != 11) box1[num1] += 1;
-		}
-	}
-
-	if (item == true && stay3 == true)
-	{
-
-		if (KEYMANAGER->isOnceKeyDown('I'))
-		{
-			if (box2[num2] >= 5 && box2[num2] <= 9) box2[num2] -= 5;
-
-		}
-		if (KEYMANAGER->isOnceKeyDown('K'))
-		{
-			if (box2[num2] >= 0 && box2[num2] <= 4) box2[num2] += 5;
-
-		}
-		if (KEYMANAGER->isOnceKeyDown('J'))
-		{
-			if (box2[num2] != 0) box2[num2] -= 1;
-
-		}
-		if (KEYMANAGER->isOnceKeyDown('L'))
-		{
-			if (box2[num2] != 9) box2[num2] += 1;
+			if (KEYMANAGER->isOnceKeyDown('I'))
+			{
+				if (box2[num2] >= 5 && box2[num2] <= 9) box2[num2] -= 5;
+			}
+			if (KEYMANAGER->isOnceKeyDown('K'))
+			{
+				if (box2[num2] >= 0 && box2[num2] <= 4) box2[num2] += 5;
+			}
+			if (KEYMANAGER->isOnceKeyDown('J'))
+			{
+				if (box2[num2] != 0) box2[num2] -= 1;
+			}
+			if (KEYMANAGER->isOnceKeyDown('L'))
+			{
+				if (box2[num2] != 9) box2[num2] += 1;
+			}
 		}
 	}
 }

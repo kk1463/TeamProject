@@ -83,7 +83,6 @@ void playGround::update()
 	KEYANIMANAGER->update();
 
 	
-
 	_um->update();
 
 }
