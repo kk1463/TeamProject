@@ -2,6 +2,11 @@
 #include "BasicScene.h"
 
 
+void BasicScene::Start()
+{
+	PLAYERMANGER->init();
+}
+
 void BasicScene::setGameObj(GameObject* obj)
 {
 	switch (obj->getObject())
@@ -152,21 +157,7 @@ void BasicScene::render()
 	{
 		if (_gameObj[i]->getFrame() == Frame)
 		{
-			if ((_gameObj[i]->getObject() == PLAYER) ||
-				(_gameObj[i]->getObject() == RABBIT) ||
-				(_gameObj[i]->getObject() == SLIME) ||
-				(_gameObj[i]->getObject() == FLOWER)
-				)
-			{
-				_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
-
-
-			}
-			else
-			{
-				_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y);
-
-			}
+			_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
 		}
 		else
 		{
@@ -175,18 +166,6 @@ void BasicScene::render()
 
 	}
 
-	//콜라이더 확인용
-	if (KEYMANAGER->isToggleKey(VK_F1))
-	{
-		for (int i = 0; i < _tiles.size(); i++)
-		{
-			if (_tiles[i]->getAttribute() == nonBlocking) continue;
-			RECT temp = _tiles[i]->getRect();
-			Rectangle(_backBuffer->getMemDC(), temp);
-		}
-
-
-	}
 }
 
 vector<GameObject*>& BasicScene::getGameObject()

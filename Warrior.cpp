@@ -102,6 +102,8 @@ void Warrior::update()
 
 
 	Player::update();
+	this->setPlayerRect(_playerInfo.colRc);
+	this->setPlayerDir(_playerInfo.direction);
 }
 
 

@@ -73,13 +73,20 @@ HRESULT sceneManager::changeScene(string sceneName)
 	if (find == _mSceneList.end()) return E_FAIL;
 	if (find->second == _currentScene) return S_OK;
 
-	if (SUCCEEDED(find->second->init()))
+	if (find->second)
 	{
 		//어떤 씬의 정보가 처음에 들어있기 때문에 릴리즈 시켜줘라
-		if (_currentScene) _currentScene->release();
+		if (_currentScene)
+		{
+			PLAYERMANGER->release();
+			ENEMYMANAGER->release();
+			_currentScene->release();
+			
+		}
 
 		//현재 씬에 바꾸려는 씬을 담는다
 		_currentScene = find->second;
+		_currentScene->init();
 		vector<GameObject*> ins = _currentScene->getGameObject();
 		for (int i = 0; i < ins.size(); i++)
 		{

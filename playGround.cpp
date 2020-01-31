@@ -47,18 +47,17 @@ HRESULT playGround::init()
 	IMAGEMANAGER->addImage("ladder_left", "img/MapObject/사다리_왼쪽.bmp", 364, 184, true, RGB(255, 0, 255));
 
 
+	_um = new uiManager;
+	_um->init();
 
 
 	SCENEMANAGER->addScene("stageOne", new StageOneScene);
 	SCENEMANAGER->addScene("Loading", new LoadingScene);
 	SCENEMANAGER->addScene("stageTwo", new StageTwoScene);
 
-	SCENEMANAGER->changeScene("stageTwo");
+	SCENEMANAGER->changeScene("Loading");
 
-	PLAYERMANGER->init();
 
-	_um = new uiManager;
-	_um->init();
 
 	return S_OK;
 
@@ -78,14 +77,16 @@ void playGround::release()
 void playGround::update()
 {
 	gameNode::update();
+
+
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
-	PLAYERMANGER->update();
+
+	
 
 	_um->update();
+
 }
-
-
 
 // 이것은 랜드 함수이다.
 void playGround::render()
@@ -93,11 +94,24 @@ void playGround::render()
 
 	PatBlt(getMemDC(), 0, 0, 3, WINSIZEY, WHITENESS);
 	//========================================================
-	SCENEMANAGER->render();
 
-	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getAtkRc();
-	Rectangle(getMemDC(), rc);
-	_um->render();
+
+
+	
+		SCENEMANAGER->render();
+	
+
+
+		_um->render();
+	
+
+
+	
+	
+
+
+	
+
 
 	//====================================================
 	_backBuffer->render(getHDC(), 0, 0);

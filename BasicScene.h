@@ -16,6 +16,7 @@ protected:
 	vector<tagTile*>		 _tiles; // ≈∏¿œ∏ « µÂ
 	PlayerManager* _pm;
 public:
+	virtual void Start();
 	virtual void setGameObj(GameObject* obj);
 	void settingObj(GameObject* ins, OBJSTRUCT obj) {};
 	virtual void update();

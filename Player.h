@@ -57,6 +57,7 @@ struct PlayerInfo
 class Player : public GameObject
 {
 protected:
+	int _tileIdx;
 	vector<GameObject*> _vEnemy;
 	vector<tagTile*> _totalTile;
 	PlayerInfo _playerInfo;
@@ -77,6 +78,8 @@ public:
 	PlayerInfo getPlayerinfo() { return _playerInfo; }
 	RECT getColRc() { return _playerInfo.colRc; }
 	RECT getAtkRc() { return _playerInfo.AtkRc; }
+
+	void getPlayerDir() { _playerInfo.direction; }//enemy 판정을위해 하나..
 
 };
 
