@@ -144,44 +144,44 @@ void Enemy::attaked(int atk)
 			en.Movecheck = 0;
 			if (en.x < x)
 			{
-				en.x -= 20;
+				en.x -= 15;
 			}
 			if (en.x > x)
 			{
-				en.x += 20;
+				en.x += 15;
 			}
 			break;
 		case 1://¿ŞÂÊ
 			en.Movecheck = 1;
 			if (en.x < x)
 			{
-				en.x -= 20;
+				en.x -= 15;
 			}
 			if (en.x > x)
 			{
-				en.x += 20;
+				en.x += 15;
 			}
 			break;
 		case 2://Å¾
 			en.Movecheck = 3;
 			if (en.y > y)
 			{
-				en.y += 20;
+				en.y += 15;
 			}
 			if (en.y < y)
 			{
-				en.y -= 20;
+				en.y -= 15;
 			}
 			break;
 		case 3://¹ÙÅÒ
 			en.Movecheck = 2;
 			if (en.y > y)
 			{
-				en.y += 20;
+				en.y += 15;
 			}
 			if (en.y < y)
 			{
-				en.y -= 20;
+				en.y -= 15;
 			}
 			break;
 		}

@@ -23,7 +23,7 @@ HRESULT Slime::init()
 	//run						
 	IMAGEMANAGER->addFrameImage("S_Run", "img/slime/Run_2.bmp", 700, 46, 14, 1, true, RGB(255, 0, 255));
 	//dmg					
-	IMAGEMANAGER->addFrameImage("S_Dmg", "img/slime/Dmg_Up.bmp", 108, 28, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("S_Dmg", "img/slime/Dmg_Up1.bmp", 108, 58, 2, 1, true, RGB(255, 0, 255));
 	//dead
 	IMAGEMANAGER->addFrameImage("S_dead", "img/slime/S_dead.bmp", 954, 58, 9, 1, true, RGB(255, 0, 255));
 
