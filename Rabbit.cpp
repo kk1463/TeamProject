@@ -126,7 +126,7 @@ void Rabbit::update()
 {
 	//R_control();
 
-	Enemy::update();
+
 
 	switch (en.Movecheck)
 	{
@@ -199,7 +199,7 @@ void Rabbit::update()
 
 	Collision();
 
-
+	Enemy::update();
 
 
 }

@@ -85,8 +85,7 @@ void Slime::release()
 
 void Slime::update()
 {
-	Enemy::update();
-
+	
 	switch (en.Movecheck)
 	{
 	case 0:
@@ -145,6 +144,7 @@ void Slime::update()
 
 
 
+	S_Collision();
 	
 	if (en.changeAni)
 	{
@@ -152,9 +152,8 @@ void Slime::update()
 	}
 
 
-
-
-
+	//이건 건들지 말것 
+	Enemy::update();
 
 
 }
@@ -479,33 +478,10 @@ void Slime::S_hit()
 		count = 0;
 	}
 
-	switch (en.dir)
-	{
-	case LEFT:
-		en.img = IMAGEMANAGER->findImage("S_dmg_left");
-		en.Ani = KEYANIMANAGER->findAnimation("S_dmg_Left");
-		en.Ani->start();
-		en.changeAni = false;
-		break;
-	case RIGHT:
-		en.img = IMAGEMANAGER->findImage("S_dmg_right");
-		en.Ani = KEYANIMANAGER->findAnimation("S_dmg_Right");
-		en.Ani->start();
-		en.changeAni = false;
-		break;
-	case DOWN:
-		en.img = IMAGEMANAGER->findImage("S_dmg_down");
-		en.Ani = KEYANIMANAGER->findAnimation("S_dmg_Down");
-		en.Ani->start();
-		en.changeAni = false;
-		break;
-	case UP:
-		en.img = IMAGEMANAGER->findImage("S_dmg_up");
-		en.Ani = KEYANIMANAGER->findAnimation("S_dmg_Up");
-		en.Ani->start();
-		en.changeAni = false;
-		break;
-	}
+	en.img = IMAGEMANAGER->findImage("S_Dmg");
+	en.Ani = KEYANIMANAGER->findAnimation("S_Dmg");
+	en.Ani->start();
+	en.changeAni = false;
 }
 
 void Slime::S_die()
@@ -558,11 +534,12 @@ void Slime::S_trace()
 		en.changeAni = true;
 		count = 0;
 	}
+	en.Ani = KEYANIMANAGER->findAnimation("S_Run");
+	en.img = IMAGEMANAGER->findImage("S_Run");
 	switch (en.dir)
 	{
 	case LEFT:
-		en.Ani = KEYANIMANAGER->findAnimation("S_run_Left");
-		en.img = IMAGEMANAGER->findImage("S_run_left");
+		
 		if (en.leftMove)
 		{
 			en.x -= -cosf(getPlayerAngle)*en.SPEED;
@@ -570,8 +547,7 @@ void Slime::S_trace()
 		}
 		break;
 	case RIGHT:
-		en.Ani = KEYANIMANAGER->findAnimation("S_run_Right");
-		en.img = IMAGEMANAGER->findImage("S_run_right");
+	
 		if (en.rightMove)
 		{
 			en.x -= -cosf(getPlayerAngle)*en.SPEED;
@@ -579,8 +555,7 @@ void Slime::S_trace()
 		}
 		break;
 	case DOWN:
-		en.Ani = KEYANIMANAGER->findAnimation("S_run_Down");
-		en.img = IMAGEMANAGER->findImage("S_run_down");
+
 		if (en.downMove)
 		{
 			en.x -= -cosf(getPlayerAngle)*en.SPEED;
@@ -588,8 +563,7 @@ void Slime::S_trace()
 		}
 		break;
 	case UP:
-		en.Ani = KEYANIMANAGER->findAnimation("S_run_Up");
-		en.img = IMAGEMANAGER->findImage("S_run_up");
+	
 		if (en.upMove)
 		{
 			en.x -= -cosf(getPlayerAngle)*en.SPEED;
