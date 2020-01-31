@@ -134,13 +134,13 @@ void Slime::update()
 			S_trace();
 		break;
 	case atk1:
-		S_attack();
+	//	S_attack();
 		break;
 	case hit1:
 		S_hit();
 		break;
 	case dead1:
-		S_die();
+	//	S_die();
 		break;
 	default:
 		break;
