@@ -20,9 +20,9 @@ enum OBJECT
 	Rock,
 	Big_stone,
 	Stone,
+	ITEM,
 	OBJ_NONE
 };
-
 class GameObject
 {
 protected:

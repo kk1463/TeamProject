@@ -68,7 +68,7 @@ void BasicScene::setGameObj(GameObject* obj)
 	}
 	else
 	{
-		obj->setRect(RectMake(obj->getCenter().x, obj->getCenter().y, obj->getImage()->getWidth(), obj->getImage()->getHeight()));
+		obj->setRect(RectMake(obj->getCenter().x, obj->getCenter().y, obj->getImage()->getFrameWidth(), obj->getImage()->getFrameHeight()));
 	}
 	_gameObj.push_back(obj);
 }
