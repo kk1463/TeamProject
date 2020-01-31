@@ -107,7 +107,7 @@ HRESULT Rabbit::init()
 	en.x = WINSIZEX / 2;
 	en.y = WINSIZEY / 2;
 
-	en.hp = 15;
+	en.hp = 15000;
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
@@ -266,7 +266,7 @@ void Rabbit::attack()
 	{
 		en.dir = DOWN;
 	}
-	if (count >= 80)
+	if (count >= 60)
 	{
 		en.changeAni = true;
 		count = 0;

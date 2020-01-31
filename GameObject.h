@@ -32,6 +32,7 @@ protected:
 	POINT _center;
 	RECT _rc, _colRc;
 	
+	RECT _playerRC;
 	RECT _PlayerAtkRc;	//player용 공격시 나오는 렉트
 
 	RECT en_colRc;		 //enemy용 체크렉트
@@ -72,6 +73,8 @@ public:
 	RECT getPlayerAtkRc() { return _PlayerAtkRc; }
 	void SetPlayerAtkRc(RECT rc) { _PlayerAtkRc=rc; }
 	
+	RECT getPlayerRect() { return _playerRC; }
+	void setPlayerRect(RECT rc) { _playerRC = rc; }
 
 	//enemy용//
 	RECT getColRect() { return _colRc; }

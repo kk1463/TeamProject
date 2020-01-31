@@ -57,8 +57,8 @@ void Player::update()
 	}
 
 	this->SetPlayerAtkRc(_playerInfo.AtkRc);
-	this->setPlayerDir(_playerInfo.direction);
 
+	
 }
 
 
