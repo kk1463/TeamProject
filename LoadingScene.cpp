@@ -17,6 +17,11 @@ LoadingScene::~LoadingScene()
 
 HRESULT LoadingScene::init()
 {
+	IMAGEMANAGER->addImage("Hydra", "img/Hydra.bmp", 303, 487, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Player", "img/Player.bmp", 60, 90, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Slime", "img/Slime.bmp", 50, 36, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Rabbit", "img/Rabbit.bmp", 50, 44, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Flower", "img/Flower.bmp", 146, 126, true, RGB(255, 0, 255));
 	//■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■이미지■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 	_background = IMAGEMANAGER->addImage("Loading", "백그라운드_배경.bmp", WINSIZEX, WINSIZEY, true, RGB(255, 0, 255));
 	_lodingcall = IMAGEMANAGER->addImage("test", "표식.bmp", 500, 500, true, RGB(255, 0, 255));
@@ -84,6 +89,11 @@ HRESULT LoadingScene::init()
 void LoadingScene::release()
 {
 	SAFE_DELETE(_loadingBar);
+	/*for (_gameObjIter = _gameObj.begin(); _gameObjIter != _gameObj.end();)
+	{
+		GameObject* temp = *_gameObjIter;
+		SAFE_DELETE(temp);
+	}*/
 }
 
 void LoadingScene::update()

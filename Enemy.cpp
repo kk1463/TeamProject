@@ -11,7 +11,6 @@ Enemy::~Enemy() // 에너미가 사라진다
 }
 HRESULT Enemy::init() // 에너미가 등장한다.
 {
-	cout << "EnemyInit" << endl; // 에너미는 끝났다
 	_tiles = SCENEMANAGER->getCurrentScene()->getTile();
 
 
@@ -51,6 +50,11 @@ void Enemy::update() // 에너미가 움직인다.
 
 
 
+}
+
+void Enemy::attaked()
+{
+	ENEMYMANAGER->eraseEnemy(this);
 }
 
 void Enemy::setTile(vector<tagTile*> ins) // 에너미가 타일을 남기고 죽다.

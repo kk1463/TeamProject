@@ -80,7 +80,7 @@ public:
 	RECT getCheckRect_Bottom() { return en_botColRc; }
 	void setCheckRect_Bottom(RECT _en_botColRc) { en_botColRc = _en_botColRc; }
 
-
+	virtual void attaked();
 
 
 

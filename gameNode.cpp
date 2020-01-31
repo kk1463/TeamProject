@@ -73,6 +73,8 @@ void gameNode::release()
 		TILEMANAGER->releaseSingleton();
 		ENEMYMANAGER->release();
 		ENEMYMANAGER->releaseSingleton();
+		PLAYERMANGER->release();
+		PLAYERMANGER->releaseSingleton();
 	}
 
 	ReleaseDC(_hWnd, _hdc);

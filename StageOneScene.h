@@ -10,6 +10,7 @@ public:
 	StageOneScene();
 	~StageOneScene();
 
+	virtual void update();
 	virtual HRESULT init();
 	virtual void render();
 };
