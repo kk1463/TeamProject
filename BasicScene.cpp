@@ -77,6 +77,7 @@ void BasicScene::setGameObj(GameObject* obj)
 
 void BasicScene::update()
 {
+	
 	for (int i = 0; i < _gameObj.size(); i++)
 	{
 		_gameObj[i]->update();
@@ -93,11 +94,13 @@ void BasicScene::update()
 			}
 		}
 	}
+	EFFECTMANAGER->update();
 }
 
 void BasicScene::render()
 {
 
+	
 	IMAGEMANAGER->findImage("BackGround")->render(getMemDC(), 0, 0);
 
 	for (int i = 0; i < _tiles.size(); ++i)
@@ -151,6 +154,8 @@ void BasicScene::render()
 				_tiles[i]->getTerrainFrameIdY());
 		}
 	}
+
+	EFFECTMANAGER->render();
 	//그리는부분
 
 	for (int i = 0; i < _gameObj.size(); i++)
@@ -165,7 +170,6 @@ void BasicScene::render()
 		}
 
 	}
-
 }
 
 vector<GameObject*>& BasicScene::getGameObject()

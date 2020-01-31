@@ -54,7 +54,7 @@ struct PlayerInfo
 	RECT AtkRc;
 	RECT miniColRc;
 	int hp;
-	int atkPower;
+	
 
 };
 class Player : public GameObject
@@ -84,8 +84,8 @@ public:
 	RECT getAtkRc() { return _playerInfo.AtkRc; }
 	RECT getminiColRc() { return _playerInfo.miniColRc; }
 	void getPlayerDir() { _playerInfo.direction; }//enemy 판정을위해 하나..
+	virtual int getHp() { return  _playerInfo.hp; }
 
-	virtual int getHp() { return _playerInfo.hp; }
 	void setPlayerHp(int hp) { _playerInfo.hp = hp; }
 	virtual void attaked(int atk);
 	

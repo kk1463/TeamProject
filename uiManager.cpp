@@ -146,7 +146,15 @@ void uiManager::release()
 
 void uiManager::update()
 {
-	HP = PLAYERMANGER->get_vPlayer()[0]->getHp();
+	vector < GameObject* > container = PLAYERMANGER->get_vPlayer();
+	if (container.size() > 0)
+	{
+		HP = container[0]->getHp();
+	}
+	else
+	{
+		HP = 0;
+	}
 	PlayerHp->setGauge(HP, 100);
 
 	PlayerMp->setGauge(MP, 100);

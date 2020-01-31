@@ -38,11 +38,11 @@ void Enemy::release() // 에너미가 죽었다
 
 void Enemy::update() // 에너미가 움직인다.
 {
-	
+
 
 	en.rc = RectMakeCenter(en.x, en.y, en.img->getFrameWidth(), en.img->getFrameHeight());
 	en.senseRC = RectMakeCenter(en.x, en.y, en.img->getFrameWidth() * 2, en.img->getFrameHeight() * 2);
-	
+
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
@@ -53,20 +53,20 @@ void Enemy::update() // 에너미가 움직인다.
 
 	_vPlayer = PLAYERMANGER->get_vPlayer();
 
-	
-	
-	for (int i = 0;i < _vPlayer.size();i++)
+
+
+	for (int i = 0; i < _vPlayer.size(); i++)
 	{
-		RECT temp;		
-		RECT rc = _vPlayer[0]->getColRect();		
+		RECT temp;
+		RECT rc = _vPlayer[0]->getColRect();
 		if ((IntersectRect(&temp, &en.colRc, &rc) && en.angry))
 		{
 			en._enState = atk1;
 			break;
-		}	
+		}
 	}
-	
-	if(en._enState ==hit1)
+
+	if (en._enState == hit1)
 	{
 		en.count++;
 		if (en.count > 30)
@@ -83,13 +83,18 @@ void Enemy::update() // 에너미가 움직인다.
 			en._enState = move1;
 			en.count = 0;
 		}
-	}	
-
-	en.playerX = getCenterPos(_vPlayer[0]->getPlayerRect()).x;
-	en.playerY = getCenterPos(_vPlayer[0]->getPlayerRect()).y;
-	getPlayerPos = getDistance(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
-	getPlayerAngle = getAngle(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
-
+	}
+	if (_vPlayer.size() >= 1)
+	{
+		en.playerX = getCenterPos(_vPlayer[0]->getPlayerRect()).x;
+		en.playerY = getCenterPos(_vPlayer[0]->getPlayerRect()).y;
+		getPlayerPos = getDistance(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
+		getPlayerAngle = getAngle(en.x, en.y, _vPlayer[0]->getCenter().x, _vPlayer[0]->getCenter().y);
+	}
+	else
+	{
+		en.angry = false;
+	}
 	//에너미 삭제문은 update 제일 마지막에 놔둘것
 	if (en.hp < 0)
 	{

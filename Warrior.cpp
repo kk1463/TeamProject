@@ -78,7 +78,7 @@ void Warrior::update()
 	{
 		if (_playerInfo.hp <= 0)
 		{
-			_playerInfo.position.x = -100;
+			
 			_playerDie = true;
 		}
 		KeyControl();

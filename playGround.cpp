@@ -78,6 +78,8 @@ void playGround::update()
 	SCENEMANAGER->update();
 	KEYANIMANAGER->update();
 
+	
+
 }
 
 // 이것은 랜드 함수이다.
@@ -88,6 +90,9 @@ void playGround::render()
 	//========================================================
 
 		SCENEMANAGER->render();
+
+
+	
 
 	//====================================================
 	_backBuffer->render(getHDC(), 0, 0);

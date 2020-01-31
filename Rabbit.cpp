@@ -107,7 +107,11 @@ HRESULT Rabbit::init()
 	en.x = WINSIZEX / 2;
 	en.y = WINSIZEY / 2;
 
+
+	en.hp = 15;
+
 	en.hp = 10;
+
 
 	this->setimage(en.img);
 	this->setAni(en.Ani);
