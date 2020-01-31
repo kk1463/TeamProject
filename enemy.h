@@ -109,7 +109,7 @@ public:
 	RECT GetEnColRc() { en.colRc; }
 
 	//hp 게터 세터
-	void getHp() { en.hp; }
+	virtual int getHp() { return en.hp; }
 	void setHP(int _hp) { en.hp = _hp; }
 
 };
