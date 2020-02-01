@@ -12,9 +12,10 @@ enum ItemKinds
 class Item:public GameObject
 {
 protected:
-	ItemKinds _kinds;
+	ItemKinds _itemKinds;
 public:
 	Item();
 	~Item();
+	void init(POINT ins);
 };
 

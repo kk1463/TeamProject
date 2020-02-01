@@ -149,8 +149,10 @@
   <ItemGroup>
     <ClInclude Include="action.h" />
     <ClInclude Include="animation.h" />
+    <ClInclude Include="Armor.h" />
     <ClInclude Include="BasicScene.h" />
     <ClInclude Include="button.h" />
+    <ClInclude Include="Coin.h" />
     <ClInclude Include="commonMacroFunction.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
@@ -175,10 +177,12 @@
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="pointer.h" />
+    <ClInclude Include="Potion.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Ring.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="singletonBase.h" />
     <ClInclude Include="skillPointer.h" />
@@ -187,6 +191,7 @@
     <ClInclude Include="StageOneScene.h" />
     <ClInclude Include="StageTwoScene.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Sword.h" />
     <ClInclude Include="tagTile.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TileMap.h" />
@@ -202,8 +207,10 @@
   <ItemGroup>
     <ClCompile Include="action.cpp" />
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="Armor.cpp" />
     <ClCompile Include="BasicScene.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="Coin.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -227,8 +234,10 @@
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="pointer.cpp" />
+    <ClCompile Include="Potion.cpp" />
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="Rabbit.cpp" />
+    <ClCompile Include="Ring.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="skillPointer.cpp" />
     <ClCompile Include="Slime.cpp" />
@@ -241,6 +250,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Sword.cpp" />
     <ClCompile Include="tagTile.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="timeManager.cpp" />

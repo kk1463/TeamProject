@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "effect.h"
 #include "animation.h"
-
+#include"ItemManager.h"
 
 effect::effect()
 	: _effectImage(NULL),
@@ -35,6 +35,27 @@ HRESULT effect::init(image* effectImage, int frameW, int frameH, int fps, float 
 	return S_OK;
 }
 
+HRESULT effect::init(image * effectImage, int frameW, int frameH, int fps, float elapsedTime, bool makeItem)
+{
+	//이펙트 이미지가 없으면 실패를 띄워라
+	if (!effectImage) return E_FAIL;
+
+	_isRunning = false;
+	_effectImage = effectImage;
+	_elapsedTime = elapsedTime;
+
+	if (!_effectAnimation) _effectAnimation = new animation;
+
+	_effectAnimation->init(_effectImage->getWidth(), _effectImage->getHeight(), frameW, frameH);
+	_effectAnimation->setDefPlayFrame(false, false);
+	_effectAnimation->setFPS(fps);
+	_effectAnimation->stop();
+	_makeItem = makeItem;
+	return S_OK;
+}
+
+
+
 void effect::release()
 {
 	_effectImage = NULL;
@@ -44,12 +65,23 @@ void effect::release()
 void effect::update()
 {
 	//이펙트 애니메이션 실행 변수가 false면 실행하지마라
-	if (!_isRunning) return;
+	if (!_isRunning)
+	{
+		
+		return;
+	}
 
 	_effectAnimation->frameUpdate(_elapsedTime);
 
 	//만약 애니메이션 재생신호가 false면 이펙트를 꺼라
-	if (!_effectAnimation->isPlay()) killEffect();
+	if (!_effectAnimation->isPlay())
+	{
+		if (_makeItem)
+		{
+			ITEMMANAGER->makeItem((ItemKinds)(RND->getFromIntTo(0,5)), PointMake(_x, _y));
+		}
+		killEffect();
+	}
 
 }
 
@@ -79,4 +111,5 @@ void effect::startEffect(int x, int y)
 void effect::killEffect()
 {
 	_isRunning = false;
+	
 }

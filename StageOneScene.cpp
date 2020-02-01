@@ -23,6 +23,8 @@ void StageOneScene::update()
 	{
 		SCENEMANAGER->changeScene("stageTwo");
 	}
+
+
 	
 }
 

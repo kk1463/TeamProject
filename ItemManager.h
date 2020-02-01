@@ -1,6 +1,10 @@
 #pragma once
-#include"Item.h"
-
+#include"Sword.h"
+#include"Ring.h"
+#include"Coin.h"
+#include"Armor.h"
+#include"Potion.h"
+typedef void(ItemManager::*_cbFunction)(ItemKinds, POINT);
 class ItemManager:public singletonBase<ItemManager>
 {
 private :
@@ -13,6 +17,7 @@ public:
 
 	HRESULT init();
 	void release();
-	void setItemVector(GameObject* ins);
+	void makeItem(ItemKinds ins, POINT center);
+	void eraseItem(GameObject* ins);
 };
 

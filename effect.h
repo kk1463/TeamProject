@@ -2,7 +2,7 @@
 #include "gameNode.h"
 
 class animation;
-
+class ItemManager;
 class effect : public gameNode
 {
 protected:
@@ -13,12 +13,15 @@ protected:
 	animation*	_effectAnimation;
 	BOOL		_isRunning;
 	float		_elapsedTime;
+	bool		_makeItem;
+	
 
 public:
 	effect();
 	~effect();
 
 	virtual HRESULT init(image* effectImage, int frameW, int frameH, int fps, float elapsedTime);
+	virtual HRESULT init(image* effectImage, int frameW, int frameH, int fps, float elapsedTime,bool makeItem);
 	virtual void release();
 	virtual void update();
 	virtual void render();
