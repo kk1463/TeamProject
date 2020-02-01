@@ -15,6 +15,7 @@ protected:
 	vector<GameObject*>::iterator _gameObjIter;
 	vector<tagTile*>		 _tiles; // ≈∏¿œ∏ « µÂ
 	PlayerManager* _pm;
+	
 public:
 	virtual void Start();
 	virtual void setGameObj(GameObject* obj);
@@ -24,6 +25,7 @@ public:
 	virtual vector<tagTile*> getTile() { return _tiles; }
 	virtual vector<GameObject*>& getGameObject();
 	virtual void deleteObject(GameObject* ins);
+	
 	BasicScene();
 	~BasicScene();
 

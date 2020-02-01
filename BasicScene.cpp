@@ -167,9 +167,12 @@ void BasicScene::render()
 		else
 		{
 			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y);
+			
 		}
-
+		
 	}
+	
+	
 }
 
 vector<GameObject*>& BasicScene::getGameObject()
@@ -193,6 +196,7 @@ void BasicScene::deleteObject(GameObject * ins)
 
 	}
 }
+
 
 BasicScene::BasicScene()
 {

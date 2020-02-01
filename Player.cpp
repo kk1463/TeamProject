@@ -47,7 +47,7 @@ void Player::update()
 				if (_playerInfo.atkCount == 10)
 				{
 					_vEnemy[i]->attaked(5);
-
+					
 				}
 			}
 		}
@@ -103,11 +103,11 @@ void Player::KeyControl()
 		RECT rc = _vEnemy[j]->getColRect();
 		RECT temp;
 
-		if (_playerInfo.direction == P_RIGHT|| _playerInfo.direction == P_LEFT)
+		if (_playerInfo.direction == P_RIGHT || _playerInfo.direction == P_LEFT)
 		{
 			if (IntersectRect(&temp, &_playerInfo.miniColRc, &_vEnemy[j]->getColRect()))
 			{
-				
+
 				if (getCenterPos(_playerInfo.miniColRc).y < getCenterPos(_vEnemy[j]->getColRect()).y)
 				{
 					_playerInfo.position.y -= 2;
@@ -119,7 +119,7 @@ void Player::KeyControl()
 				break;
 			}
 		}
-		else if(_playerInfo.direction == P_UP || _playerInfo.direction == P_DOWN)
+		else if (_playerInfo.direction == P_UP || _playerInfo.direction == P_DOWN)
 		{
 			if (IntersectRect(&temp, &_playerInfo.miniColRc, &_vEnemy[j]->getColRect()))
 			{
@@ -135,7 +135,7 @@ void Player::KeyControl()
 			}
 		}
 	}
-	
+
 
 
 	for (int i = 0; i < _totalTile.size(); i++)
@@ -204,8 +204,10 @@ void Player::KeyControl()
 			}
 		}
 	}
-
-
+	if (_playerInfo.playerDirNum > 0)
+	{
+		cout << _playerInfo.playerDirNum << endl;
+	}
 }
 
 void Player::PlayerStateChange()
@@ -232,9 +234,9 @@ void Player::attaked(int atk)
 		float x = getCenterPos(_vEnemy[i]->getEnemyRect()).x;
 		float y = getCenterPos(_vEnemy[i]->getEnemyRect()).y;
 		
-			switch (_playerInfo.playerDirNum)
+			switch (_vEnemy[i]->getEnemyDir())
 			{
-			case 0:
+			case LEFT:
 
 				if (_playerInfo.position.x < x)
 				{
@@ -244,20 +246,6 @@ void Player::attaked(int atk)
 				{
 					_playerInfo.position.x += 1;
 				}
-				break;
-			case 1:
-				
-				if (_playerInfo.position.x < x)
-				{
-					_playerInfo.position.x -=1;
-				}
-				if (_playerInfo.position.x > x)
-				{
-					_playerInfo.position.x += 1;
-				}
-				break;
-			case 2:
-				
 				if (_playerInfo.position.y > y)
 				{
 					_playerInfo.position.y += 1;
@@ -267,8 +255,54 @@ void Player::attaked(int atk)
 					_playerInfo.position.y -= 1;
 				}
 				break;
-			case 3:
-				
+			case RIGHT:
+
+				if (_playerInfo.position.x < x)
+				{
+					_playerInfo.position.x -= 1;
+				}
+				if (_playerInfo.position.x > x)
+				{
+					_playerInfo.position.x += 1;
+				}
+				if (_playerInfo.position.y > y)
+				{
+					_playerInfo.position.y += 1;
+				}
+				if (_playerInfo.position.y < y)
+				{
+					_playerInfo.position.y -= 1;
+				}
+				break;
+			case UP:
+
+				if (_playerInfo.position.x < x)
+				{
+					_playerInfo.position.x -= 1;
+				}
+				if (_playerInfo.position.x > x)
+				{
+					_playerInfo.position.x += 1;
+				}
+				if (_playerInfo.position.y > y)
+				{
+					_playerInfo.position.y += 1;
+				}
+				if (_playerInfo.position.y < y)
+				{
+					_playerInfo.position.y -= 1;
+				}
+				break;
+			case DOWN:
+
+				if (_playerInfo.position.x < x)
+				{
+					_playerInfo.position.x -= 1;
+				}
+				if (_playerInfo.position.x > x)
+				{
+					_playerInfo.position.x += 1;
+				}
 				if (_playerInfo.position.y > y)
 				{
 					_playerInfo.position.y += 1;

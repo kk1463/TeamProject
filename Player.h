@@ -70,6 +70,8 @@ protected:
 	RECT testrc;
 	bool _playerDie;
 	bool EnemyAttacked = false;
+	image* number;
+
 public:
 	Player();
 	~Player();
