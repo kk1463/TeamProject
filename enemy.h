@@ -82,6 +82,11 @@ struct info
 	int PlayerDirNumber;
 	float PlayerAngle;
 
+	int atkcount;
+
+
+	int tenDmg, oneDmg, dmg;
+
 
 };
 

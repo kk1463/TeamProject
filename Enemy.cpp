@@ -11,6 +11,17 @@ Enemy::~Enemy() // 에너미가 사라진다
 }
 HRESULT Enemy::init() // 에너미가 등장한다.
 {
+	IMAGEMANAGER->addImage("0", "img/num/0.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("1", "img/num/1.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("2", "img/num/2.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("3", "img/num/3.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("4", "img/num/4.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("5", "img/num/5.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("6", "img/num/6.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("7", "img/num/7.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("8", "img/num/8.bmp", 32, 48, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("9", "img/num/9.bmp", 32, 48, true, RGB(255, 0, 255));
+
 	_tiles = SCENEMANAGER->getCurrentScene()->getTile();
 	
 
@@ -21,7 +32,8 @@ HRESULT Enemy::init() // 에너미가 등장한다.
 	en.rightMove = true;
 	
 	en.angry = false;
-	getPlayerPos = getPlayerAngle = en.count=0;
+	en.atkcount= getPlayerPos = getPlayerAngle = en.count = en.tenDmg = en.oneDmg = en.dmg = 0;
+
 
 	en.playerX = en.playerY = 0;
 

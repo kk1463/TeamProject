@@ -421,8 +421,15 @@ void Slime::S_attack()
 
 			if (PLAYERMANGER->get_vPlayer().size() > 0)
 			{
-				PLAYERMANGER->get_vPlayer()[0]->attaked(5);
+				en.atkcount++;
+				if (en.atkcount > 5)
+				{
+					PLAYERMANGER->get_vPlayer()[0]->attaked(1);
+					en.atkcount = 0;
+				}
 			}
+
+			
 		}
 		if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber()
 			|| en.Ani->getFrameNumber() == 0)

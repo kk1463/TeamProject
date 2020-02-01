@@ -48,6 +48,9 @@ protected:
 	int playerDir;
 	int EnemyDir;
 
+	int PlayerDmg;
+
+
 public:
 	GameObject();
 	~GameObject();
@@ -92,6 +95,9 @@ public:
 	void setCheckRect_Top(RECT _en_topColRc) { en_topColRc = _en_topColRc; }
 	RECT getCheckRect_Bottom() { return en_botColRc; }
 	void setCheckRect_Bottom(RECT _en_botColRc) { en_botColRc = _en_botColRc; }
+
+	int getPlayerDmg() { return PlayerDmg; }
+	void setPlayerDmg(int a) { PlayerDmg = a; }
 
 	int getPlayerDir() { return playerDir; }
 	void setPlayerDir(int a) { playerDir = a; }

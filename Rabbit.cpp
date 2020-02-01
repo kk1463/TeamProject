@@ -107,7 +107,6 @@ HRESULT Rabbit::init()
 
 
 	en.hp = 5;
-
 	
 
 
@@ -296,11 +295,13 @@ void Rabbit::attack()
 		RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
 		if ((en.Ani->getFrameNumber() == 11) && (IntersectRect(&temp, &en.attackCheckRC, &rc)))
 		{
-
-
-
-
+			en.atkcount++;
+			if (en.atkcount > 5)
+			{
 			PLAYERMANGER->get_vPlayer()[0]->attaked(1);
+			en.atkcount = 0;			
+			}
+
 
 
 		}

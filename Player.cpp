@@ -218,6 +218,10 @@ void Player::PlayerRectChange()
 
 void Player::attaked(int atk)
 {
+	setPlayerDmg(atk);
+
+	cout << "플레이어 데미지:" << getPlayerDmg() << endl;
+
 	_playerInfo.attcked = true;
 	_playerInfo.hp -= atk;
 
