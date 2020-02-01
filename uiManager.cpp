@@ -86,16 +86,15 @@ HRESULT uiManager::init()
 	{
 		if (i < 4)
 		{
-
-			_rc2[i] = RectMake(270 + i * 150, 200, 60, 58);
+			_vInvenCase.push_back( RectMake(270 + i * 150, 200, 60, 58));
 		}
 		if (i >= 4 && i < 8)
 		{
-			_rc2[i] = RectMake(270 + (i - 4) * 150, 350, 60, 58);
+			_vInvenCase.push_back(RectMake(270 + (i - 4) * 150, 350, 60, 58));
 		}
 		if (i >= 8 && i < 12)
 		{
-			_rc2[i] = RectMake(270 + (i - 8) * 150, 500, 60, 58);
+			_vInvenCase.push_back(RectMake(270 + (i - 8) * 150, 500, 60, 58));
 		}
 	}
 
@@ -104,19 +103,19 @@ HRESULT uiManager::init()
 	{
 		if (i < 4)
 		{
-			_rc3[i] = RectMake(230 + i * 105, 206, 60, 58);
+			_vItemCase.push_back( RectMake(230 + i * 105, 206, 60, 58));
 		}
 		if (i >= 4 && i < 6)
 		{
-			_rc3[i] = RectMake(658 + (i - 4) * 90, 206, 60, 58);
+			_vItemCase.push_back(RectMake(658 + (i - 4) * 90, 206, 60, 58));
 		}
 		if (i >= 6 && i < 10)
 		{
-			_rc3[i] = RectMake(230 + (i - 6) * 105, 293, 60, 58);
+			_vItemCase.push_back( RectMake(230 + (i - 6) * 105, 293, 60, 58));
 		}
 		if (i >= 10 && i < 12)
 		{
-			_rc3[i] = RectMake(658 + (i - 10) * 90, 293, 60, 58);
+			_vItemCase.push_back( RectMake(658 + (i - 10) * 90, 293, 60, 58));
 		}
 	}
 
@@ -406,12 +405,12 @@ void uiManager::render()
 					{
 
 
-						_vPointer[0]->getImage()->frameRender(_backBuffer->getMemDC(), _rc3[box1[num1]].left, _rc3[box1[num1]].top, 1, 0);
+						_vPointer[0]->getImage()->frameRender(_backBuffer->getMemDC(), _vItemCase[box1[num1]].left, _vItemCase[box1[num1]].top, 1, 0);
 					}
 				}
 
 
-				_vPointer[0]->getImage()->frameRender(_backBuffer->getMemDC(), _rc3[box1[num1]].left, _rc3[box1[num1]].top, 1, 0);
+				_vPointer[0]->getImage()->frameRender(_backBuffer->getMemDC(), _vItemCase[box1[num1]].left, _vItemCase[box1[num1]].top, 1, 0);
 				/*if (draw == true)
 				{
 					_knife->render(_backBuffer->getMemDC(), 240, 218);
@@ -443,11 +442,11 @@ void uiManager::render()
 		if (draw == true )
 		{
 
-			select1->render(_backBuffer->getMemDC(), _rc3[box1[num1]].left + 90, _rc3[box1[num1]].top);
+			select1->render(_backBuffer->getMemDC(), _vItemCase[box1[num1]].left + 90, _vItemCase[box1[num1]].top);
 			
 			if(draw1 == true)
 			{
-				select2->render(_backBuffer->getMemDC(), _rc3[box1[num1]].left + 90, _rc3[box1[num1]].top);
+				select2->render(_backBuffer->getMemDC(), _vItemCase[box1[num1]].left + 90, _vItemCase[box1[num1]].top);
 
 
 			}
@@ -510,7 +509,7 @@ void uiManager::render()
 			if (num == k)
 			{
 
-				_vPointer[k]->getImage()->frameRender(_backBuffer->getMemDC(), _rc2[box[num]].left, _rc2[box[num]].top, 1, 0);
+				_vPointer[k]->getImage()->frameRender(_backBuffer->getMemDC(), _vInvenCase[box[num]].left, _vInvenCase[box[num]].top, 1, 0);
 
 
 			}
@@ -518,10 +517,10 @@ void uiManager::render()
 		//¿Œ∫• º±≈√√¢
 		if (invenDraw == true)
 		{
-			invenSelect2->render(_backBuffer->getMemDC(), _rc2[box[num]].left+90, _rc2[box[num]].top);
+			invenSelect2->render(_backBuffer->getMemDC(), _vInvenCase[box[num]].left+90, _vInvenCase[box[num]].top);
 			if (invenDraw1 == true)
 			{
-				invenSelect1->render(_backBuffer->getMemDC(), _rc2[box[num]].left+90, _rc2[box[num]].top);
+				invenSelect1->render(_backBuffer->getMemDC(), _vInvenCase[box[num]].left+90, _vInvenCase[box[num]].top);
 			}
 		}
 	}
@@ -558,12 +557,9 @@ void uiManager::render()
 						switch (_playerItemVector[i]->_itemList[j]->getItemKinds())
 						{
 						case itemKinds::armor:
-<<<<<<< HEAD
-							IMAGEMANAGER->findImage("∞©ø ")->render(getMemDC(),
-=======
 
 							IMAGEMANAGER->findImage("∞©ø ")->render(_backBuffer->getMemDC(),
->>>>>>> origin/master
+
 								_playerItemVector[i]->_itemPos[j].x,
 								_playerItemVector[i]->_itemPos[j].y);
 							break;
@@ -608,6 +604,9 @@ void uiManager::setUi()
 	ui3 = new skillPointer;
 	ui3->init("Ω∫≈≥∆˜¿Œ≈Õ", PointMake(280, 420), Pointer);
 	_vSkillPointer.push_back(ui3);
+
+
+
 }
 
 

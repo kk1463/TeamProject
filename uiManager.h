@@ -34,6 +34,12 @@ private:
 
 	vector<ui*>				_vSkillPointer;
 	vector<ui*>::iterator	_viSkillPointer;
+
+	vector<RECT>			_vInvenCase;
+	vector<RECT>			_vItemCase;
+
+
+
 	POINTS pos;
 	int _currentFrameX;
 	PlayerManager* _pm;
