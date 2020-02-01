@@ -15,20 +15,23 @@ HRESULT Flower::init()
 {
 
 	//idle
-	IMAGEMANAGER->addFrameImage("F_idle_Right", "img/flower/idle_Right.bmp", 1660, 126, 10, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("F_idle_Left", "img/flower/idle_Left.bmp", 1660, 126, 10, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("F_idle", "img/flower/idle.bmp", 328, 128, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("F_idle_Right", "img/flower/idle_Right1.bmp", 2360, 176, 10, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("F_idle_Left", "img/flower/idle_Left1.bmp", 2360, 176, 10, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("F_idle", "img/flower/idle1.bmp", 472, 176, 2, 1, true, RGB(255, 0, 255));
 	//Atk						
 	IMAGEMANAGER->addFrameImage("F_Atk_Left", "img/flower/Atk_Left.bmp", 3304, 176, 14, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("F_Atk_Right", "img/flower/Atk_Right.bmp", 3304, 176, 14, 1, true, RGB(255, 0, 255));
 	//up						
-	IMAGEMANAGER->addFrameImage("F_UP_Left", "img/flower/UP_Left.bmp", 2952, 128, 18, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("F_UP_Left", "img/flower/UP_Left1.bmp", 4012, 176, 18, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("F_UP_Right", "img/flower/UP_Right.bmp", 2952, 128, 18, 1, true, RGB(255, 0, 255));
 	//dmg					
 	IMAGEMANAGER->addFrameImage("F_Dmg_Left", "img/flower/Dmg_Left.bmp", 608, 106, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("F_Dmg_Right", "img/flower/Dmg_Right.bmp", 608, 106, 4, 1, true, RGB(255, 0, 255));
 	//deadEffect
 	IMAGEMANAGER->addFrameImage("F_deadEffect", "img/flower/F_deadEffect.bmp", 2728, 98, 22, 1, true, RGB(255, 0, 255));
+
+	EFFECTMANAGER->addEffect("F_deadEffect", "img/flower/F_deadEffect.bmp", 2728, 98, 124, 98, 1.0f, 0.2f, 50);
+		//EFFECTMANAGER->addEffect("R_dead_Right", "img/rabbit/R_dead_Right.bmp", 1344, 76, 96, 76, 1.0f, 0.2f, 50);
 
 
 	//idle
@@ -97,6 +100,8 @@ void Flower::update()
 	//cout << "x:" << _center.x << ",y:" << _center.y << endl;
 	//POINT centerPos = getCenterPos(en.colRc);
 	
+	if (en.hp <= 0)return;
+
 	en.colRc = RectMakeCenter(en.x+90, en.y+70, 150, 150);
 	en.rightColRc = RectMakeCenter(en.colRc.right + 10, en.colRc.top + 80, 10, 100);
 	en.leftColRc = RectMakeCenter(en.colRc.left - 10, en.colRc.top + 80, 10, 100);
@@ -148,6 +153,12 @@ void Flower::moving()
     RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
 	RECT temp;
 	// ■■■■■■■■■■■처음 등장 상태■■■■■■■■■■■■
+	if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber()
+		|| en.Ani->getFrameNumber() == 0)
+	{
+		en.changeAni = true;
+		count = 0;
+	}
 	if (_up)
 	{
 		POINT ins = getCenterPos(PLAYERMANGER->get_vPlayer()[0]->getColRect());
@@ -156,7 +167,7 @@ void Flower::moving()
 		
 		if (IntersectRect(&temp, &en.colRc, &rc))
 		{
-			en.changeAni = true;
+			//en.changeAni = true;
 			en.state = Up;
 			en.dir = LEFT;
 		}
@@ -165,7 +176,7 @@ void Flower::moving()
 			cout << "충돌" << endl;
 			_up = false;
 			left = true;
-			en.changeAni = true;
+			//en.changeAni = true;
 			
 			
 
@@ -282,39 +293,24 @@ void Flower::F_state()
 				break;
 			}
 			break;
-		 
-
+		case dead1:
+				en.Ani = KEYANIMANAGER->findAnimation("F_deadEffect");
+				en.img = IMAGEMANAGER->findImage("F_deadEffect");
+				en.Ani->start();
+				en.changeAni = false;
+				break;
+			
+		default:
+		break;
 		}
 	}
-	if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber())
-		
-	{
-		en.changeAni = true;
-		count = 0;
-	}
+	
 }
 
 void Flower::attack()
 {
 	RECT rc = PLAYERMANGER->get_vPlayer()[0]->getColRect();
 	RECT temp;
-	if (IntersectRect(&temp, &en.leftColRc, &rc))
-	{
-
-		cout << "들어옴????" << endl;
-		en.state = Atk;
-		en.dir = LEFT;
-		en.changeAni = true;
-
-
-	}
-	if (IntersectRect(&temp, &en.rightColRc, &rc))
-	{
-		en.state = Atk;
-		en.dir = RIGHT;
-		en.changeAni = true;
-
-	}
 	if (en.Ani->getMaxFrameNumber() == en.Ani->getFrameNumber()
 		|| en.Ani->getFrameNumber() == 0)
 	{
@@ -322,6 +318,24 @@ void Flower::attack()
 		count = 0;
 	}
 
+	if (IntersectRect(&temp, &en.leftColRc, &rc))
+	{
+		
+		en.state = Atk;
+		en.dir = LEFT;
+		//en.changeAni = true;
+
+
+	}
+	
+	if (IntersectRect(&temp, &en.rightColRc, &rc))
+	{
+		en.state = Atk;
+		en.dir = RIGHT;
+		//en.changeAni = true;
+
+	}
+	
 }
 
 void Flower::hit()
@@ -330,6 +344,9 @@ void Flower::hit()
 
 void Flower::die()
 {
+	
+	
+
 }
 
 
