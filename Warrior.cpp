@@ -51,13 +51,15 @@ HRESULT Warrior::init(PlayerName playername)
 	_playerInfo.position.y = 300;
 	_playerInfo.speed = 4;
 	_playerInfo.hp = 100;
-
+	_playerInfo.nuckBack = 5;
+	
 	this->setimage(IMAGEMANAGER->findImage("idleDown"));
 	this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
 
 	_playerInfo.ani = KEYANIMANAGER->findAnimation("idleDown");
 	_playerInfo.ani->start();
 	this->setAni(_playerInfo.ani);
+	_playerInfo.Num = IMAGEMANAGER->findImage("숫자");
 	_playerInfo.changeAni = true;
 
 	_playerInfo.changeDir = true;
@@ -71,7 +73,7 @@ HRESULT Warrior::init(PlayerName playername)
 	_playerInfo.atkNoMove = false;
 
 	
-	number = IMAGEMANAGER->findImage("숫자");
+
 	Player::init(playername);
 	return S_OK;
 
@@ -106,6 +108,7 @@ void Warrior::update()
 		this->setCenter(PointMake(_playerInfo.position.x, _playerInfo.position.y));
 
 		this->setColRect(_playerInfo.colRc);
+		
 		_playerInfo.rightColRc = RectMakeCenter(_playerInfo.colRc.right + 2, _playerInfo.colRc.top + 20, 3, 20);
 		_playerInfo.leftColRc = RectMakeCenter(_playerInfo.colRc.left - 2, _playerInfo.colRc.top + 20, 3, 20);
 		_playerInfo.topColRc = RectMakeCenter(_playerInfo.colRc.left + 20, _playerInfo.colRc.top - 2, 20, 3);

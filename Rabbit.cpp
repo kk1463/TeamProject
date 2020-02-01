@@ -298,7 +298,7 @@ void Rabbit::attack()
 			en.atkcount++;
 			if (en.atkcount > 5)
 			{
-			PLAYERMANGER->get_vPlayer()[0]->attaked(1);
+			PLAYERMANGER->get_vPlayer()[0]->attaked(5);
 			en.atkcount = 0;			
 			}
 

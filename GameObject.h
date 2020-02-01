@@ -41,7 +41,7 @@ protected:
 	RECT en_topColRc;	 //enemy용 체크렉트
 	RECT en_botColRc;	 //enemy용 체크렉트
 	RECT EnemyRc;
-
+	image* _img;
 	int _frameX;
 	int _frameY;
 	animation* _ani;
@@ -110,6 +110,7 @@ public:
 
 	void setAni(animation* ani) { _ani = ani; }
 	animation* getAni() { return _ani; }
+
 
 
 

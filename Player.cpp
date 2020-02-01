@@ -23,7 +23,9 @@ HRESULT Player::init(PlayerName playername)
 	_vEnemy = ENEMYMANAGER->getEnemy();
 
 	EFFECTMANAGER->addEffect("PlayerDead", "img/warrior/dead/PlayerDead.bmp", 2160, 100, 120, 100, 1.0f, 0.2f, 50);
+	EFFECTMANAGER->addEffect("number", "0.bmp", 15, 13, 15, 13, 1.0f, 0.1f, 50);
 
+	IMAGEMANAGER->addImage("숫자", "0.bmp", 105, 130, true, RGB(255, 0, 255));
 	_playerDie = false;
 
 	return S_OK;
@@ -72,17 +74,17 @@ void Player::update()
 	{
 		EFFECTMANAGER->play("PlayerDead",PLAYERMANGER->get_vPlayer()[0]->getCenter().x+
 			40, PLAYERMANGER->get_vPlayer()[0]->getCenter().y+20);
+
 		PLAYERMANGER->erasePlayer(this);
 	}
 
 	if (_playerInfo.attcked)
 	{
 		_playerInfo.dmgCount++;
-		
 		_playerInfo.state = P_DMG;
 		_playerInfo.changeAni = true;
-
-		cout << _playerInfo.dmgCount << endl;
+		A = true;
+		
 	}
 
 	if (_playerInfo.dmgCount == 10)
@@ -90,6 +92,12 @@ void Player::update()
 		_playerInfo.state = P_IDLE;
 		_playerInfo.attcked = false;
 		_playerInfo.dmgCount = 0;
+	}
+	if (KEYMANAGER->isOnceKeyDown('M'))
+	{
+		IMAGEMANAGER->render("숫자", _backBuffer->getMemDC(), PLAYERMANGER->get_vPlayer()[0]->getCenter().x +
+			40, PLAYERMANGER->get_vPlayer()[0]->getCenter().y + 20);
+		cout << "그림" << endl;
 	}
 }
 
@@ -154,7 +162,7 @@ void Player::KeyControl()
 			{
 				_playerInfo.rightMove = true;
 			}
-
+			
 		}
 		if (_playerInfo.direction == P_LEFT)
 		{
@@ -236,82 +244,80 @@ void Player::attaked(int atk)
 		
 			switch (_vEnemy[i]->getEnemyDir())
 			{
-			case LEFT:
+			/*case LEFT:
 
 				if (_playerInfo.position.x < x)
 				{
-					_playerInfo.position.x -= 1;
+					_playerInfo.position.x -= _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.x > x)
 				{
-					_playerInfo.position.x += 1;
+					_playerInfo.position.x += _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.y > y)
 				{
-					_playerInfo.position.y += 1;
+					_playerInfo.position.y += _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.y < y)
 				{
-					_playerInfo.position.y -= 1;
+					_playerInfo.position.y -=  _playerInfo.nuckBack;
 				}
-				break;
-			case RIGHT:
-
+				break;*/
+		/*	case RIGHT:
 				if (_playerInfo.position.x < x)
 				{
-					_playerInfo.position.x -= 1;
+					_playerInfo.position.x -= _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.x > x)
 				{
-					_playerInfo.position.x += 1;
+					_playerInfo.position.x += _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.y > y)
 				{
-					_playerInfo.position.y += 1;
+					_playerInfo.position.y += _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.y < y)
 				{
-					_playerInfo.position.y -= 1;
+					_playerInfo.position.y -= _playerInfo.nuckBack;
 				}
 				break;
 			case UP:
-
 				if (_playerInfo.position.x < x)
 				{
-					_playerInfo.position.x -= 1;
+					_playerInfo.position.x -= _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.x > x)
 				{
-					_playerInfo.position.x += 1;
+					_playerInfo.position.x += _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.y > y)
 				{
-					_playerInfo.position.y += 1;
+					_playerInfo.position.y += _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.y < y)
 				{
-					_playerInfo.position.y -= 1;
+					_playerInfo.position.y -= _playerInfo.nuckBack;
 				}
 				break;
 			case DOWN:
 
 				if (_playerInfo.position.x < x)
 				{
-					_playerInfo.position.x -= 1;
+					_playerInfo.position.x -= _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.x > x)
 				{
-					_playerInfo.position.x += 1;
+					_playerInfo.position.x += _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.y > y)
 				{
-					_playerInfo.position.y += 1;
+					_playerInfo.position.y += _playerInfo.nuckBack;
 				}
 				if (_playerInfo.position.y < y)
 				{
-					_playerInfo.position.y -= 1;
+					_playerInfo.position.y -= _playerInfo.nuckBack;
 				}
-				break;
+				break;*/
 			}
 	}
 

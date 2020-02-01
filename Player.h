@@ -57,6 +57,8 @@ struct PlayerInfo
 	int dmgCount = 0;
 	bool attcked = false;
 	int playerDirNum;
+	float nuckBack;
+	image* Num;
 
 };
 class Player : public GameObject
@@ -71,6 +73,9 @@ protected:
 	bool _playerDie;
 	bool EnemyAttacked = false;
 	image* number;
+	bool A = false;
+	
+	
 
 public:
 	Player();

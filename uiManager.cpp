@@ -445,7 +445,6 @@ void uiManager::render()
 		shield->render(_backBuffer->getMemDC(), 768, 220);
 		hat->render(_backBuffer->getMemDC(), 676, 308);
 		glasses->render(_backBuffer->getMemDC(), 756, 315);
-
 		
 
 		// 아이템 선택창
