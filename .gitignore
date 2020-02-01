@@ -122,3 +122,15 @@ x64/Debug/windowAPI.pdb
 x64/Debug/player.obj.enc
 .vs/windowAPI/v15/ipch/a9ad7ae2985ddd0f.ipch
 .vs/windowAPI/v15/ipch/a1c280d7ca8c9a7.ipch
+x64/Debug/Armor.obj
+x64/Debug/Coin.obj
+x64/Debug/Item.obj
+x64/Debug/ItemManager.obj
+x64/Debug/pointer.obj
+x64/Debug/Potion.obj
+x64/Debug/Ring.obj
+x64/Debug/skillPointer.obj
+x64/Debug/Sword.obj
+x64/Debug/tagTile.obj
+x64/Debug/ui.obj
+x64/Debug/uiManager.obj
