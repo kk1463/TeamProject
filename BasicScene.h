@@ -15,6 +15,8 @@ protected:
 	vector<GameObject*>::iterator _gameObjIter;
 	vector<tagTile*>		 _tiles; // ≈∏¿œ∏ « µÂ
 	PlayerManager* _pm;
+
+	bool _isGameStart = false;
 	
 public:
 	virtual void Start();
@@ -29,6 +31,9 @@ public:
 	BasicScene();
 	~BasicScene();
 
+
+	bool getGameStart() { return _isGameStart; }
+	void setGameStart(bool b) { _isGameStart = b; }
 	virtual void eraseGameObj(int num) { _gameObj.erase(_gameObj.begin() + num); }
 };
 

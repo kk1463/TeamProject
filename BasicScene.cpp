@@ -77,24 +77,27 @@ void BasicScene::setGameObj(GameObject* obj)
 
 void BasicScene::update()
 {
-	
-	for (int i = 0; i < _gameObj.size(); i++)
+	if (_isGameStart)
 	{
-		_gameObj[i]->update();
-	}
-	for (int i = 0; i < _gameObj.size(); i++)
-	{
-		for (int j = i; j < _gameObj.size(); j++)
+
+		for (int i = 0; i < _gameObj.size(); i++)
 		{
-			if (_gameObj[i]->getRect().bottom > _gameObj[j]->getRect().bottom)
+			_gameObj[i]->update();
+		}
+		for (int i = 0; i < _gameObj.size(); i++)
+		{
+			for (int j = i; j < _gameObj.size(); j++)
 			{
-				GameObject* temp = _gameObj[i];
-				_gameObj[i] = _gameObj[j];
-				_gameObj[j] = temp;
+				if (_gameObj[i]->getRect().bottom > _gameObj[j]->getRect().bottom)
+				{
+					GameObject* temp = _gameObj[i];
+					_gameObj[i] = _gameObj[j];
+					_gameObj[j] = temp;
+				}
 			}
 		}
+		EFFECTMANAGER->update();
 	}
-	EFFECTMANAGER->update();
 }
 
 void BasicScene::render()
