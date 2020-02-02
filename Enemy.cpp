@@ -66,7 +66,7 @@ void Enemy::update() // 에너미가 움직인다.
 
 	_vPlayer = PLAYERMANGER->get_vPlayer();
 
-
+	 
 
 	for (int i = 0; i < _vPlayer.size(); i++)
 	{
@@ -110,6 +110,16 @@ void Enemy::update() // 에너미가 움직인다.
 	{
 		en.angry = false;
 	}
+	if (en.name == Name_Flower)
+	{
+		if (en.state == atk1)
+		{
+			en.x - 100;
+		}
+		
+		
+	}
+
 	//에너미 삭제문은 update 제일 마지막에 놔둘것
 	if (en.hp < 0)
 	{
@@ -129,7 +139,12 @@ void Enemy::update() // 에너미가 움직인다.
 		{			
 			EFFECTMANAGER->play("S_dead", en.x + 20, en.y + 10);
 		}
-
+		if (en.name == Name_Flower)
+		{
+			EFFECTMANAGER->play("F_deadEffect", _center.x + 120, _center.y +100);
+			cout << "X :" << _center.x << endl;
+			cout << "Y :" << _center.y << endl;
+		}
 
 
 		ENEMYMANAGER->eraseEnemy(this);
