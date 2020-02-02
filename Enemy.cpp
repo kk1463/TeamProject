@@ -142,8 +142,7 @@ void Enemy::update() // 에너미가 움직인다.
 		if (en.name == Name_Flower)
 		{
 			EFFECTMANAGER->play("F_deadEffect", _center.x + 120, _center.y +100);
-			cout << "X :" << _center.x << endl;
-			cout << "Y :" << _center.y << endl;
+			
 		}
 
 

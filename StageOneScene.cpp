@@ -20,45 +20,8 @@ void StageOneScene::update()
 	BasicScene::update();
 	UIMANAGER->update();
 
-	if (ENEMYMANAGER->getEnemy().size() == 0)
-	{
-		_Allclear = true;
-
-		if (_clear->getY() >= 200)
-		{
-			++Stageonecnt;
-			_Allclear = false;
-			if (Stageonecnt >= 200)
-			{
-				SCENEMANAGER->changeScene("stageTwo");
-			}
-
-		}
-
-	}
-
-	if (_Allclear)
-	{
-		_clear->setY(_clear->getY() + 9);
-	}
-
-	if (!_startStop)
-	{
-		_start->setX(_start->getX() + 9);
-	}
-
-
-	if (_start->getX() >= WINSIZEX / 2 - 400)
-	{
-		++ Stageonecnt;
-		
-		_startStop = true;
-		setGameStart(true);
-		if (Stageonecnt >= 100)
-		{
-			_startStop = false;
-		}
-	}
+	
+	cout << _start->getX()<<","<< Stageonecnt<<","<< WINSIZEX / 2 - 400 << endl;
 	
 }
 
@@ -88,6 +51,8 @@ HRESULT StageOneScene::init()
 	_startStop = false;
 	_Allclear = false;
 
+	Stageonecnt = 0;
+
 	return S_OK;
 }
 
@@ -95,8 +60,7 @@ void StageOneScene::render()
 { 
 	BasicScene::render();
 
-	IMAGEMANAGER->findImage("fight")->render(getMemDC(), _start->getX(), _start->getY());
-	IMAGEMANAGER->findImage("clear")->render(getMemDC(), _clear->getX(), _clear->getY());
+	
 	UIMANAGER->render();
 
 }

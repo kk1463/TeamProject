@@ -6,15 +6,7 @@ class StageOneScene :public BasicScene
 {
 private:
 
-	image* _start;
-	image* _clear;
-
-	int _alpha;
-	bool _startStop;
-	int Stageonecnt;
-
-
-	bool _Allclear;
+	
 
 public:
 	StageOneScene();

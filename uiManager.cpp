@@ -198,8 +198,6 @@ void uiManager::update()
 		MP += 0.2;
 	}
 
-	
-	cout << MP << endl;
 	if (MP < 15)
 	{
 		_noMp = true;

@@ -16,6 +16,15 @@ protected:
 	vector<tagTile*>		 _tiles; // ≈∏¿œ∏ « µÂ
 	PlayerManager* _pm;
 
+	image* _start;
+	image* _clear;
+
+	int _alpha;
+	bool _startStop;
+	int Stageonecnt;
+
+
+	bool _Allclear;
 	bool _isGameStart = false;
 	
 public:

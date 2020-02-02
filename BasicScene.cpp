@@ -98,6 +98,57 @@ void BasicScene::update()
 		}
 		EFFECTMANAGER->update();
 	}
+	
+	if (ENEMYMANAGER->getEnemy().size() == 0)
+	{
+		if (!_Allclear) 
+		{
+			Stageonecnt = 0;
+			_Allclear = true;
+		}
+		else
+		{
+			if (_clear->getY() >= 200)
+			{
+				++Stageonecnt;
+				
+				if (Stageonecnt >= 200)
+				{
+					_Allclear = false;
+					SCENEMANAGER->changeScene("stageTwo");
+				}
+
+			}
+		}
+		
+
+	}
+
+	if (_Allclear)
+	{
+		_clear->setY(_clear->getY() + 9);
+	}
+
+	if (!_startStop)
+	{
+		_start->setX(_start->getX() + 9);
+	}
+	if (_start->getX() >= WINSIZEX / 2 - 400 &&
+		_start->getX() <= WINSIZEX)
+	{
+		++Stageonecnt;
+		_startStop = true;
+		if (Stageonecnt >= 100)
+		{
+			_startStop = false;
+		}
+	}
+	else if (_start->getX() >= WINSIZEX)
+	{
+		setGameStart(true);
+	
+	}
+
 }
 
 void BasicScene::render()
@@ -179,7 +230,15 @@ void BasicScene::render()
 		}
 	
 	}
+	if (!_isGameStart)
+	{
+		_start->render(getMemDC(), _start->getX(), _start->getY());
+	}
 
+	if (_Allclear)
+	{
+		_clear->render(getMemDC(), _clear->getX(), _clear->getY());
+	}
 	
 }
 
