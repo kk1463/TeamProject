@@ -17,7 +17,7 @@ HRESULT Flower::init()
 	//idle
 	IMAGEMANAGER->addFrameImage("F_idle_Right", "img/flower/idle_Right1.bmp", 2360, 176, 10, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("F_idle_Left", "img/flower/idle_Left1.bmp", 2360, 176, 10, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("F_idle", "img/flower/idle1.bmp", 472, 176, 2, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("F_idle", "img/flower/idle.bmp", 328, 128, 2, 1, true, RGB(255, 0, 255));
 	//Atk						
 	IMAGEMANAGER->addFrameImage("F_Atk_Left", "img/flower/Atk_Left.bmp", 3304, 176, 14, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("F_Atk_Right", "img/flower/Atk_Right.bmp", 3304, 176, 14, 1, true, RGB(255, 0, 255));
@@ -71,6 +71,12 @@ HRESULT Flower::init()
 	en.changeAni = true;
 	en.Ani->start();
 
+
+	this->setCheckRect_Right(en.rightColRc);
+	this->setCheckRect_Left(en.leftColRc);
+	this->setCheckRect_Top(en.topColRc);
+	this->setCheckRect_Bottom(en.botColRc);
+
 	_up = true;
 	left = false;
 	right = false;
@@ -82,10 +88,17 @@ HRESULT Flower::init()
 	en.x = _center.x;
 	en.y = _center.y;
 
+	en.colRc = RectMake(en.x , en.y, 150, 150);
+	en.rightColRc = RectMakeCenter(en.colRc.right + 10, en.colRc.top + 80, 10, 100);
+	en.leftColRc = RectMakeCenter(en.colRc.left - 10, en.colRc.top + 80, 10, 100);
+	en.topColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.top - 2, 30, 3);
+	en.botColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.bottom + 2, 30, 3);
+
 	this->setimage(en.img);
 	this->setAni(en.Ani);
 
 	Enemy::init();
+	en.angry = true;
 	return S_OK;
 }
 
@@ -102,16 +115,7 @@ void Flower::update()
 	
 	if (en.hp <= 0)return;
 
-	en.colRc = RectMakeCenter(en.x+90, en.y+70, 150, 150);
-	en.rightColRc = RectMakeCenter(en.colRc.right + 10, en.colRc.top + 80, 10, 100);
-	en.leftColRc = RectMakeCenter(en.colRc.left - 10, en.colRc.top + 80, 10, 100);
-	en.topColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.top - 2, 30, 3);
-	en.botColRc = RectMakeCenter(en.colRc.left + 20, en.colRc.bottom + 2, 30, 3);
-
-	this->setCheckRect_Right(en.rightColRc);
-	this->setCheckRect_Left(en.leftColRc);
-	this->setCheckRect_Top(en.topColRc);
-	this->setCheckRect_Bottom(en.botColRc);
+	
 
 
 
@@ -336,6 +340,11 @@ void Flower::attack()
 
 	}
 	
+}
+
+void Flower::render()
+{
+	Rectangle(_backBuffer->getMemDC(), en.colRc);
 }
 
 void Flower::hit()

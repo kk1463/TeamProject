@@ -52,4 +52,8 @@ void GameObject::attaked(int atk)
 
 }
 
+void GameObject::render()
+{
+}
+
 

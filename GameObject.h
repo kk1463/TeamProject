@@ -112,6 +112,8 @@ public:
 	animation* getAni() { return _ani; }
 
 
+	virtual void render();
+
 
 
 };

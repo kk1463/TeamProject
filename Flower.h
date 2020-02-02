@@ -24,6 +24,8 @@ public:
 	virtual void moving();
 	virtual void F_state();
 	virtual void attack();
+
+	virtual void render();
 	void hit();
 	void die();
 };

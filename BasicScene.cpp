@@ -160,6 +160,11 @@ void BasicScene::render()
 
 	for (int i = 0; i < _gameObj.size(); i++)
 	{
+		if (_gameObj[i]->getObject() == FLOWER)
+		{
+			((Flower*)_gameObj[i])->render();
+		}
+
 		if (_gameObj[i]->getFrame() == Frame)
 		{
 			_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
@@ -169,7 +174,6 @@ void BasicScene::render()
 			_gameObj[i]->getImage()->render(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y);
 
 		}
-	
 	
 	}
 
