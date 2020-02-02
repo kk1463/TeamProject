@@ -108,6 +108,9 @@ public:
 	virtual void attaked(int atk);
 	virtual int getHp() { return 0; }
 
+	//아이템과 캐릭터 충돌 체크
+	virtual void collide();
+
 	void setAni(animation* ani) { _ani = ani; }
 	animation* getAni() { return _ani; }
 

@@ -214,7 +214,7 @@ void BasicScene::render()
 
 	for (int i = 0; i < _gameObj.size(); i++)
 	{
-		if (_gameObj[i]->getObject() == FLOWER)
+		if (_gameObj[i]->getObject() == ITEM)
 		{
 			((Flower*)_gameObj[i])->render();
 		}

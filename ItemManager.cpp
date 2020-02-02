@@ -48,7 +48,7 @@ void ItemManager::makeItem(ItemKinds ins,POINT center)
 	}
 	((Item*)container)->init(std::move(center));
 	
-	_vItem.push_back((Item*)ins);
+	_vItem.push_back((Item*)container);
 	SCENEMANAGER->getCurrentScene()->setGameObj(container);
 }
 
