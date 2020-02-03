@@ -211,10 +211,7 @@ void Player::KeyControl()
 			}
 		}
 	}
-	if (_playerInfo.playerDirNum > 0)
-	{
-		cout << _playerInfo.playerDirNum << endl;
-	}
+
 }
 
 void Player::PlayerStateChange()
@@ -229,7 +226,6 @@ void Player::attaked(int atk)
 {
 	setPlayerDmg(atk);
 
-	cout << "플레이어 데미지:" << getPlayerDmg() << endl;
 
 	_playerInfo.attcked = true;
 	_playerInfo.hp -= atk;

@@ -77,24 +77,78 @@ void BasicScene::setGameObj(GameObject* obj)
 
 void BasicScene::update()
 {
-	
-	for (int i = 0; i < _gameObj.size(); i++)
+	if (_isGameStart)
 	{
-		_gameObj[i]->update();
-	}
-	for (int i = 0; i < _gameObj.size(); i++)
-	{
-		for (int j = i; j < _gameObj.size(); j++)
+
+		for (int i = 0; i < _gameObj.size(); i++)
 		{
-			if (_gameObj[i]->getRect().bottom > _gameObj[j]->getRect().bottom)
+			_gameObj[i]->update();
+		}
+		for (int i = 0; i < _gameObj.size(); i++)
+		{
+			for (int j = i; j < _gameObj.size(); j++)
 			{
-				GameObject* temp = _gameObj[i];
-				_gameObj[i] = _gameObj[j];
-				_gameObj[j] = temp;
+				if (_gameObj[i]->getRect().bottom > _gameObj[j]->getRect().bottom)
+				{
+					GameObject* temp = _gameObj[i];
+					_gameObj[i] = _gameObj[j];
+					_gameObj[j] = temp;
+				}
 			}
 		}
+		EFFECTMANAGER->update();
 	}
-	EFFECTMANAGER->update();
+	
+	if (ENEMYMANAGER->getEnemy().size() == 0)
+	{
+		if (!_Allclear) 
+		{
+			Stageonecnt = 0;
+			_Allclear = true;
+		}
+		else
+		{
+			if (_clear->getY() >= 200)
+			{
+				++Stageonecnt;
+				
+				if (Stageonecnt >= 200)
+				{
+					_Allclear = false;
+					SCENEMANAGER->changeScene("stageTwo");
+				}
+
+			}
+		}
+		
+
+	}
+
+	if (_Allclear)
+	{
+		_clear->setY(_clear->getY() + 9);
+	}
+
+	if (!_startStop)
+	{
+		_start->setX(_start->getX() + 9);
+	}
+	if (_start->getX() >= WINSIZEX / 2 - 400 &&
+		_start->getX() <= WINSIZEX)
+	{
+		++Stageonecnt;
+		_startStop = true;
+		if (Stageonecnt >= 100)
+		{
+			_startStop = false;
+		}
+	}
+	else if (_start->getX() >= WINSIZEX)
+	{
+		setGameStart(true);
+	
+	}
+
 }
 
 void BasicScene::render()
@@ -160,6 +214,11 @@ void BasicScene::render()
 
 	for (int i = 0; i < _gameObj.size(); i++)
 	{
+		if (_gameObj[i]->getObject() == ITEM)
+		{
+			((Flower*)_gameObj[i])->render();
+		}
+
 		if (_gameObj[i]->getFrame() == Frame)
 		{
 			_gameObj[i]->getImage()->aniRender(getMemDC(), _gameObj[i]->getCenter().x, _gameObj[i]->getCenter().y, _gameObj[i]->getAni());
@@ -170,9 +229,16 @@ void BasicScene::render()
 
 		}
 	
-	
+	}
+	if (!_isGameStart)
+	{
+		_start->render(getMemDC(), _start->getX(), _start->getY());
 	}
 
+	if (_Allclear)
+	{
+		_clear->render(getMemDC(), _clear->getX(), _clear->getY());
+	}
 	
 }
 

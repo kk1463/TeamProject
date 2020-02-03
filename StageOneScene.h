@@ -6,6 +6,8 @@ class StageOneScene :public BasicScene
 {
 private:
 
+	
+
 public:
 	StageOneScene();
 	~StageOneScene();
