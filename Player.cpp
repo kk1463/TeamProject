@@ -51,15 +51,17 @@ void Player::update()
 			{
 				if (_playerInfo.atkCount == 10)
 				{
-					_vEnemy[i]->attaked(5);
 					
-					if (!reinforce)
+					
+					if (PLAYERMANGER->get_vPlayer()[0]->getAtkUp() == false)
 					{
 						EFFECTMANAGER->play("PlayerDmg", (_vEnemy[i]->getColRect().right + _vEnemy[i]->getColRect().left) / 2 + 5, _vEnemy[i]->getColRect().top - 40);
+						_vEnemy[i]->attaked(20);
 					}
 					else
 					{
 						EFFECTMANAGER->play("PlayerDmg2", (_vEnemy[i]->getColRect().right + _vEnemy[i]->getColRect().left) / 2 + 5, _vEnemy[i]->getColRect().top - 40);
+						_vEnemy[i]->attaked(30);
 					}
 					
 				}
