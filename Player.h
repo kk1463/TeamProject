@@ -73,7 +73,7 @@ protected:
 	bool _playerDie;
 	bool EnemyAttacked = false;
 	image* number;
-	bool A = false;
+	bool reinforce = false;
 	
 	
 
@@ -97,6 +97,6 @@ public:
 
 	void setPlayerHp(int hp) { _playerInfo.hp = hp; }
 	virtual void attaked(int atk);
-	
+	virtual void healed(int heal);
 };
 

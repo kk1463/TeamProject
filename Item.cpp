@@ -30,6 +30,7 @@ void Item::collide()
 		if ((IntersectRect(&temp, &_rc, &ins)))
 		{
 			ITEMMANAGER->eraseItem(this);
+		
 			break;
 		}
 		else

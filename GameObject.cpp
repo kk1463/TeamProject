@@ -52,6 +52,10 @@ void GameObject::attaked(int atk)
 
 }
 
+void GameObject::healed(int heal)
+{
+}
+
 void GameObject::collide()
 {
 }

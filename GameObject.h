@@ -106,6 +106,7 @@ public:
 	void setEnemyDir(int dir) { EnemyDir = dir; }
 
 	virtual void attaked(int atk);
+	virtual void healed(int heal);
 	virtual int getHp() { return 0; }
 
 	//아이템과 캐릭터 충돌 체크
