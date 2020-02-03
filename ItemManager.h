@@ -8,8 +8,8 @@ typedef void(ItemManager::*_cbFunction)(ItemKinds, POINT);
 class ItemManager:public singletonBase<ItemManager>
 {
 private :
-	vector<Item*> _vItem;
-	vector<Item*>::iterator _viItem;
+	vector<GameObject*> _vItem;
+	vector<GameObject*>::iterator _viItem;
 
 public:
 	ItemManager();
@@ -19,5 +19,6 @@ public:
 	void release();
 	void makeItem(ItemKinds ins, POINT center);
 	void eraseItem(GameObject* ins);
+	vector<GameObject*> getItemVector() { return _vItem; }
 };
 

@@ -5,6 +5,7 @@
 void BasicScene::Start()
 {
 	//PLAYERMANGER->init();
+	
 }
 
 void BasicScene::setGameObj(GameObject* obj)
@@ -101,6 +102,17 @@ void BasicScene::update()
 	
 	if (ENEMYMANAGER->getEnemy().size() == 0)
 	{
+		_vItem = ITEMMANAGER->getItemVector();
+		RECT rc;
+		vector<GameObject*> ins = PLAYERMANGER->get_vPlayer();
+		_vIItem = _vItem.begin();
+		for (; _vIItem != _vItem.end();)
+		{
+			((Item*)(*_vIItem))->setMoving();
+			float angle = getAngle(getCenterPos(ins[0]->getColRect()).x, getCenterPos(ins[0]->getColRect()).y, (*_vIItem)->getCenter().x, (*_vIItem)->getCenter().y);
+			(*_vIItem)->setCenter(PointMake((*_vIItem)->getCenter().x - cosf(angle) * 10, (*_vIItem)->getCenter().y + sin(angle) * 10));
+			_vIItem++;
+		}
 		if (!_Allclear) 
 		{
 			Stageonecnt = 0;

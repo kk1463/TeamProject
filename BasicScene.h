@@ -15,6 +15,11 @@ protected:
 	vector<GameObject*>::iterator _gameObjIter;
 	vector<tagTile*>		 _tiles; // ≈∏¿œ∏ « µÂ
 	PlayerManager* _pm;
+	
+	vector<GameObject*> _vItem;
+	vector<GameObject*>::iterator _vIItem;
+
+
 
 	image* _start;
 	image* _clear;

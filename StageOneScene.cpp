@@ -21,7 +21,7 @@ void StageOneScene::update()
 	UIMANAGER->update();
 
 	
-	cout << _start->getX()<<","<< Stageonecnt<<","<< WINSIZEX / 2 - 400 << endl;
+	
 	
 }
 

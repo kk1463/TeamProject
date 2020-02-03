@@ -11,18 +11,16 @@ progressBar::~progressBar()
 {
 }
 
-HRESULT progressBar::init(float x, float y, int width, int height)
+HRESULT progressBar::init(float x, float y, int width, int height,string name,string backName)
 {
 	_x = x;
 	_y = y;
 
 	_rcProgress = RectMakeCenter(x, y, width, height);
 
-	_progressBarTop = IMAGEMANAGER->addImage("hpBar", "hpBar.bmp", width, height, true, RGB(255, 0, 255));
-	_progressBarBottom = IMAGEMANAGER->addImage("backHp", "backHp.bmp", width, height, true, RGB(255, 0, 255));
-	/*frontHp = IMAGEMANAGER->addImage("hpBar", "hpBar.bmp", 252, 14, true, RGB(255, 0, 255));
-	mpBar = IMAGEMANAGER->addImage("mpBar", "mpBar.bmp", 226, 14, true, RGB(255, 0, 255));
-	backHp = IMAGEMANAGER->addImage("backHp", "backHp.bmp", 252, 14, true, RGB(255, 0, 255));*/
+	_progressBarTop = IMAGEMANAGER->findImage(name);
+	_progressBarBottom = IMAGEMANAGER->findImage(backName);
+
 	//뒤에 깔리는 게이지의 가로크기를 기준으로 삼는다
 	_width = _progressBarBottom->getWidth();
 
@@ -43,12 +41,12 @@ void progressBar::update()
 
 void progressBar::render()
 {
-	IMAGEMANAGER->render("backHp", _backBuffer->getMemDC(),
+	_progressBarTop->render(_backBuffer->getMemDC(),
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
 		_y + _progressBarBottom->getHeight() / 2, 0, 0,
 		_progressBarBottom->getWidth(), _progressBarBottom->getHeight());
 
-	IMAGEMANAGER->render("hpBar", _backBuffer->getMemDC(),
+	_progressBarBottom->render( _backBuffer->getMemDC(),
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
 		_y + _progressBarBottom->getHeight() / 2, 0, 0,
 		_width, _progressBarBottom->getHeight());

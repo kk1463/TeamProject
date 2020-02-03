@@ -11,13 +11,16 @@ Item::~Item()
 {
 }
 
-void Item::init(POINT ins)
+void Item::init(POINT ins,float angle)
 {
-	setCenter(ins);
+	_isMoving = false;
+	setCenter(PointMake(ins.x-_image->getWidth()/2, ins.y - _image->getHeight() / 2));
+	_angle = angle;
 	_frame = NotFrame;
 	_kinds = ITEM;
 	_vPlayer = PLAYERMANGER->get_vPlayer();
-	_rc = RectMake(ins.x, ins.y, _image->getWidth(), _image->getHeight());
+	_rc = RectMake(ins.x - _image->getWidth() / 2, ins.y - _image->getHeight() / 2, _image->getWidth(), _image->getHeight());
+	_count = 0;
 }
 
 void Item::collide()
@@ -27,10 +30,10 @@ void Item::collide()
 	for (;_vIPlayer != _vPlayer.end();)
 	{
 		RECT ins = (*_vIPlayer)->getColRect();
-		if ((IntersectRect(&temp, &_rc, &ins)))
+		if ((PtInRect(&ins,_center)))
 		{
-			ITEMMANAGER->eraseItem(this);
-		
+			SCENEMANAGER->getCurrentScene()->deleteObject(this);
+
 			break;
 		}
 		else
@@ -50,6 +53,16 @@ void Item::render()
 void Item::update()
 {
 	collide();
+	if (_isMoving)
+	{
+		_count++;
+		_center.x += cosf(_angle);
+		_center.y -= sinf(_angle);
+		if (_count > 50)
+		{
+			_isMoving = false;
+		}
+	}
 }
 
 

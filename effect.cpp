@@ -78,7 +78,7 @@ void effect::update()
 	{
 		if (_makeItem)
 		{
-			ITEMMANAGER->makeItem((ItemKinds)(RND->getFromIntTo(0,5)), PointMake(_x, _y));
+			ITEMMANAGER->makeItem((ItemKinds)(RND->getFromIntTo(0,5)), PointMake(_itemX, _itemY));
 		}
 		killEffect();
 	}
@@ -107,7 +107,20 @@ void effect::startEffect(int x, int y)
 	_effectAnimation->start();
 
 }
+void effect::startEffect(int x, int y,int itemX,int itemY)
+{
+	if (!_effectImage || !_effectAnimation) return;
 
+	//일단 중앙값으로... 레탑들은 레탑으로 해...
+	_x = x - (_effectAnimation->getFrameWidth() / 2);
+	_y = y - (_effectAnimation->getFrameHeight() / 2);
+	_itemX = itemX;
+	_itemY = itemY;
+	_isRunning = true;
+
+	_effectAnimation->start();
+
+}
 void effect::killEffect()
 {
 	_isRunning = false;
