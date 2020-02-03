@@ -424,7 +424,7 @@ void Slime::S_attack()
 				en.atkcount++;
 				if (en.atkcount > 5)
 				{
-					PLAYERMANGER->get_vPlayer()[0]->attaked(1);
+					PLAYERMANGER->get_vPlayer()[0]->attaked(29);
 					en.atkcount = 0;
 				}
 			}

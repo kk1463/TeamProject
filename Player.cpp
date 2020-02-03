@@ -23,11 +23,14 @@ HRESULT Player::init(PlayerName playername)
 	_vEnemy = ENEMYMANAGER->getEnemy();
 
 	EFFECTMANAGER->addEffect("PlayerDead", "img/warrior/dead/PlayerDead.bmp", 2160, 100, 120, 100, 1.0f, 0.2f, 50);
-	EFFECTMANAGER->addEffect("number", "0.bmp", 15, 13, 15, 13, 1.0f, 0.1f, 50);
+
 
 	IMAGEMANAGER->addImage("¼ýÀÚ", "0.bmp", 105, 130, true, RGB(255, 0, 255));
 	_playerDie = false;
-	EFFECTMANAGER->addEffect("PlayerDmg", "img/warrior/PlayerDmg.bmp",64,42,64,42, 1.0f, 0.04f, 50);
+	EFFECTMANAGER->addEffect("PlayerDmg", "img/warrior/PlayerDmg3.bmp",64,42,64,42, 1.0f, 0.04f, 50);
+	EFFECTMANAGER->addEffect("PlayerDmg2", "img/warrior/PlayerDmg4.bmp", 64, 42, 64, 42, 1.0f, 0.04f, 50);
+	EFFECTMANAGER->addEffect("heal", "img/warrior/heal.bmp", 50, 20, 50, 20, 1.0f, 0.04f, 50);
+	
 	return S_OK;
 
 }
@@ -50,9 +53,14 @@ void Player::update()
 				{
 					_vEnemy[i]->attaked(5);
 					
-						_vEnemy[i]->attaked(5);
-						EFFECTMANAGER->play("PlayerDmg", (_vEnemy[i]->getColRect().right + _vEnemy[i]->getColRect().left) / 2+5, _vEnemy[i]->getColRect().top - 40);
-
+					if (!reinforce)
+					{
+						EFFECTMANAGER->play("PlayerDmg", (_vEnemy[i]->getColRect().right + _vEnemy[i]->getColRect().left) / 2 + 5, _vEnemy[i]->getColRect().top - 40);
+					}
+					else
+					{
+						EFFECTMANAGER->play("PlayerDmg2", (_vEnemy[i]->getColRect().right + _vEnemy[i]->getColRect().left) / 2 + 5, _vEnemy[i]->getColRect().top - 40);
+					}
 					
 				}
 			}
@@ -87,7 +95,7 @@ void Player::update()
 		_playerInfo.dmgCount++;
 		_playerInfo.state = P_DMG;
 		_playerInfo.changeAni = true;
-		A = true;
+		
 		
 	}
 
@@ -315,6 +323,20 @@ void Player::attaked(int atk)
 				break;*/
 			}
 	}
+
+}
+
+void Player::healed(int heal)
+{
+	
+	_playerInfo.hp += heal;
+
+	if (_playerInfo.hp > 99)
+	{
+		_playerInfo.hp = 100;
+	}
+	
+
 
 }
 

@@ -5,5 +5,7 @@ class Potion:public Item
 public:
 	Potion();
 	~Potion();
+
+	virtual void collide();
 };
 

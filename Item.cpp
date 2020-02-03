@@ -33,6 +33,7 @@ void Item::collide()
 		if ((PtInRect(&ins,_center)))
 		{
 			SCENEMANAGER->getCurrentScene()->deleteObject(this);
+
 			break;
 		}
 		else
