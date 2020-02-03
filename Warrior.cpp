@@ -24,7 +24,7 @@ HRESULT Warrior::init(PlayerName playername)
 	IMAGEMANAGER->addFrameImage("atkUp", "img/warrior/atk/AtkUp.bmp", 1430, 100, 13, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("dmg", "img/warrior/dmg/Dmg3.bmp", 360,72, 4, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("dmg2", "img/warrior/dmg/Dmg2.bmp", 400, 72, 4, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("숫자", "0.bmp", 15, 13, true, RGB(255, 0, 255));
+
 
 
 
@@ -59,7 +59,7 @@ HRESULT Warrior::init(PlayerName playername)
 	_playerInfo.ani = KEYANIMANAGER->findAnimation("idleDown");
 	_playerInfo.ani->start();
 	this->setAni(_playerInfo.ani);
-	_playerInfo.Num = IMAGEMANAGER->findImage("숫자");
+
 	_playerInfo.changeAni = true;
 
 	_playerInfo.changeDir = true;

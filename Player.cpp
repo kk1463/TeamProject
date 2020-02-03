@@ -27,7 +27,7 @@ HRESULT Player::init(PlayerName playername)
 
 	IMAGEMANAGER->addImage("숫자", "0.bmp", 105, 130, true, RGB(255, 0, 255));
 	_playerDie = false;
-
+	EFFECTMANAGER->addEffect("PlayerDmg", "img/warrior/PlayerDmg.bmp",64,42,64,42, 1.0f, 0.04f, 50);
 	return S_OK;
 
 }
@@ -49,6 +49,10 @@ void Player::update()
 				if (_playerInfo.atkCount == 10)
 				{
 					_vEnemy[i]->attaked(5);
+					
+						_vEnemy[i]->attaked(5);
+						EFFECTMANAGER->play("PlayerDmg", (_vEnemy[i]->getColRect().right + _vEnemy[i]->getColRect().left) / 2+5, _vEnemy[i]->getColRect().top - 40);
+
 					
 				}
 			}
@@ -93,12 +97,7 @@ void Player::update()
 		_playerInfo.attcked = false;
 		_playerInfo.dmgCount = 0;
 	}
-	if (KEYMANAGER->isOnceKeyDown('M'))
-	{
-		IMAGEMANAGER->render("숫자", _backBuffer->getMemDC(), PLAYERMANGER->get_vPlayer()[0]->getCenter().x +
-			40, PLAYERMANGER->get_vPlayer()[0]->getCenter().y + 20);
-		cout << "그림" << endl;
-	}
+	
 }
 
 
