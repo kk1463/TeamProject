@@ -74,7 +74,7 @@ HRESULT Slime::init()
 	Enemy::init();
 
 
-	en.hp = 10;
+	en.hp = 90;
 
 	return S_OK;
 }

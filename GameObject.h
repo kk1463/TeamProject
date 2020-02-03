@@ -47,7 +47,7 @@ protected:
 	animation* _ani;
 	int playerDir;
 	int EnemyDir;
-
+	bool _AtkUp = false;
 	int PlayerDmg;
 
 
@@ -108,7 +108,8 @@ public:
 	virtual void attaked(int atk);
 	virtual void healed(int heal);
 	virtual int getHp() { return 0; }
-
+	void setAtkUp(bool AtkUp) { _AtkUp = AtkUp; }
+	bool getAtkUp() { return _AtkUp; }
 	//아이템과 캐릭터 충돌 체크
 	virtual void collide();
 

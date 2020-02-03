@@ -106,7 +106,7 @@ HRESULT Rabbit::init()
 	en.Ani->start();
 
 
-	en.hp = 5;
+	en.hp = 90;
 	
 
 
