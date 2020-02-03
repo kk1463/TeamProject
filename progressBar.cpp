@@ -48,9 +48,10 @@ void progressBar::render()
 
 	_progressBarBottom->render( _backBuffer->getMemDC(),
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
-		_y + _progressBarBottom->getHeight() / 2, 0, 0,
+		_y + _progressBarBottom->getHeight() / 2, 
+		0, 0,
 		_width, _progressBarBottom->getHeight());
-
+	cout << _width << endl;
 
 }
 
@@ -93,5 +94,5 @@ void progressBar::Mprender()
 void progressBar::setGauge(float currentGauge, float maxGauge)
 {
 	_width = (currentGauge / maxGauge) * _progressBarBottom->getWidth();
-
+	
 }

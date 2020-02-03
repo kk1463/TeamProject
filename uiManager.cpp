@@ -20,7 +20,7 @@ HRESULT uiManager::init()
 	IMAGEMANAGER->addImage("mpBar", "mpBar.bmp", 226, 14, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("backHp", "backHp.bmp", 252, 14, true, RGB(255, 0, 255));
 	PlayerHp = new progressBar;
-	PlayerHp->init(124, 37, 252, 14, "hpBar", "backHp");
+	PlayerHp->init(124, 37, 252, 14, "backHp", "hpBar");
 	PlayerHp->setGauge(100, 100);
 
 	PlayerMp = new progressBar;
