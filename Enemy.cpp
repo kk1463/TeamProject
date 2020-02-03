@@ -128,20 +128,20 @@ void Enemy::update() // 에너미가 움직인다.
 			if (en.Movecheck == 1 || en.Movecheck == 3)
 			{
 
-				EFFECTMANAGER->play("R_dead_Right", en.x+20, en.y);
+				EFFECTMANAGER->play("R_dead_Right", en.x+20, en.y,getCenterPos(en.colRc).x, getCenterPos(en.colRc).y);
 			}
 			else
 			{
-				EFFECTMANAGER->play("R_dead_Left", en.x+20, en.y+10);
+				EFFECTMANAGER->play("R_dead_Left", en.x+20, en.y+10, getCenterPos(en.colRc).x, getCenterPos(en.colRc).y);
 			}
 		}
 		if (en.name == Name_Slime)
 		{			
-			EFFECTMANAGER->play("S_dead", en.x + 20, en.y + 10);
+			EFFECTMANAGER->play("S_dead", en.x + 20, en.y + 10, getCenterPos(en.colRc).x, getCenterPos(en.colRc).y);
 		}
 		if (en.name == Name_Flower)
 		{
-			EFFECTMANAGER->play("F_deadEffect", _center.x + 120, _center.y +100);
+			EFFECTMANAGER->play("F_deadEffect", _center.x + 120, _center.y +100, getCenterPos(en.colRc).x, getCenterPos(en.colRc).y);
 			
 		}
 

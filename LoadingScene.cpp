@@ -36,14 +36,15 @@ HRESULT LoadingScene::init()
 	_cloud1 = IMAGEMANAGER->addImage("cloud1", "cloud1.bmp", 465, 195, true, RGB(255, 0, 255));
 	_cloud2 = IMAGEMANAGER->addImage("cloud2", "cloud2.bmp", 376, 194, true, RGB(255, 0, 255));
 	_cloud3 = IMAGEMANAGER->addImage("cloud3", "cloud3.bmp", 386, 262, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addImage("loadingbar", "loadingBar.bmp", WINSIZEX, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("loadingMaxBar", "loadingMaxBar.bmp", WINSIZEX, 50, true, RGB(255, 0, 255));
 	//¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á
 
 
 
 	//¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á·Îµù ¹Ù¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á
 	_loadingBar = new progressBar;
-	_loadingBar->init(0, WINSIZEY - 350, WINSIZEX, 50);
+	_loadingBar->init(0, WINSIZEY - 350, WINSIZEX, 50, "loadingbar","loadingMaxBar");
 	_loadingBar->setGauge(0, 0);
 	//¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á¡á
 
@@ -89,11 +90,7 @@ HRESULT LoadingScene::init()
 void LoadingScene::release()
 {
 	SAFE_DELETE(_loadingBar);
-	/*for (_gameObjIter = _gameObj.begin(); _gameObjIter != _gameObj.end();)
-	{
-		GameObject* temp = *_gameObjIter;
-		SAFE_DELETE(temp);
-	}*/
+
 }
 
 void LoadingScene::update()
@@ -164,7 +161,6 @@ void LoadingScene::render()
 		_swith = true;
 		_pressButton->alphaRender(getMemDC(), 200, 830, _pressStart);
 	}
-
 }
 
 DWORD threadFunction(LPVOID lpParameter)

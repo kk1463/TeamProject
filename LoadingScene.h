@@ -2,7 +2,7 @@
 #include"BasicScene.h"
 #include "gameNode.h"
 
-#define LOADINGMAX 0
+#define LOADINGMAX 100
 
 class progressBar;
 

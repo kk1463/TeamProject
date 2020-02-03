@@ -34,6 +34,7 @@ public:
 		int effectWidth, int effectHeight, int fps, float elapsedTime, int buffer,bool makeItem);
 
 	void play(string effectName, int x, int y);
+	void play(string effectName, int x, int y, int itemX, int itemY);
 
 };
 

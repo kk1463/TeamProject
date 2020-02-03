@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ItemManager.h"
 #include"gameNode.h"
-
+#define PI 3.141592
 ItemManager::ItemManager()
 {
 }
@@ -46,7 +46,8 @@ void ItemManager::makeItem(ItemKinds ins,POINT center)
 	default:
 		break;
 	}
-	((Item*)container)->init(std::move(center));
+	cout << RND->getFromFloatTo(0.0f, 2*PI) << endl;
+	((Item*)container)->init(std::move(center),RND->getFromFloatTo(-1.0f,1.0f));
 	
 	_vItem.push_back((Item*)container);
 	SCENEMANAGER->getCurrentScene()->setGameObj(container);
